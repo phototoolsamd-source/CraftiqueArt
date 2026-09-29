@@ -509,19 +509,24 @@ if (fs.existsSync(distPath)) {
   });
 }
 
-app.listen(PORT, async () => {
-  console.log(`=======================================================`);
-  console.log(`  🌟 CREAFTIQUE FULLSTACK SERVER RUNNING ON PORT ${PORT} `);
-  console.log(`  Brand: Creaftique | UPI ID: aksharstudio-3@okisbii    `);
-  console.log(`=======================================================`);
+// Export app for Vercel serverless functions
+module.exports = app;
 
-  // Initial catalog sync and start real-time directory watcher
-  try {
-    console.log('[Server] 🔄 Running initial catalog synchronization...');
-    await catalogSync.syncCatalog();
-    console.log('[Server] ⚡ Initializing real-time catalog folder watcher...');
-    catalogSync.startAutoWatcher();
-  } catch (err) {
-    console.warn('[Server] Error during initial catalog sync / watcher setup:', err.message);
-  }
-});
+if (!process.env.VERCEL && require.main === module) {
+  app.listen(PORT, async () => {
+    console.log(`=======================================================`);
+    console.log(`  🌟 CREAFTIQUE FULLSTACK SERVER RUNNING ON PORT ${PORT} `);
+    console.log(`  Brand: Creaftique | UPI ID: aksharstudio-3@okisbii    `);
+    console.log(`=======================================================`);
+
+    // Initial catalog sync and start real-time directory watcher
+    try {
+      console.log('[Server] 🔄 Running initial catalog synchronization...');
+      await catalogSync.syncCatalog();
+      console.log('[Server] ⚡ Initializing real-time catalog folder watcher...');
+      catalogSync.startAutoWatcher();
+    } catch (err) {
+      console.warn('[Server] Error during initial catalog sync / watcher setup:', err.message);
+    }
+  });
+}

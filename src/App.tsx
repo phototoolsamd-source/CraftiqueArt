@@ -60,13 +60,31 @@ export const App: React.FC = () => {
   const loadData = async () => {
     try {
       const [pRes, cRes] = await Promise.all([
-        fetch('/api/products').then(r => r.json()),
-        fetch('/api/categories').then(r => r.json())
+        fetch('/api/products').then(r => r.json()).catch(() => null),
+        fetch('/api/categories').then(r => r.json()).catch(() => null)
       ]);
-      if (pRes.data) setProducts(pRes.data);
-      if (cRes.data) setCategories(cRes.data);
+      if (pRes?.data && pRes.data.length > 0) {
+        setProducts(pRes.data);
+      } else {
+        const staticData = await fetch('/data/catalog.json').then(r => r.json()).catch(() => null);
+        if (staticData?.products) setProducts(staticData.products);
+      }
+
+      if (cRes?.data && cRes.data.length > 0) {
+        setCategories(cRes.data);
+      } else {
+        const staticData = await fetch('/data/catalog.json').then(r => r.json()).catch(() => null);
+        if (staticData?.categories) setCategories(staticData.categories);
+      }
     } catch (e) {
-      console.error('Error loading initial data:', e);
+      console.error('Error loading initial data, fetching static backup:', e);
+      try {
+        const staticData = await fetch('/data/catalog.json').then(r => r.json());
+        if (staticData?.products) setProducts(staticData.products);
+        if (staticData?.categories) setCategories(staticData.categories);
+      } catch (err) {
+        console.error('Static backup failed:', err);
+      }
     } finally {
       setLoading(false);
     }
