@@ -1,0 +1,527 @@
+const express = require('express');
+const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+const db = require('./db');
+const catalogSync = require('./catalogSync');
+const aiService = require('./aiService');
+const driveService = require('./driveService');
+const paymentService = require('./paymentService');
+
+const app = express();
+const PORT = process.env.PORT || 5001;
+
+// Middleware
+app.use(cors());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+// Static uploads serving
+const uploadsDir = path.join(__dirname, 'uploads');
+app.use('/uploads', express.static(uploadsDir));
+
+// Static catalog images serving (from local public/catalog-images, or external drive fallback)
+const localPublicCatalog = path.join(__dirname, '..', 'public', 'catalog-images');
+const defaultDrivePath = '/Volumes/STUDIO/AKSHAR/AKSHAR 1TB/AKSHAR SALES/|| Craftique Products';
+
+if (fs.existsSync(localPublicCatalog)) {
+  console.log('[Server] Serving catalog images from public/catalog-images:', localPublicCatalog);
+  app.use('/catalog-images', express.static(localPublicCatalog));
+}
+if (fs.existsSync(defaultDrivePath)) {
+  console.log('[Server] Serving catalog images fallback from external volume:', defaultDrivePath);
+  app.use('/catalog-images', express.static(defaultDrivePath));
+}
+
+// Multer Storage Configuration
+const customerPhotosStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dest = path.join(uploadsDir, 'customer-photos');
+    if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    cb(null, dest);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, 'photo-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+const uploadPhotos = multer({
+  storage: customerPhotosStorage,
+  limits: { fileSize: 30 * 1024 * 1024 } // 30MB
+});
+
+const paymentProofsStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dest = path.join(uploadsDir, 'payment-proofs');
+    if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    cb(null, dest);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, 'payment-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+const uploadPaymentScreenshot = multer({
+  storage: paymentProofsStorage,
+  limits: { fileSize: 15 * 1024 * 1024 }
+});
+
+const designProofsStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dest = path.join(uploadsDir, 'design-proofs');
+    if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    cb(null, dest);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, 'proof-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+const uploadDesignProof = multer({
+  storage: designProofsStorage,
+  limits: { fileSize: 30 * 1024 * 1024 }
+});
+
+// ==========================================
+// 1. PRODUCTS & CATEGORIES
+// ==========================================
+app.get('/api/products', (req, res) => {
+  const { category, search, featured } = req.query;
+  const products = db.getProducts({ category, search, featured: featured === 'true' });
+  res.json({ success: true, count: products.length, data: products });
+});
+
+app.get('/api/products/:sku', (req, res) => {
+  const product = db.getProductById(req.params.sku);
+  if (!product) {
+    return res.status(404).json({ success: false, error: 'Product not found' });
+  }
+  res.json({ success: true, data: product });
+});
+
+app.post('/api/products', (req, res) => {
+  const product = db.saveProduct(req.body);
+  db.logAudit({
+    user: req.body.updated_by || 'Admin',
+    action: req.body.id ? 'Updated Product' : 'Created Product',
+    entity_type: 'Product',
+    entity_id: product.sku,
+    new_value: product.name
+  });
+  res.json({ success: true, data: product });
+});
+
+app.delete('/api/products/:id', (req, res) => {
+  db.deleteProduct(req.params.id);
+  db.logAudit({
+    user: 'Admin',
+    action: 'Deleted Product',
+    entity_type: 'Product',
+    entity_id: req.params.id
+  });
+  res.json({ success: true, message: 'Product deleted' });
+});
+
+app.get('/api/categories', (req, res) => {
+  res.json({ success: true, data: db.getCategories() });
+});
+
+app.post('/api/categories', (req, res) => {
+  const category = db.saveCategory(req.body);
+  res.json({ success: true, data: category });
+});
+
+// ==========================================
+// 2. FILE UPLOADS
+// ==========================================
+app.post('/api/upload', uploadPhotos.array('photos', 25), (req, res) => {
+  try {
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ success: false, error: 'No files uploaded' });
+    }
+    const uploadedUrls = req.files.map(f => `/uploads/customer-photos/${f.filename}`);
+    res.json({ success: true, urls: uploadedUrls, count: uploadedUrls.length });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/upload-payment-screenshot', uploadPaymentScreenshot.single('screenshot'), (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, error: 'No screenshot provided' });
+    }
+    const url = `/uploads/payment-proofs/${req.file.filename}`;
+    res.json({ success: true, url });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/upload-design-proof', uploadDesignProof.single('proof'), (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, error: 'No proof file provided' });
+    }
+    const url = `/uploads/design-proofs/${req.file.filename}`;
+    res.json({ success: true, url });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ==========================================
+// 3. ORDERS
+// ==========================================
+app.get('/api/orders', (req, res) => {
+  const { order_status, payment_status, search } = req.query;
+  const orders = db.getOrders({ order_status, payment_status, search });
+  res.json({ success: true, count: orders.length, data: orders });
+});
+
+app.get('/api/orders/:orderNumber', (req, res) => {
+  const order = db.getOrderById(req.params.orderNumber);
+  if (!order) {
+    return res.status(404).json({ success: false, error: 'Order not found' });
+  }
+  res.json({ success: true, data: order });
+});
+
+app.post('/api/orders', async (req, res) => {
+  try {
+    const rawOrder = req.body;
+    if (!rawOrder.customer_name || !rawOrder.items || rawOrder.items.length === 0) {
+      return res.status(400).json({ success: false, error: 'Incomplete order details' });
+    }
+
+    // Create order with guaranteed unique order number: CRQ-YYYYMMDD-XXXX
+    const order = db.createOrder(rawOrder);
+
+    // Sync order folder structure to Google Drive / local storage hierarchy
+    driveService.syncOrderToGoogleDrive(order).catch(err => {
+      console.warn('[Server] Background Drive sync notice:', err.message);
+    });
+
+    db.logAudit({
+      user: order.customer_name,
+      action: 'Placed New Order',
+      entity_type: 'Order',
+      entity_id: order.order_number,
+      new_value: `₹${order.grand_total}`
+    });
+
+    res.json({ success: true, data: order });
+  } catch (err) {
+    console.error('Order creation error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.patch('/api/orders/:orderNumber/status', (req, res) => {
+  const { order_status, user_email } = req.body;
+  const order = db.getOrderById(req.params.orderNumber);
+  if (!order) {
+    return res.status(404).json({ success: false, error: 'Order not found' });
+  }
+
+  const prevStatus = order.order_status;
+  const updated = db.updateOrder(req.params.orderNumber, { order_status });
+
+  // Update timeline
+  if (updated && updated.timeline) {
+    const tIdx = updated.timeline.findIndex(t => t.status === order_status);
+    if (tIdx >= 0) {
+      for (let i = 0; i <= tIdx; i++) {
+        updated.timeline[i].completed = true;
+        updated.timeline[i].current = (i === tIdx);
+      }
+      db.updateOrder(req.params.orderNumber, { timeline: updated.timeline });
+    }
+  }
+
+  db.logAudit({
+    user: user_email || 'Admin',
+    action: 'Changed Order Status',
+    entity_type: 'Order',
+    entity_id: req.params.orderNumber,
+    prev_value: prevStatus,
+    new_value: order_status
+  });
+
+  res.json({ success: true, data: updated });
+});
+
+// ==========================================
+// 4. UPI PAYMENT & VERIFICATION
+// ==========================================
+app.get('/api/payment/qr/:orderNumber', async (req, res) => {
+  try {
+    const order = db.getOrderById(req.params.orderNumber);
+    if (!order) {
+      return res.status(404).json({ success: false, error: 'Order not found' });
+    }
+    const qrInfo = await paymentService.generateDynamicQrCode(order.order_number, order.grand_total);
+    const deepLinks = paymentService.getMobileUpiLinks(order.order_number, order.grand_total);
+    res.json({
+      success: true,
+      ...qrInfo,
+      deepLinks,
+      upiId: db.getSettings().upi_id,
+      businessName: db.getSettings().business_name
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/payment/claim', (req, res) => {
+  const { order_number, utr, screenshot_url, amount } = req.body;
+  if (!order_number) {
+    return res.status(400).json({ success: false, error: 'Missing order number' });
+  }
+  const payment = db.claimPayment({ order_number, utr, screenshot_url, amount });
+  res.json({ success: true, data: payment });
+});
+
+app.get('/api/payments', (req, res) => {
+  res.json({ success: true, data: db.getPayments() });
+});
+
+app.post('/api/payment/verify', (req, res) => {
+  const { payment_id, order_number, verified_by, action, rejection_reason } = req.body;
+  if (!order_number || !action) {
+    return res.status(400).json({ success: false, error: 'Missing order number or action' });
+  }
+  const result = db.verifyPayment({ payment_id, order_number, verified_by, action, rejection_reason });
+  res.json(result);
+});
+
+// ==========================================
+// 5. PRODUCTION, QC & DISPATCH
+// ==========================================
+app.get('/api/production/jobs', (req, res) => {
+  res.json({ success: true, data: db.getProductionJobs() });
+});
+
+app.patch('/api/production/jobs/:id', (req, res) => {
+  const job = db.updateProductionJob(req.params.id, req.body);
+  res.json({ success: true, data: job });
+});
+
+app.post('/api/qc', (req, res) => {
+  const record = db.saveQcRecord(req.body);
+  // If QC passed, advance order to PACKING / READY TO DISPATCH
+  if (req.body.status === 'QC Passed') {
+    db.updateOrder(req.body.order_number, { order_status: 'READY TO DISPATCH' });
+  }
+  db.logAudit({
+    user: req.body.inspected_by || 'QC Inspector',
+    action: `QC Inspection: ${req.body.status}`,
+    entity_type: 'Order',
+    entity_id: req.body.order_number,
+    new_value: req.body.status
+  });
+  res.json({ success: true, data: record });
+});
+
+app.post('/api/dispatch', (req, res) => {
+  const shipment = db.saveShipment(req.body);
+  db.updateOrder(req.body.order_number, {
+    order_status: 'DISPATCHED',
+    tracking_carrier: req.body.courier,
+    tracking_number: req.body.tracking_number,
+    tracking_url: req.body.tracking_url
+  });
+  db.logAudit({
+    user: req.body.dispatched_by || 'Dispatch Manager',
+    action: 'Dispatched Order',
+    entity_type: 'Order',
+    entity_id: req.body.order_number,
+    new_value: `${req.body.courier} - ${req.body.tracking_number}`
+  });
+  res.json({ success: true, data: shipment });
+});
+
+// ==========================================
+// 6. DESIGN PROOFS & CUSTOMER APPROVAL
+// ==========================================
+app.get('/api/design-proofs/:orderNumber', (req, res) => {
+  const proofs = db.getDesignProofs(req.params.orderNumber);
+  res.json({ success: true, data: proofs[0] || null });
+});
+
+app.post('/api/design-proofs', (req, res) => {
+  const proof = db.saveDesignProof(req.body);
+  db.updateOrder(req.body.order_number, { order_status: 'DESIGN APPROVAL' });
+  db.logAudit({
+    user: req.body.designer || 'Designer',
+    action: 'Uploaded Design Proof',
+    entity_type: 'Order',
+    entity_id: req.body.order_number
+  });
+  res.json({ success: true, data: proof });
+});
+
+app.post('/api/design-proofs/:orderNumber/customer-action', (req, res) => {
+  const { action, notes } = req.body; // 'approve' or 'request_changes'
+  const orderNumber = req.params.orderNumber;
+  const status = action === 'approve' ? 'Approved' : 'Revision Requested';
+  const orderStatus = action === 'approve' ? 'PRODUCTION' : 'DESIGN REQUIRED';
+
+  const proof = db.saveDesignProof({
+    order_number: orderNumber,
+    customer_status: status,
+    customer_notes: notes,
+    revision_count: action === 'request_changes' ? (proof?.revision_count || 1) + 1 : 1
+  });
+
+  db.updateOrder(orderNumber, { order_status: orderStatus });
+  db.logAudit({
+    user: 'Customer',
+    action: `Customer ${action === 'approve' ? 'Approved Proof' : 'Requested Revisions'}`,
+    entity_type: 'Order',
+    entity_id: orderNumber,
+    new_value: notes
+  });
+
+  res.json({ success: true, data: proof, orderStatus });
+});
+
+// ==========================================
+// 7. AI PRODUCT LISTING GENERATOR
+// ==========================================
+app.post('/api/ai/generate-listing', async (req, res) => {
+  try {
+    const listing = await aiService.generateListing(req.body);
+    res.json({ success: true, data: listing });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ==========================================
+// 8. CATALOG AUTO-SYNC
+// ==========================================
+app.get('/api/catalog/status', (req, res) => {
+  res.json({ success: true, data: catalogSync.getSyncStatus() });
+});
+
+app.post('/api/catalog/sync', async (req, res) => {
+  try {
+    const customPath = req.body.custom_path || null;
+    const result = await catalogSync.syncCatalog(customPath);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ==========================================
+// 9. SETTINGS, REPORTS & AUDIT LOGS
+// ==========================================
+app.get('/api/settings', (req, res) => {
+  res.json({ success: true, data: db.getSettings() });
+});
+
+app.put('/api/settings', (req, res) => {
+  const updated = db.updateSettings(req.body);
+  db.logAudit({
+    user: 'Super Admin',
+    action: 'Updated Store Settings',
+    entity_type: 'Settings',
+    entity_id: 'Store',
+    new_value: JSON.stringify(Object.keys(req.body))
+  });
+  res.json({ success: true, data: updated });
+});
+
+app.get('/api/audit-logs', (req, res) => {
+  res.json({ success: true, data: db.getAuditLogs() });
+});
+
+app.get('/api/reports/summary', (req, res) => {
+  const orders = db.getOrders();
+  const totalRevenue = orders.reduce((sum, o) => sum + (o.grand_total || 0), 0);
+  const paidOrders = orders.filter(o => o.payment_status === 'Verified');
+  const paidRevenue = paidOrders.reduce((sum, o) => sum + (o.grand_total || 0), 0);
+
+  // Profit calculation metrics
+  let totalMaterialCost = 0;
+  let totalPrintCost = 0;
+  let totalLaborCost = 0;
+  let totalPackagingCost = 0;
+  let totalShippingCost = 0;
+
+  orders.forEach(o => {
+    (o.items || []).forEach(item => {
+      const prod = db.getProductById(item.sku || item.product_id);
+      if (prod && prod.costs) {
+        totalMaterialCost += (prod.costs.material_cost || 0) * (item.quantity || 1);
+        totalPrintCost += (prod.costs.print_cost || 0) * (item.quantity || 1);
+        totalLaborCost += (prod.costs.labor_cost || 0) * (item.quantity || 1);
+        totalPackagingCost += (prod.costs.packaging_cost || 0) * (item.quantity || 1);
+        totalShippingCost += (prod.costs.shipping_cost || 0) * (item.quantity || 1);
+      }
+    });
+  });
+
+  const totalCost = totalMaterialCost + totalPrintCost + totalLaborCost + totalPackagingCost + totalShippingCost;
+  const grossProfit = totalRevenue - totalCost;
+  const profitMargin = totalRevenue > 0 ? Math.round((grossProfit / totalRevenue) * 100) : 0;
+
+  res.json({
+    success: true,
+    data: {
+      total_orders: orders.length,
+      total_revenue: totalRevenue,
+      paid_revenue: paidRevenue,
+      pending_orders: orders.filter(o => o.order_status === 'NEW' || o.order_status === 'PAYMENT PENDING').length,
+      production_orders: orders.filter(o => o.order_status === 'PRODUCTION').length,
+      ready_dispatch_orders: orders.filter(o => o.order_status === 'READY TO DISPATCH').length,
+      dispatched_orders: orders.filter(o => o.order_status === 'DISPATCHED' || o.order_status === 'DELIVERED').length,
+      cost_breakdown: {
+        material_cost: totalMaterialCost,
+        print_cost: totalPrintCost,
+        labor_cost: totalLaborCost,
+        packaging_cost: totalPackagingCost,
+        shipping_cost: totalShippingCost,
+        total_cost: totalCost
+      },
+      profit: {
+        gross_profit: grossProfit,
+        profit_margin_percent: profitMargin
+      }
+    }
+  });
+});
+
+// Serve production frontend if built
+const distPath = path.join(__dirname, '..', 'dist');
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/uploads') || req.path.startsWith('/catalog-images')) {
+      return next();
+    }
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
+
+app.listen(PORT, async () => {
+  console.log(`=======================================================`);
+  console.log(`  🌟 CREAFTIQUE FULLSTACK SERVER RUNNING ON PORT ${PORT} `);
+  console.log(`  Brand: Creaftique | UPI ID: aksharstudio-3@okisbii    `);
+  console.log(`=======================================================`);
+
+  // Initial catalog sync and start real-time directory watcher
+  try {
+    console.log('[Server] 🔄 Running initial catalog synchronization...');
+    await catalogSync.syncCatalog();
+    console.log('[Server] ⚡ Initializing real-time catalog folder watcher...');
+    catalogSync.startAutoWatcher();
+  } catch (err) {
+    console.warn('[Server] Error during initial catalog sync / watcher setup:', err.message);
+  }
+});
