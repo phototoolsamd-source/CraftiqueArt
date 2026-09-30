@@ -66,12 +66,12 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
       <aside className="w-full md:w-64 bg-[#0F172A] text-slate-300 flex flex-col shrink-0 border-r border-slate-800">
         {/* Brand bar */}
         <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-full p-0.5 bg-white border border-slate-700 ring-2 ring-amber-500/30 flex items-center justify-center shrink-0 shadow-sm">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full p-1 bg-white border border-slate-700 ring-2 ring-amber-500/40 flex items-center justify-center shrink-0 shadow-md">
               <img src="/logo.png" alt="Craftique Logo" className="w-full h-full object-contain rounded-full" />
             </div>
             <div>
-              <span className="font-serif font-bold text-lg text-white tracking-tight">
+              <span className="font-serif font-bold text-xl text-white tracking-tight">
                 Craftique
               </span>
               <span className="block text-[10px] text-amber-400 font-semibold uppercase tracking-wider">

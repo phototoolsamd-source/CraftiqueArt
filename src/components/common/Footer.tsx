@@ -8,16 +8,16 @@ export const Footer: React.FC<{ onNavigate: (v: string, p?: string) => void }> =
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-slate-700/80">
           {/* Brand Info */}
           <div className="space-y-4 md:col-span-1">
-            <div className="flex items-center gap-3">
-              <div className="w-13 h-13 rounded-full p-1 bg-white border border-slate-700 ring-2 ring-amber-500/40 flex items-center justify-center shrink-0 shadow-lg">
+            <div className="flex items-center gap-3.5">
+              <div className="w-16 h-16 rounded-full p-1 bg-white border border-slate-700 ring-2 ring-amber-500/40 flex items-center justify-center shrink-0 shadow-lg">
                 <img src="/logo.png" alt="Craftique Production Logo" className="w-full h-full object-contain rounded-full" />
               </div>
               <div>
                 <span className="font-serif text-2xl font-bold text-white tracking-tight">
                   Craftique
                 </span>
-                <span className="block text-[10px] uppercase font-bold tracking-widest text-amber-400">
-                  Production Studio
+                <span className="block text-[11px] uppercase font-bold tracking-widest text-amber-400">
+                  Handmade & Custom Art
                 </span>
               </div>
             </div>

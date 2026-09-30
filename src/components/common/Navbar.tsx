@@ -43,13 +43,13 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-        <div className="flex items-center justify-between h-20 gap-4">
+        <div className="flex items-center justify-between h-20 sm:h-22 gap-4">
           {/* Logo */}
           <div
             onClick={() => onNavigate('home')}
-            className="cursor-pointer flex items-center gap-3 group select-none shrink-0"
+            className="cursor-pointer flex items-center gap-3.5 group select-none shrink-0"
           >
-            <div className="w-13 h-13 rounded-full p-1 bg-white shadow-md shadow-amber-950/10 border border-slate-200/80 ring-2 ring-amber-600/25 group-hover:scale-105 group-hover:shadow-lg transition-all shrink-0 flex items-center justify-center">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full p-1 bg-white shadow-md shadow-amber-950/10 border border-slate-200/90 ring-2 ring-amber-600/30 group-hover:scale-105 group-hover:shadow-lg transition-all shrink-0 flex items-center justify-center">
               <img
                 src="/logo.png"
                 alt="Craftique Production Logo"
@@ -57,10 +57,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               />
             </div>
             <div>
-              <span className="font-serif text-2xl font-bold tracking-tight text-slate-900 flex items-center">
+              <span className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 flex items-center">
                 Craftique
               </span>
-              <span className="block text-[10px] uppercase font-bold tracking-widest text-amber-800/80 -mt-0.5">
+              <span className="block text-[10px] sm:text-[11px] uppercase font-bold tracking-widest text-amber-800 -mt-0.5">
                 Handmade & Custom Art
               </span>
             </div>

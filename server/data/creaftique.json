@@ -17,7 +17,7 @@
     "catalog_source_path": "/Volumes/STUDIO/AKSHAR/AKSHAR 1TB/AKSHAR SALES/|| Craftique Products",
     "sync_status": {
       "connected": true,
-      "last_sync": "2026-09-30T04:31:46.459Z",
+      "last_sync": "2026-09-30T04:41:49.025Z",
       "products_found": 21,
       "new_products": 0,
       "updated_products": 21,
@@ -354,7 +354,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.713Z",
-      "updated_at": "2026-09-30T04:31:46.458Z"
+      "updated_at": "2026-09-30T04:41:49.014Z"
     },
     {
       "id": "prod-sync-personalized_invitation_cards",
@@ -543,7 +543,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.713Z",
-      "updated_at": "2026-09-30T04:31:46.457Z"
+      "updated_at": "2026-09-30T04:41:49.014Z"
     },
     {
       "id": "prod-sync-personalized_stickers",
@@ -728,7 +728,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.712Z",
-      "updated_at": "2026-09-30T04:31:46.457Z"
+      "updated_at": "2026-09-30T04:41:49.013Z"
     },
     {
       "id": "prod-sync-personalized_labels",
@@ -919,7 +919,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.711Z",
-      "updated_at": "2026-09-30T04:31:46.456Z"
+      "updated_at": "2026-09-30T04:41:49.012Z"
     },
     {
       "id": "prod-sync-birthday_party_supplies",
@@ -1121,7 +1121,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.710Z",
-      "updated_at": "2026-09-30T04:31:46.454Z"
+      "updated_at": "2026-09-30T04:41:49.010Z"
     },
     {
       "id": "prod-sync-insta_photo_cards",
@@ -1268,7 +1268,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.710Z",
-      "updated_at": "2026-09-30T04:31:46.453Z"
+      "updated_at": "2026-09-30T04:41:49.009Z"
     },
     {
       "id": "prod-sync-photo_magnets",
@@ -1420,7 +1420,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.709Z",
-      "updated_at": "2026-09-30T04:31:46.452Z"
+      "updated_at": "2026-09-30T04:41:49.009Z"
     },
     {
       "id": "prod-sync-magazine_albums_a4",
@@ -1586,7 +1586,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.708Z",
-      "updated_at": "2026-09-30T04:31:46.451Z"
+      "updated_at": "2026-09-30T04:41:49.008Z"
     },
     {
       "id": "prod-sync-photo_albums",
@@ -1760,7 +1760,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.708Z",
-      "updated_at": "2026-09-30T04:31:46.450Z"
+      "updated_at": "2026-09-30T04:41:49.007Z"
     },
     {
       "id": "prod-sync-paper_frame_paper_print_frame",
@@ -1920,7 +1920,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.707Z",
-      "updated_at": "2026-09-30T04:31:46.449Z"
+      "updated_at": "2026-09-30T04:41:49.006Z"
     },
     {
       "id": "prod-sync-paper_frame_paper_layer_fram",
@@ -2080,7 +2080,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.707Z",
-      "updated_at": "2026-09-30T04:31:46.449Z"
+      "updated_at": "2026-09-30T04:41:49.005Z"
     },
     {
       "id": "prod-sync-miniature_frame",
@@ -2260,7 +2260,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.706Z",
-      "updated_at": "2026-09-30T04:31:46.448Z"
+      "updated_at": "2026-09-30T04:41:49.005Z"
     },
     {
       "id": "prod-sync-personalized_artwork_frame",
@@ -2435,7 +2435,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.705Z",
-      "updated_at": "2026-09-30T04:31:46.447Z"
+      "updated_at": "2026-09-30T04:41:49.004Z"
     },
     {
       "id": "prod-sync-personalized_photo_frame_wooden_frame",
@@ -2595,7 +2595,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.705Z",
-      "updated_at": "2026-09-30T04:31:46.446Z"
+      "updated_at": "2026-09-30T04:41:49.003Z"
     },
     {
       "id": "prod-sync-personalized_photo_frame_wrap_canvas_frame",
@@ -2773,7 +2773,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.705Z",
-      "updated_at": "2026-09-30T04:31:46.445Z"
+      "updated_at": "2026-09-30T04:41:49.002Z"
     },
     {
       "id": "prod-sync-canvas_frame_12x18",
@@ -2933,7 +2933,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.704Z",
-      "updated_at": "2026-09-30T04:31:46.444Z"
+      "updated_at": "2026-09-30T04:41:49.001Z"
     },
     {
       "id": "prod-sync-canvas_frame_8x12",
@@ -3094,7 +3094,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.703Z",
-      "updated_at": "2026-09-30T04:31:46.443Z"
+      "updated_at": "2026-09-30T04:41:49.000Z"
     },
     {
       "id": "prod-sync-canvas_frame_6x8",
@@ -3254,7 +3254,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.702Z",
-      "updated_at": "2026-09-30T04:31:46.443Z"
+      "updated_at": "2026-09-30T04:41:48.999Z"
     },
     {
       "id": "prod-sync-canvas_hanging_12x18",
@@ -3415,7 +3415,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.702Z",
-      "updated_at": "2026-09-30T04:31:46.442Z"
+      "updated_at": "2026-09-30T04:41:48.998Z"
     },
     {
       "id": "prod-sync-canvas_hanging_8x12",
@@ -3576,7 +3576,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.702Z",
-      "updated_at": "2026-09-30T04:31:46.440Z"
+      "updated_at": "2026-09-30T04:41:48.997Z"
     },
     {
       "id": "prod-sync-canvas_hanging_6x8",
@@ -3736,7 +3736,7 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.701Z",
-      "updated_at": "2026-09-30T04:31:46.439Z"
+      "updated_at": "2026-09-30T04:41:48.996Z"
     }
   ],
   "orders": [
@@ -4130,6 +4130,24 @@
     }
   ],
   "audit_logs": [
+    {
+      "id": "log-1790743309026",
+      "user": "Automatic Catalog Sync",
+      "action": "Synchronized Product Catalog",
+      "entity_type": "Catalog",
+      "entity_id": "All",
+      "new_value": "21 products, 159 high-res images",
+      "timestamp": "2026-09-30T04:41:49.026Z"
+    },
+    {
+      "id": "log-1790742977049",
+      "user": "Automatic Catalog Sync",
+      "action": "Synchronized Product Catalog",
+      "entity_type": "Catalog",
+      "entity_id": "All",
+      "new_value": "21 products, 159 high-res images",
+      "timestamp": "2026-09-30T04:36:17.049Z"
+    },
     {
       "id": "log-1790742706459",
       "user": "Automatic Catalog Sync",

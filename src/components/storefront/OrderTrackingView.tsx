@@ -119,8 +119,8 @@ export const OrderTrackingView: React.FC<OrderTrackingViewProps> = ({
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       {/* Title & Search bar */}
       <div className="text-center max-w-xl mx-auto space-y-3">
-        <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-amber-600/30 bg-black mx-auto shadow-md">
-          <img src="/logo.png" alt="Craftique Production" className="w-full h-full object-cover" />
+        <div className="w-20 h-20 rounded-full p-1.5 bg-white border-2 border-amber-600/30 ring-4 ring-amber-500/10 mx-auto shadow-lg flex items-center justify-center">
+          <img src="/logo.png" alt="Craftique Production" className="w-full h-full object-contain rounded-full" />
         </div>
         <h1 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900">
           Track Your Custom Order
