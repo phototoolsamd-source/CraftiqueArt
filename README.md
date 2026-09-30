@@ -3,6 +3,9 @@
 
 A modern, production-ready, responsive fullstack web application for personalized products, commercial printing, museum-grade canvas wall art, bespoke invitations, and artisanal décor.
 
+**Live Production URL:** [https://craftique-art.vercel.app](https://craftique-art.vercel.app)  
+**GitHub Repository:** [https://github.com/Akshar3375/Craftique](https://github.com/Akshar3375/Craftique)
+
 ---
 
 ## 🚀 Key Features
