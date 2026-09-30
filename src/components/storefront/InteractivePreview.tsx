@@ -225,14 +225,11 @@ export const InteractivePreview: React.FC<InteractivePreviewProps> = ({
             onClick={() => setIsLightboxOpen(true)}
             className="group relative min-h-[380px] sm:min-h-[440px] max-h-[500px] bg-white rounded-2xl flex items-center justify-center p-3 overflow-hidden select-none border border-[#E9E0D2] shadow-sm cursor-zoom-in"
           >
-            {/* Background subtle art frame watermark texture */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#FAF7F2]/40 via-white to-[#FAF7F2]/30 pointer-events-none" />
-
             {/* Active Image */}
             <img
               src={currentImage}
               alt={`${productName} view ${selectedImageIndex + 1}`}
-              className="w-full h-full max-h-[440px] object-contain rounded-xl transition-all duration-300 group-hover:scale-[1.02]"
+              className="relative z-0 w-full h-full max-h-[440px] object-contain rounded-xl transition-all duration-300 group-hover:scale-[1.02]"
             />
 
             {/* Floating Badge (Type & Slide number) */}
