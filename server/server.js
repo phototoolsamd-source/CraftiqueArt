@@ -3,6 +3,7 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const { ZipArchive } = require('archiver');
 
 const db = require('./db');
 const catalogSync = require('./catalogSync');
@@ -252,6 +253,89 @@ app.patch('/api/orders/:orderNumber/status', (req, res) => {
 
   res.json({ success: true, data: updated });
 });
+
+// Endpoint: Download all customer uploaded photos for an order as ZIP
+app.get('/api/orders/:orderNumber/download-photos', async (req, res) => {
+  try {
+    const { orderNumber } = req.params;
+    const order = db.getOrderById(orderNumber);
+    if (!order) {
+      return res.status(404).json({ success: false, error: 'Order not found' });
+    }
+
+    // Collect all customer uploaded photos
+    const photoList = [];
+    (order.items || []).forEach(item => {
+      (item.customization?.photos || []).forEach((p, idx) => {
+        const url = typeof p === 'string' ? p : p.url;
+        const name = typeof p === 'object' && p.name ? p.name : `Photo_${idx + 1}.jpg`;
+        if (url) photoList.push({ url, name, itemTitle: item.product_name });
+      });
+    });
+
+    if (photoList.length === 0) {
+      return res.status(404).json({ success: false, error: 'No customer uploaded photos found for this order' });
+    }
+
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', `attachment; filename="${order.order_number}_Customer_Photos.zip"`);
+
+    const archive = new ZipArchive({ zlib: { level: 9 } });
+    archive.on('error', (err) => {
+      console.error('Archiver error:', err);
+      if (!res.headersSent) res.status(500).send({ error: err.message });
+    });
+    archive.pipe(res);
+
+    for (let i = 0; i < photoList.length; i++) {
+      const { url, name } = photoList[i];
+      if (url.startsWith('/uploads/customer-photos/')) {
+        const filePath = path.join(uploadsDir, 'customer-photos', path.basename(url));
+        if (fs.existsSync(filePath)) {
+          const entryName = `${String(i + 1).padStart(2, '0')}_${name || path.basename(url)}`;
+          archive.file(filePath, { name: entryName });
+        }
+      } else if (url.startsWith('data:image/')) {
+        try {
+          const matches = url.match(/^data:image\/([a-zA-Z0-9]+);base64,(.+)$/);
+          if (matches) {
+            const ext = matches[1] === 'jpeg' ? 'jpg' : matches[1];
+            const buffer = Buffer.from(matches[2], 'base64');
+            archive.append(buffer, { name: `${String(i + 1).padStart(2, '0')}_Photo.${ext}` });
+          }
+        } catch (e) {
+          // ignore
+        }
+      } else if (url.startsWith('http')) {
+        try {
+          const imgRes = await fetch(url);
+          if (imgRes.ok) {
+            const arrayBuffer = await imgRes.arrayBuffer();
+            archive.append(Buffer.from(arrayBuffer), { name: `${String(i + 1).padStart(2, '0')}_${name || 'photo.jpg'}` });
+          }
+        } catch (e) {
+          console.warn('[Download Photos] Failed to fetch external URL:', url);
+        }
+      }
+    }
+
+    // Also include Order_Details receipt if it exists
+    if (order.local_storage_path) {
+      const manifestPath = path.join(order.local_storage_path, 'Order_Details.html');
+      if (fs.existsSync(manifestPath)) {
+        archive.file(manifestPath, { name: 'Order_Details.html' });
+      }
+    }
+
+    await archive.finalize();
+  } catch (err) {
+    console.error('Error generating photo ZIP:', err);
+    if (!res.headersSent) {
+      res.status(500).json({ success: false, error: err.message });
+    }
+  }
+});
+
 
 // ==========================================
 // 3.1 CUSTOMER MOBILE OTP AUTH & ORDERS

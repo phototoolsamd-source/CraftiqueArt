@@ -49,6 +49,40 @@ class DriveService {
     const htmlManifest = this.generateOrderHtmlManifest(order);
     fs.writeFileSync(manifestPath, htmlManifest, 'utf-8');
 
+    // Copy customer uploaded photos directly into order's Uploaded Photos folder
+    let photoCount = 0;
+    (order.items || []).forEach(item => {
+      const photos = item.customization?.photos || [];
+      photos.forEach((p, idx) => {
+        const photoUrl = typeof p === 'string' ? p : p.url;
+        if (!photoUrl) return;
+
+        if (photoUrl.startsWith('/uploads/customer-photos/')) {
+          const filename = path.basename(photoUrl);
+          const srcPath = path.join(__dirname, 'uploads', 'customer-photos', filename);
+          if (fs.existsSync(srcPath)) {
+            const destFilename = `Photo_${String(++photoCount).padStart(2, '0')}_${filename}`;
+            const destPath = path.join(folderInfo.localPaths.photos, destFilename);
+            fs.copyFileSync(srcPath, destPath);
+          }
+        } else if (photoUrl.startsWith('data:image/')) {
+          try {
+            const matches = photoUrl.match(/^data:image\/([a-zA-Z0-9]+);base64,(.+)$/);
+            if (matches) {
+              const ext = matches[1] === 'jpeg' ? 'jpg' : matches[1];
+              const buffer = Buffer.from(matches[2], 'base64');
+              const destFilename = `Photo_${String(++photoCount).padStart(2, '0')}.${ext}`;
+              const destPath = path.join(folderInfo.localPaths.photos, destFilename);
+              fs.writeFileSync(destPath, buffer);
+            }
+          } catch (e) {
+            console.warn('[DriveService] Error saving base64 photo:', e.message);
+          }
+        }
+      });
+    });
+    console.log(`[DriveService] Saved ${photoCount} customer photos to ${folderInfo.localPaths.photos}`);
+
     let driveFolderId = `gdrive-fld-${order.order_number}`;
     let driveUrl = `https://drive.google.com/drive/folders/${driveFolderId}`;
     let appsScriptStatus = 'Local Initialized';

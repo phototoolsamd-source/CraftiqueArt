@@ -103,13 +103,27 @@ export const ProductionPanel: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="text-right">
-                  <span className="text-[10px] text-slate-400 uppercase font-bold block">
-                    Studio Target
-                  </span>
-                  <span className="text-xs font-bold text-amber-900">
-                    24-48 Hours
-                  </span>
+                <div className="flex items-center gap-3">
+                  {ord.items.some(i => i.customization?.photos && i.customization.photos.length > 0) && (
+                    <a
+                      href={`/api/orders/${ord.order_number}/download-photos`}
+                      download={`${ord.order_number}_Customer_Photos.zip`}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-700 hover:bg-amber-800 text-white text-xs font-bold shadow-xs transition-colors cursor-pointer"
+                      title="Download All Photos for this order as ZIP"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Download ZIP</span>
+                    </a>
+                  )}
+
+                  <div className="text-right hidden sm:block">
+                    <span className="text-[10px] text-slate-400 uppercase font-bold block">
+                      Studio Target
+                    </span>
+                    <span className="text-xs font-bold text-amber-900">
+                      24-48 Hours
+                    </span>
+                  </div>
                 </div>
               </div>
 

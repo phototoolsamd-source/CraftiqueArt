@@ -12,7 +12,8 @@ import {
   AlertCircle,
   Clock,
   Printer,
-  FileText
+  FileText,
+  Download
 } from 'lucide-react';
 
 export const OrdersManager: React.FC<{ initialOrderNumber?: string }> = ({ initialOrderNumber }) => {
@@ -346,28 +347,81 @@ export const OrdersManager: React.FC<{ initialOrderNumber?: string }> = ({ initi
 
               {/* Customer Uploaded Photos Gallery */}
               {selectedOrder.items?.some(i => i.customization?.photos && i.customization.photos.length > 0) && (
-                <div className="space-y-2">
-                  <h4 className="font-serif font-bold text-sm text-slate-900">
-                    Customer Uploaded High-Res Photos
-                  </h4>
+                <div className="space-y-3 pt-3 border-t border-slate-200">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <h4 className="font-serif font-bold text-sm text-slate-900 flex items-center gap-2">
+                        <span>Customer Uploaded High-Res Photos</span>
+                        <span className="bg-amber-100 text-amber-900 text-xs px-2.5 py-0.5 rounded-full font-bold">
+                          {selectedOrder.items.flatMap(i => i.customization?.photos || []).length} Photos
+                        </span>
+                      </h4>
+                      <p className="text-[11px] text-slate-500">
+                        Original high-resolution images provided by customer for archival printing
+                      </p>
+                    </div>
+
+                    {/* Download All Photos ZIP Button */}
+                    <a
+                      href={`/api/orders/${selectedOrder.order_number}/download-photos`}
+                      download={`${selectedOrder.order_number}_Customer_Photos.zip`}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-700 hover:bg-amber-800 text-white text-xs font-bold shadow-sm transition-all cursor-pointer"
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>Download All Photos (ZIP)</span>
+                    </a>
+                  </div>
+
+                  {/* Physical folder path info on local disk */}
+                  {selectedOrder.local_storage_path && (
+                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 flex items-center justify-between">
+                      <div className="flex items-center gap-2 truncate">
+                        <FolderCheck className="w-4 h-4 text-amber-700 shrink-0" />
+                        <span className="truncate">
+                          <strong>Local Server Folder:</strong> {selectedOrder.local_storage_path}/Uploaded Photos/
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-slate-400 font-mono shrink-0 ml-2">Studio Storage</span>
+                    </div>
+                  )}
+
+                  {/* Photo Cards Grid */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     {selectedOrder.items.flatMap(i => i.customization?.photos || []).map((photo, pIdx) => (
-                      <a
+                      <div
                         key={pIdx}
-                        href={photo.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group rounded-xl overflow-hidden border border-slate-200 bg-slate-100 aspect-square relative block"
+                        className="group rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 aspect-square relative shadow-xs flex flex-col justify-between"
                       >
                         <img
                           src={photo.url}
                           alt="Customer upload"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                         />
-                        <span className="absolute bottom-1 right-1 bg-black/75 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">
-                          View High-Res
-                        </span>
-                      </a>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/30 opacity-0 group-hover:opacity-100 transition-opacity p-2 flex flex-col justify-between">
+                          <span className="text-[10px] text-white font-mono bg-black/60 px-1.5 py-0.5 rounded self-start truncate max-w-full font-bold">
+                            #{pIdx + 1} {photo.name || 'Photo'}
+                          </span>
+                          <div className="flex items-center gap-2 self-end">
+                            <a
+                              href={photo.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="p-1.5 bg-white/95 hover:bg-white text-slate-800 rounded-lg shadow-sm transition-colors text-[10px] font-bold flex items-center gap-1 cursor-pointer"
+                              title="Open Full Size"
+                            >
+                              <Eye className="w-3.5 h-3.5" />
+                            </a>
+                            <a
+                              href={photo.url}
+                              download={`Photo_${pIdx + 1}_${selectedOrder.order_number}.jpg`}
+                              className="p-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg shadow-sm transition-colors text-[10px] font-bold flex items-center gap-1 cursor-pointer"
+                              title="Download Original High-Res"
+                            >
+                              <Download className="w-3.5 h-3.5" />
+                            </a>
+                          </div>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
