@@ -3,7 +3,6 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const { ZipArchive } = require('archiver');
 
 const db = require('./db');
 const catalogSync = require('./catalogSync');
@@ -293,6 +292,8 @@ app.get('/api/orders/:orderNumber/download-photos', async (req, res) => {
     res.setHeader('Content-Type', 'application/zip');
     res.setHeader('Content-Disposition', `attachment; filename="${order.order_number}_Customer_Photos.zip"`);
 
+    const archiverModule = await import('archiver');
+    const ZipArchive = archiverModule.ZipArchive || archiverModule.default?.ZipArchive;
     const archive = new ZipArchive({ zlib: { level: 9 } });
     archive.on('error', (err) => {
       console.error('Archiver error:', err);
