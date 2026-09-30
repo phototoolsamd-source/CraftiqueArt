@@ -132,6 +132,21 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout }) => {
                         {item.frame && item.frame !== 'None' && (
                           <p><span className="font-medium text-slate-700">Frame:</span> {item.frame}</p>
                         )}
+                        {item.customization.album_sheets && (
+                          <p className="text-amber-900 font-semibold">
+                            📖 {item.customization.album_sheets} Sheets ({item.customization.album_pages} Pages) • {item.customization.photos?.length || 0} Photos
+                          </p>
+                        )}
+                        {item.customization.pack_count && (
+                          <p className="text-indigo-900 font-semibold">
+                            🧲 Set of {item.customization.pack_count} Units • {item.customization.photos?.length || 0} Photos
+                          </p>
+                        )}
+                        {item.customization.photos && item.customization.photos.length > 0 && (
+                          <p className="text-emerald-700 font-medium">
+                            ✓ {item.customization.photos.length} Custom Photos Attached
+                          </p>
+                        )}
                         {item.customization.text && (
                           <p className="text-amber-800 italic truncate font-medium">
                             "{item.customization.text}"

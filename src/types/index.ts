@@ -116,6 +116,10 @@ export interface CustomizationState {
   custom_width?: number;
   custom_height?: number;
   custom_unit?: 'inch' | 'cm' | 'mm' | 'ft';
+  album_sheets?: number;
+  album_pages?: number;
+  pack_count?: number;
+  max_photos_allowed?: number;
   event_name?: string;
   event_date?: string;
   venue?: string;

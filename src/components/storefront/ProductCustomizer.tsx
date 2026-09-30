@@ -4,7 +4,21 @@ import { CustomerPhotoUpload } from './CustomerPhotoUpload';
 import { LivePriceCalculator } from './LivePriceCalculator';
 import { InteractivePreview } from './InteractivePreview';
 import { useCart } from '../../context/CartContext';
-import { ShoppingBag, Check, Sparkles, AlertCircle, FileText, Calendar, MapPin } from 'lucide-react';
+import { 
+  ShoppingBag, 
+  Check, 
+  Sparkles, 
+  AlertCircle, 
+  FileText, 
+  Calendar, 
+  MapPin,
+  BookOpen,
+  Box,
+  Layers,
+  Plus,
+  Minus,
+  Info
+} from 'lucide-react';
 
 interface ProductCustomizerProps {
   product: Product;
@@ -13,6 +27,18 @@ interface ProductCustomizerProps {
 
 export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, onAddedToCart }) => {
   const { addToCart } = useCart();
+
+  // Category Detection
+  const categoryLower = (product.category || '').toLowerCase();
+  const nameLower = (product.name || '').toLowerCase();
+  const skuLower = (product.sku || '').toLowerCase();
+
+  const isAlbum = categoryLower.includes('album') || nameLower.includes('album') || skuLower.includes('album');
+  const isMagnets = categoryLower.includes('magnet') || nameLower.includes('magnet') || skuLower.includes('magnet');
+  const isMiniPrints = categoryLower.includes('insta') || 
+                       categoryLower.includes('mini') || 
+                       nameLower.includes('insta') || 
+                       (nameLower.includes('card') && !categoryLower.includes('invitation') && !categoryLower.includes('business'));
 
   // Customizer options fallbacks
   const customOptions = product.custom_options || {
@@ -47,7 +73,40 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
     ]
   };
 
-  // State
+  // 1. ALBUM SPECIFIC SHEET PRESETS
+  // 1 Sheet = 2 Pages. 1 Page = max 4 photos => Max Photos = Sheets * 2 * 4
+  const albumSheetPresets = [
+    { sheets: 5, pages: 10, maxPhotos: 40, price_adj: 0, label: "5 Sheets (10 Pages)" },
+    { sheets: 10, pages: 20, maxPhotos: 80, price_adj: 450, label: "10 Sheets (20 Pages)" },
+    { sheets: 15, pages: 30, maxPhotos: 120, price_adj: 850, label: "15 Sheets (30 Pages)" },
+    { sheets: 20, pages: 40, maxPhotos: 160, price_adj: 1250, label: "20 Sheets (40 Pages)" },
+    { sheets: 25, pages: 50, maxPhotos: 200, price_adj: 1650, label: "25 Sheets (50 Pages)" },
+    { sheets: 30, pages: 60, maxPhotos: 240, price_adj: 2050, label: "30 Sheets (60 Pages)" }
+  ];
+  const [selectedAlbumSheets, setSelectedAlbumSheets] = useState<number>(5);
+
+  // 2. MAGNET SPECIFIC PACK PRESETS
+  const magnetPackOptions = [
+    { count: 4, label: "Set of 4 Magnets", price_adj: 0 },
+    { count: 6, label: "Set of 6 Magnets", price_adj: 120 },
+    { count: 9, label: "Set of 9 Magnets (3×3 Grid)", price_adj: 260 },
+    { count: 12, label: "Set of 12 Magnets", price_adj: 420 },
+    { count: 16, label: "Set of 16 Magnets", price_adj: 590 },
+    { count: 24, label: "Set of 24 Magnets", price_adj: 890 }
+  ];
+  const [selectedMagnetPackCount, setSelectedMagnetPackCount] = useState<number>(6);
+
+  // 3. MINI PRINTS PACK PRESETS
+  const miniPrintPackOptions = [
+    { count: 12, label: "Pack of 12 Mini Prints", price_adj: 0 },
+    { count: 24, label: "Pack of 24 Mini Prints", price_adj: 150 },
+    { count: 36, label: "Pack of 36 Mini Prints", price_adj: 280 },
+    { count: 48, label: "Pack of 48 Mini Prints", price_adj: 390 },
+    { count: 60, label: "Pack of 60 Mini Prints", price_adj: 490 }
+  ];
+  const [selectedMiniPrintCount, setSelectedMiniPrintCount] = useState<number>(12);
+
+  // General State
   const [selectedSize, setSelectedSize] = useState<ProductOptionSize>(
     customOptions.sizes.find(s => s.default) || customOptions.sizes[0]
   );
@@ -80,13 +139,41 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successToast, setSuccessToast] = useState(false);
 
-  // Determine volume discount based on quantity
+  // Volume discount based on quantity
   const activeTier = customOptions.quantity_tiers.find(
     t => quantity >= t.min && quantity <= t.max
   ) || { discount_percent: 0 };
 
-  // Calculate custom size pricing if custom size is selected
-  // Formula: basePrice * (area / default_area)
+  // Calculate dynamic capacity rules
+  const albumPages = selectedAlbumSheets * 2;
+  const albumMaxPhotos = albumPages * 4; // 1 page = max 4 photos
+  const albumPriceAdj = (albumSheetPresets.find(o => o.sheets === selectedAlbumSheets)?.price_adj) ?? Math.max(0, (selectedAlbumSheets - 5) * 85);
+
+  const magnetPriceAdj = magnetPackOptions.find(o => o.count === selectedMagnetPackCount)?.price_adj || 0;
+  const magnetMaxPhotos = selectedMagnetPackCount * quantity;
+
+  const miniPrintPriceAdj = miniPrintPackOptions.find(o => o.count === selectedMiniPrintCount)?.price_adj || 0;
+  const miniPrintMaxPhotos = selectedMiniPrintCount * quantity;
+
+  // Maximum allowed photos to upload
+  const maxPhotosAllowed = isAlbum 
+    ? albumMaxPhotos 
+    : isMagnets 
+    ? magnetMaxPhotos 
+    : isMiniPrints 
+    ? miniPrintMaxPhotos 
+    : (product.required_photos_count || 1);
+
+  // Capacity price adjustment
+  const capacityPriceAdj = isAlbum 
+    ? albumPriceAdj 
+    : isMagnets 
+    ? magnetPriceAdj 
+    : isMiniPrints 
+    ? miniPrintPriceAdj 
+    : 0;
+
+  // Calculate custom size pricing if selected
   let sizeAdj = selectedSize.price_adj;
   if (isCustomSize) {
     let areaInSqIn = customWidth * customHeight;
@@ -109,8 +196,8 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
     sizeAdjustment: sizeAdj,
     materialAdjustment: selectedMaterial.price_adj,
     finishAdjustment: selectedFinish.price_adj,
-    frameAdjustment: selectedFrame ? selectedFrame.price_adj : 0,
-    customizationFee: customText ? 100 : 0,
+    frameAdjustment: (!isAlbum && !isMagnets && !isMiniPrints && selectedFrame) ? selectedFrame.price_adj : 0,
+    customizationFee: (customText ? 100 : 0) + capacityPriceAdj,
     expressFee: extrasCost,
     quantity,
     discountRate: activeTier.discount_percent,
@@ -122,9 +209,15 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
     setErrorMsg(null);
 
     // Mandatory photo check
-    const requiredPhotos = product.requires_photo ? (product.required_photos_count || 1) : 0;
-    if (requiredPhotos > 0 && photos.length < requiredPhotos) {
-      setErrorMsg(`Please upload at least ${requiredPhotos} photo${requiredPhotos > 1 ? 's' : ''} to continue.`);
+    const requiredPhotos = product.requires_photo ? 1 : 0;
+    if (requiredPhotos > 0 && photos.length === 0) {
+      setErrorMsg(`Please upload at least 1 photo to continue.`);
+      return;
+    }
+
+    // Photo capacity overflow check
+    if (photos.length > maxPhotosAllowed) {
+      setErrorMsg(`You have uploaded ${photos.length} photos, which exceeds the maximum limit of ${maxPhotosAllowed} photos. Please remove ${photos.length - maxPhotosAllowed} photo(s).`);
       return;
     }
 
@@ -134,14 +227,23 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         sizeAdj +
         selectedMaterial.price_adj +
         selectedFinish.price_adj +
-        (selectedFrame?.price_adj || 0) +
+        ((!isAlbum && !isMagnets && !isMiniPrints && selectedFrame) ? selectedFrame.price_adj : 0) +
         (customText ? 100 : 0) +
+        capacityPriceAdj +
         extrasCost
     );
 
-    const sizeLabel = isCustomSize
+    let sizeLabel = isCustomSize
       ? `${customWidth} × ${customHeight} ${customUnit} (Custom Dimension)`
       : selectedSize.name;
+
+    if (isAlbum) {
+      sizeLabel += ` • ${selectedAlbumSheets} Sheets (${albumPages} Pages • Up to ${albumMaxPhotos} Photos)`;
+    } else if (isMagnets) {
+      sizeLabel += ` • Set of ${selectedMagnetPackCount} Magnets (${selectedMagnetPackCount} Photos)`;
+    } else if (isMiniPrints) {
+      sizeLabel += ` • Set of ${selectedMiniPrintCount} Mini Prints (${selectedMiniPrintCount} Photos)`;
+    }
 
     addToCart({
       product_id: product.id,
@@ -151,7 +253,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
       size: sizeLabel,
       material: selectedMaterial.name,
       finish: selectedFinish.name,
-      frame: selectedFrame ? selectedFrame.name : 'None',
+      frame: (!isAlbum && !isMagnets && !isMiniPrints && selectedFrame) ? selectedFrame.name : 'None',
       quantity,
       unit_price: unitPrice,
       total: unitPrice * quantity,
@@ -159,6 +261,10 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         text: customText,
         notes,
         photos,
+        album_sheets: isAlbum ? selectedAlbumSheets : undefined,
+        album_pages: isAlbum ? albumPages : undefined,
+        pack_count: isMagnets ? selectedMagnetPackCount : isMiniPrints ? selectedMiniPrintCount : undefined,
+        max_photos_allowed: maxPhotosAllowed,
         custom_width: isCustomSize ? customWidth : undefined,
         custom_height: isCustomSize ? customHeight : undefined,
         custom_unit: isCustomSize ? customUnit : undefined,
@@ -190,10 +296,10 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
           defaultImage={product.images[0]}
           photos={photos}
           customText={customText}
-          size={isCustomSize ? `${customWidth}×${customHeight} ${customUnit}` : selectedSize.name}
+          size={isAlbum ? `${selectedSize.name} • ${selectedAlbumSheets} Sheets (${albumPages} Pages)` : (isCustomSize ? `${customWidth}×${customHeight} ${customUnit}` : selectedSize.name)}
           material={selectedMaterial.name}
           finish={selectedFinish.name}
-          frame={selectedFrame?.name}
+          frame={(!isAlbum && !isMagnets && !isMiniPrints && selectedFrame) ? selectedFrame.name : undefined}
         />
 
         <LivePriceCalculator
@@ -213,7 +319,13 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
             Personalize Your {product.name}
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Tailor dimensions, archival substrates, and bespoke framing with instant live price calculation.
+            {isAlbum 
+              ? 'Select your album dimensions, page capacity, archival paper finish, and upload your photo memories.'
+              : isMagnets
+              ? 'Select magnet dimensions, quantity set, and upload a unique photo for every magnet.'
+              : isMiniPrints
+              ? 'Choose print pack size and upload a personalized photo for each card.'
+              : 'Tailor dimensions, archival substrates, and bespoke framing with instant live price calculation.'}
           </p>
         </div>
 
@@ -221,7 +333,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-800">
-              1. Choose Size
+              1. Choose {isAlbum ? 'Album Dimensions' : isMagnets ? 'Magnet Dimensions' : 'Size'}
             </label>
             <span className="text-xs font-semibold text-amber-900">
               Selected: {isCustomSize ? `${customWidth} × ${customHeight} ${customUnit}` : selectedSize.name}
@@ -239,7 +351,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                       setIsCustomSize(true);
                       setSelectedSize(s);
                     }}
-                    className={`py-3 px-3 rounded-xl border text-xs font-semibold transition-all text-center flex flex-col justify-center items-center gap-1 ${
+                    className={`py-3 px-3 rounded-xl border text-xs font-semibold transition-all text-center flex flex-col justify-center items-center gap-1 cursor-pointer ${
                       isCustomSize
                         ? 'border-amber-700 bg-amber-50 text-amber-900 ring-2 ring-amber-600/30 font-bold'
                         : 'border-slate-200 bg-white text-slate-700 hover:border-amber-300 hover:bg-slate-50'
@@ -260,7 +372,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                     setIsCustomSize(false);
                     setSelectedSize(s);
                   }}
-                  className={`py-3 px-3 rounded-xl border text-xs transition-all text-center flex flex-col justify-center items-center gap-0.5 ${
+                  className={`py-3 px-3 rounded-xl border text-xs transition-all text-center flex flex-col justify-center items-center gap-0.5 cursor-pointer ${
                     isSelected
                       ? 'border-amber-700 bg-amber-50 text-amber-900 ring-2 ring-amber-600/30 font-bold'
                       : 'border-slate-200 bg-white text-slate-700 hover:border-amber-300 hover:bg-slate-50 font-medium'
@@ -278,38 +390,38 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
           {/* Custom Size Dimension Inputs */}
           {isCustomSize && (
             <div className="mt-3 bg-[#FAF8F5] p-4 rounded-2xl border border-amber-200/80 space-y-3">
-              <span className="text-xs font-bold text-slate-800 block">
-                Enter Custom Dimensions:
+              <span className="text-xs font-bold text-amber-900 block">
+                Enter Exact Dimensions (Studio Custom Sizing):
               </span>
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="text-[10px] font-semibold text-slate-500 uppercase">Width</label>
+                  <label className="text-[10px] text-slate-500 font-bold block mb-1">WIDTH</label>
                   <input
                     type="number"
                     min="2"
                     max="120"
                     value={customWidth}
-                    onChange={(e) => setCustomWidth(Math.max(1, Number(e.target.value)))}
-                    className="w-full mt-1 bg-white border border-slate-300 rounded-lg p-2 text-xs font-bold text-slate-900"
+                    onChange={(e) => setCustomWidth(Math.max(1, parseFloat(e.target.value) || 1))}
+                    className="w-full bg-white border border-slate-300 rounded-lg p-2 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-1 focus:ring-amber-600"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-semibold text-slate-500 uppercase">Height</label>
+                  <label className="text-[10px] text-slate-500 font-bold block mb-1">HEIGHT</label>
                   <input
                     type="number"
                     min="2"
                     max="120"
                     value={customHeight}
-                    onChange={(e) => setCustomHeight(Math.max(1, Number(e.target.value)))}
-                    className="w-full mt-1 bg-white border border-slate-300 rounded-lg p-2 text-xs font-bold text-slate-900"
+                    onChange={(e) => setCustomHeight(Math.max(1, parseFloat(e.target.value) || 1))}
+                    className="w-full bg-white border border-slate-300 rounded-lg p-2 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-1 focus:ring-amber-600"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-semibold text-slate-500 uppercase">Unit</label>
+                  <label className="text-[10px] text-slate-500 font-bold block mb-1">UNIT</label>
                   <select
                     value={customUnit}
                     onChange={(e) => setCustomUnit(e.target.value as any)}
-                    className="w-full mt-1 bg-white border border-slate-300 rounded-lg p-2 text-xs font-bold text-slate-900"
+                    className="w-full bg-white border border-slate-300 rounded-lg p-2 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-1 focus:ring-amber-600"
                   >
                     <option value="inch">Inches (in)</option>
                     <option value="cm">Centimeters (cm)</option>
@@ -318,9 +430,6 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                   </select>
                 </div>
               </div>
-              <p className="text-[11px] text-amber-900">
-                Studio area calculated: {customWidth} × {customHeight} {customUnit}. Price adjusted dynamically based on substrate square footage.
-              </p>
             </div>
           )}
         </div>
@@ -328,9 +437,9 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         {/* 2. Material Selection */}
         <div className="space-y-3">
           <label className="text-xs font-bold uppercase tracking-wider text-slate-800">
-            2. Choose Substrate / Material
+            2. Choose {isAlbum ? 'Cover / Binding Material' : 'Substrate Material'}
           </label>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
             {customOptions.materials.map((m, idx) => {
               const isSelected = selectedMaterial.name === m.name;
               return (
@@ -338,14 +447,14 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                   key={idx}
                   type="button"
                   onClick={() => setSelectedMaterial(m)}
-                  className={`p-3 rounded-xl border text-xs transition-all flex items-center justify-between text-left ${
+                  className={`p-3 rounded-xl border text-xs transition-all flex flex-col justify-between text-left cursor-pointer ${
                     isSelected
                       ? 'border-amber-700 bg-amber-50 text-amber-900 ring-2 ring-amber-600/30 font-bold'
                       : 'border-slate-200 bg-white text-slate-700 hover:border-amber-300 font-medium'
                   }`}
                 >
                   <span className="truncate">{m.name}</span>
-                  <span className="text-[10px] text-slate-500 ml-2">
+                  <span className="text-[10px] text-slate-500 mt-1">
                     {m.price_adj === 0 ? 'Standard' : `+₹${m.price_adj}`}
                   </span>
                 </button>
@@ -367,7 +476,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                   key={idx}
                   type="button"
                   onClick={() => setSelectedFinish(f)}
-                  className={`p-3 rounded-xl border text-xs transition-all flex items-center justify-between text-left ${
+                  className={`p-3 rounded-xl border text-xs transition-all flex items-center justify-between text-left cursor-pointer ${
                     isSelected
                       ? 'border-amber-700 bg-amber-50 text-amber-900 ring-2 ring-amber-600/30 font-bold'
                       : 'border-slate-200 bg-white text-slate-700 hover:border-amber-300 font-medium'
@@ -383,8 +492,195 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
           </div>
         </div>
 
-        {/* 4. Frame Selection (if applicable) */}
-        {customOptions.frames.length > 0 && (
+        {/* ======================================================== */}
+        {/* 4. DYNAMIC SECTION: ALBUM SHEETS / MAGNET PACKS / FRAMING */}
+        {/* ======================================================== */}
+        
+        {/* 4A. PHOTO ALBUMS & MAGAZINE ALBUMS: SHEETS & PAGES SELECTOR */}
+        {isAlbum && (
+          <div className="space-y-3 bg-[#FAF8F5] p-5 rounded-2xl border border-amber-200/90 shadow-2xs">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold uppercase tracking-wider text-amber-950 flex items-center gap-1.5">
+                <BookOpen className="w-4 h-4 text-amber-800" />
+                4. Select Album Sheets & Page Count
+              </label>
+              <span className="text-xs font-bold text-amber-900 bg-white px-2.5 py-1 rounded-full border border-amber-300 shadow-2xs font-mono">
+                {selectedAlbumSheets} Sheets = {albumPages} Pages (Max {albumMaxPhotos} Photos)
+              </span>
+            </div>
+
+            {/* Presets Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              {albumSheetPresets.map((opt) => {
+                const isSelected = selectedAlbumSheets === opt.sheets;
+                return (
+                  <button
+                    key={opt.sheets}
+                    type="button"
+                    onClick={() => setSelectedAlbumSheets(opt.sheets)}
+                    className={`p-3 rounded-xl border text-xs transition-all flex flex-col justify-between text-left cursor-pointer ${
+                      isSelected
+                        ? 'border-amber-700 bg-white text-amber-950 ring-2 ring-amber-600/30 font-bold shadow-xs'
+                        : 'border-slate-200/90 bg-white/70 text-slate-700 hover:border-amber-400 font-medium'
+                    }`}
+                  >
+                    <div>
+                      <span className="font-bold block text-sm">{opt.sheets} Sheets</span>
+                      <span className="text-[11px] text-amber-800 font-semibold block">
+                        {opt.pages} Pages (Max {opt.maxPhotos} Photos)
+                      </span>
+                      <span className="text-[10px] text-slate-400 block mt-0.5">
+                        1–4 photos per page
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-amber-900 font-bold mt-2">
+                      {opt.price_adj === 0 ? 'Standard' : `+₹${opt.price_adj}`}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Custom Sheets Stepper */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-amber-200/60 text-xs">
+              <span className="text-slate-600 font-medium">
+                Need custom sheet count? (From 5 to 50 sheets):
+              </span>
+              <div className="flex items-center gap-2 self-start sm:self-auto">
+                <button
+                  type="button"
+                  onClick={() => setSelectedAlbumSheets(prev => Math.max(5, prev - 1))}
+                  className="p-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 cursor-pointer shadow-2xs"
+                  title="Decrease 1 sheet"
+                >
+                  <Minus className="w-3.5 h-3.5" />
+                </button>
+                <span className="font-bold text-slate-900 font-mono w-16 text-center bg-white py-1 px-2 rounded-lg border border-slate-200">
+                  {selectedAlbumSheets} Sheets
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setSelectedAlbumSheets(prev => Math.min(50, prev + 1))}
+                  className="p-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 cursor-pointer shadow-2xs"
+                  title="Increase 1 sheet"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Informative Rule Note */}
+            <div className="bg-amber-100/60 p-2.5 rounded-xl border border-amber-300/80 flex items-start gap-2 text-[11px] text-amber-900">
+              <Info className="w-3.5 h-3.5 shrink-0 text-amber-700 mt-0.5" />
+              <span>
+                <strong>Capacity Rule:</strong> 1 sheet = 2 pages. 1 page can hold a maximum of 4 photos. For <strong>{selectedAlbumSheets} sheets ({albumPages} pages)</strong>, you can upload up to <strong>{albumMaxPhotos} photos</strong>.
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* 4B. PHOTO MAGNETS: PACK SIZE SELECTOR */}
+        {isMagnets && (
+          <div className="space-y-3 bg-[#FAF8F5] p-5 rounded-2xl border border-indigo-200/80 shadow-2xs">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
+                <Box className="w-4 h-4 text-indigo-800" />
+                4. Select Magnet Set Pack
+              </label>
+              <span className="text-xs font-bold text-indigo-900 bg-white px-2.5 py-1 rounded-full border border-indigo-300 shadow-2xs font-mono">
+                {selectedMagnetPackCount} Magnets = {magnetMaxPhotos} Photos
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              {magnetPackOptions.map((opt) => {
+                const isSelected = selectedMagnetPackCount === opt.count;
+                return (
+                  <button
+                    key={opt.count}
+                    type="button"
+                    onClick={() => setSelectedMagnetPackCount(opt.count)}
+                    className={`p-3 rounded-xl border text-xs transition-all flex flex-col justify-between text-left cursor-pointer ${
+                      isSelected
+                        ? 'border-indigo-700 bg-white text-indigo-950 ring-2 ring-indigo-600/30 font-bold shadow-xs'
+                        : 'border-slate-200/90 bg-white/70 text-slate-700 hover:border-indigo-400 font-medium'
+                    }`}
+                  >
+                    <div>
+                      <span className="font-bold block text-sm">{opt.label}</span>
+                      <span className="text-[10px] text-indigo-800 block mt-0.5">
+                        Upload {opt.count} photos (1/magnet)
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-indigo-900 font-bold mt-2">
+                      {opt.price_adj === 0 ? 'Standard' : `+₹${opt.price_adj}`}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="bg-indigo-50 p-2.5 rounded-xl border border-indigo-200 flex items-start gap-2 text-[11px] text-indigo-950">
+              <Info className="w-3.5 h-3.5 shrink-0 text-indigo-700 mt-0.5" />
+              <span>
+                <strong>Magnet Rule:</strong> Each magnet gets its own personalized picture. For <strong>{selectedMagnetPackCount} magnets</strong>, you can upload up to <strong>{magnetMaxPhotos} photos</strong>.
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* 4C. MINI PRINTS / INSTA PHOTO CARDS: PRINT PACK SELECTOR */}
+        {isMiniPrints && (
+          <div className="space-y-3 bg-[#FAF8F5] p-5 rounded-2xl border border-emerald-200/80 shadow-2xs">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
+                <Layers className="w-4 h-4 text-emerald-800" />
+                4. Select Mini Print Set Pack
+              </label>
+              <span className="text-xs font-bold text-emerald-900 bg-white px-2.5 py-1 rounded-full border border-emerald-300 shadow-2xs font-mono">
+                {selectedMiniPrintCount} Prints = {miniPrintMaxPhotos} Photos
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              {miniPrintPackOptions.map((opt) => {
+                const isSelected = selectedMiniPrintCount === opt.count;
+                return (
+                  <button
+                    key={opt.count}
+                    type="button"
+                    onClick={() => setSelectedMiniPrintCount(opt.count)}
+                    className={`p-3 rounded-xl border text-xs transition-all flex flex-col justify-between text-left cursor-pointer ${
+                      isSelected
+                        ? 'border-emerald-700 bg-white text-emerald-950 ring-2 ring-emerald-600/30 font-bold shadow-xs'
+                        : 'border-slate-200/90 bg-white/70 text-slate-700 hover:border-emerald-400 font-medium'
+                    }`}
+                  >
+                    <div>
+                      <span className="font-bold block text-sm">{opt.label}</span>
+                      <span className="text-[10px] text-emerald-800 block mt-0.5">
+                        Upload {opt.count} photos (1/print)
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-emerald-900 font-bold mt-2">
+                      {opt.price_adj === 0 ? 'Standard' : `+₹${opt.price_adj}`}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="bg-emerald-50 p-2.5 rounded-xl border border-emerald-200 flex items-start gap-2 text-[11px] text-emerald-950">
+              <Info className="w-3.5 h-3.5 shrink-0 text-emerald-700 mt-0.5" />
+              <span>
+                <strong>Mini Print Rule:</strong> 1 photo per print card. For <strong>{selectedMiniPrintCount} prints</strong>, you can upload up to <strong>{miniPrintMaxPhotos} photos</strong>.
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* 4D. STANDARD FRAMING / HARDWARE (FOR WALL ART, CANVAS, AND FRAMES) */}
+        {!isAlbum && !isMagnets && !isMiniPrints && customOptions.frames.length > 0 && (
           <div className="space-y-3">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-800">
               4. Choose Framing / Presentation
@@ -397,7 +693,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                     key={idx}
                     type="button"
                     onClick={() => setSelectedFrame(fr)}
-                    className={`p-3 rounded-xl border text-xs transition-all flex items-center justify-between text-left ${
+                    className={`p-3 rounded-xl border text-xs transition-all flex items-center justify-between text-left cursor-pointer ${
                       isSelected
                         ? 'border-amber-700 bg-amber-50 text-amber-900 ring-2 ring-amber-600/30 font-bold'
                         : 'border-slate-200 bg-white text-slate-700 hover:border-amber-300 font-medium'
@@ -414,12 +710,17 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
           </div>
         )}
 
-        {/* 5. Customer Photo Upload Component */}
+        {/* 5. Customer Photo Upload Component with Dynamic Capacity Enforcement */}
         <div className="pt-2 border-t border-slate-100">
           <CustomerPhotoUpload
             photos={photos}
             onPhotosChange={setPhotos}
-            requiredCount={product.requires_photo ? (product.required_photos_count || 1) : 0}
+            requiredCount={product.requires_photo ? 1 : 0}
+            maxCount={maxPhotosAllowed}
+            categoryType={isAlbum ? 'album' : isMagnets ? 'magnets' : isMiniPrints ? 'mini-prints' : 'standard'}
+            albumSheets={selectedAlbumSheets}
+            albumPages={albumPages}
+            packCount={isMagnets ? selectedMagnetPackCount : isMiniPrints ? selectedMiniPrintCount : 1}
             printSize={isCustomSize ? `${customWidth}×${customHeight} ${customUnit}` : selectedSize.name}
           />
         </div>
@@ -428,13 +729,13 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         <div className="space-y-4 pt-2 border-t border-slate-100">
           <label className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
             <FileText className="w-3.5 h-3.5 text-amber-700" />
-            Custom Text & Personalization Message
+            Custom Text & Personalization Message {isAlbum && '(Album Title / Inscription)'}
           </label>
 
           <div>
             <input
               type="text"
-              placeholder="e.g. 'Aarav & Maya — 24th December 2026' or Family Caption"
+              placeholder={isAlbum ? "e.g. 'Our Wedding Memories — 2026' or 'Baby Aarav First Year'" : "e.g. 'Aarav & Maya — 24th December 2026' or Family Caption"}
               value={customText}
               onChange={(e) => setCustomText(e.target.value)}
               className="w-full bg-[#FAF8F5] border border-slate-300 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-600/20 focus:border-amber-700 transition-all font-medium"
@@ -450,65 +751,61 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
               <span className="text-xs font-bold text-amber-900 block">
                 Event / Card Details (Optional):
               </span>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <input
                   type="text"
                   placeholder="Event Name (e.g. Wedding Reception)"
                   value={eventName}
                   onChange={(e) => setEventName(e.target.value)}
-                  className="bg-white border border-slate-300 rounded-lg p-2 text-xs"
+                  className="bg-white border border-slate-300 rounded-lg p-2 text-xs text-slate-800"
                 />
                 <input
-                  type="text"
-                  placeholder="Date & Time"
+                  type="date"
                   value={eventDate}
                   onChange={(e) => setEventDate(e.target.value)}
-                  className="bg-white border border-slate-300 rounded-lg p-2 text-xs"
+                  className="bg-white border border-slate-300 rounded-lg p-2 text-xs text-slate-800"
                 />
                 <input
                   type="text"
-                  placeholder="Venue & City"
+                  placeholder="Venue & City (e.g. Hyatt Regency, Ahmedabad)"
                   value={venue}
                   onChange={(e) => setVenue(e.target.value)}
-                  className="bg-white border border-slate-300 rounded-lg p-2 text-xs"
+                  className="bg-white border border-slate-300 rounded-lg p-2 text-xs text-slate-800 sm:col-span-2"
                 />
               </div>
             </div>
           )}
 
           <div>
-            <label className="text-[11px] font-semibold text-slate-600 block mb-1">
-              Special Production Instructions / Notes for Studio:
-            </label>
             <textarea
               rows={2}
-              placeholder="Any specific color preferences, crop requests, or special handling notes..."
+              placeholder="Special instructions for studio master craftsmen (e.g. crop centering, color correction, matte borders)..."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full bg-[#FAF8F5] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-600/20 focus:border-amber-700 transition-all"
+              className="w-full bg-[#FAF8F5] border border-slate-300 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-600/20 focus:border-amber-700 transition-all font-medium"
             />
           </div>
         </div>
 
-        {/* 7. Quantity & Dynamic Tiers */}
+        {/* 7. Quantity & Tiered Volume Discounts */}
         <div className="space-y-3 pt-2 border-t border-slate-100">
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-800">
-              Quantity & Volume Pricing
+              7. Quantity & Volume Studio Discount
             </label>
             {activeTier.discount_percent > 0 && (
-              <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                {activeTier.discount_percent}% Volume Savings Applied
+              <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                🎉 {activeTier.discount_percent}% Volume Discount Applied!
               </span>
             )}
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="flex items-center border border-slate-300 rounded-xl bg-slate-50 overflow-hidden">
+            <div className="flex items-center border border-slate-300 rounded-xl overflow-hidden bg-white shadow-xs">
               <button
                 type="button"
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="px-3 py-2 text-slate-600 hover:text-black font-bold"
+                className="px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold text-sm cursor-pointer transition-colors"
               >
                 -
               </button>
@@ -517,102 +814,112 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                 min="1"
                 max="999"
                 value={quantity}
-                onChange={(e) => setQuantity(Math.max(1, Number(e.target.value)))}
-                className="w-14 text-center bg-white text-xs font-bold text-slate-900 py-2 border-x border-slate-300"
+                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                className="w-14 text-center text-xs font-bold text-slate-900 focus:outline-none py-2"
               />
               <button
                 type="button"
                 onClick={() => setQuantity(quantity + 1)}
-                className="px-3 py-2 text-slate-600 hover:text-black font-bold"
+                className="px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold text-sm cursor-pointer transition-colors"
               >
                 +
               </button>
             </div>
 
-            {/* Quick volume tiers selector */}
-            <div className="flex flex-wrap gap-2 text-xs">
+            <div className="flex items-center gap-2 overflow-x-auto text-[11px]">
               {customOptions.quantity_tiers.map((t, idx) => (
-                <button
+                <div
                   key={idx}
-                  type="button"
-                  onClick={() => setQuantity(t.min)}
-                  className={`px-3 py-1.5 rounded-lg border text-[11px] font-medium transition-colors ${
+                  className={`px-2.5 py-1 rounded-lg border whitespace-nowrap ${
                     quantity >= t.min && quantity <= t.max
-                      ? 'border-amber-700 bg-amber-50 text-amber-900 font-bold'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'border-emerald-500 bg-emerald-50 text-emerald-900 font-bold'
+                      : 'border-slate-200 bg-slate-50 text-slate-500'
                   }`}
                 >
-                  {t.min}–{t.max > 5000 ? 'Any' : t.max} {t.discount_percent > 0 ? `(${t.discount_percent}% off)` : ''}
-                </button>
+                  {t.min}{t.max < 900 ? `–${t.max}` : '+'}: {t.discount_percent === 0 ? 'Regular Price' : `${t.discount_percent}% Off`}
+                </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* 8. Additional Studio Extras */}
-        {customOptions.extras.length > 0 && (
-          <div className="space-y-2 pt-2 border-t border-slate-100">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-800 block">
-              Additional Studio Services
-            </label>
-            <div className="space-y-2">
-              {customOptions.extras.map((extra) => {
-                const isSelected = selectedExtras.includes(extra.id);
-                return (
-                  <label
-                    key={extra.id}
-                    onClick={() => toggleExtra(extra.id)}
-                    className={`cursor-pointer rounded-xl p-3 border text-xs flex items-center justify-between transition-all select-none ${
-                      isSelected
-                        ? 'border-amber-700 bg-amber-50 text-amber-900 ring-1 ring-amber-700 font-semibold'
-                        : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <div
-                        className={`w-4 h-4 rounded border flex items-center justify-center ${
-                          isSelected ? 'bg-amber-800 border-amber-800 text-white' : 'border-slate-300'
-                        }`}
-                      >
-                        {isSelected && <Check className="w-3 h-3" />}
-                      </div>
-                      <span>{extra.name}</span>
+        {/* 8. Studio Add-ons & Extras */}
+        <div className="space-y-3 pt-2 border-t border-slate-100">
+          <label className="text-xs font-bold uppercase tracking-wider text-slate-800">
+            8. White-Glove Studio Services
+          </label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {customOptions.extras.map((ex) => {
+              const isChecked = selectedExtras.includes(ex.id);
+              return (
+                <div
+                  key={ex.id}
+                  onClick={() => toggleExtra(ex.id)}
+                  className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
+                    isChecked
+                      ? 'border-amber-700 bg-amber-50 text-amber-900 font-semibold'
+                      : 'border-slate-200 hover:border-slate-300 text-slate-700'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div
+                      className={`w-4 h-4 rounded border flex items-center justify-center ${
+                        isChecked ? 'bg-amber-700 border-amber-700 text-white' : 'border-slate-300 bg-white'
+                      }`}
+                    >
+                      {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
                     </div>
-                    <span className="font-bold text-amber-900">+₹{extra.price_adj}</span>
-                  </label>
-                );
-              })}
-            </div>
+                    <span className="text-xs">{ex.name}</span>
+                  </div>
+                  <span className="text-xs font-bold text-amber-900">+₹{ex.price_adj}</span>
+                </div>
+              );
+            })}
           </div>
-        )}
+        </div>
 
         {/* Error message */}
         {errorMsg && (
-          <div className="p-3 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl text-xs flex items-center gap-2">
+          <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2 animate-shake">
             <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
-            <span>{errorMsg}</span>
+            <p>{errorMsg}</p>
           </div>
         )}
 
-        {/* Add to Cart Button */}
+        {/* Success toast */}
+        {successToast && (
+          <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-bold flex items-center gap-2 animate-scale-in">
+            <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span>Successfully added to your shopping cart!</span>
+          </div>
+        )}
+
+        {/* 9. Final Add to Cart Button */}
         <div className="pt-4 border-t border-slate-200">
           <button
             type="button"
             onClick={handleAddToCart}
-            className="w-full bg-[#B45309] hover:bg-[#92400E] text-white font-bold py-4 px-6 rounded-2xl shadow-xl shadow-amber-900/15 flex items-center justify-center gap-3 text-base transition-all group hover:scale-[1.01]"
+            className="w-full bg-[#B45309] hover:bg-amber-800 text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-lg shadow-amber-950/20 hover:shadow-xl hover:scale-[1.01] flex items-center justify-center gap-3 cursor-pointer"
           >
-            <ShoppingBag className="w-5 h-5 text-amber-200 group-hover:scale-110 transition-transform" />
-            <span>Add to Craft Bag & Review Customization</span>
+            <ShoppingBag className="w-5 h-5 text-amber-200" />
+            <span className="text-base sm:text-lg">
+              Add to Cart • ₹{((Math.max(
+                0,
+                product.base_price +
+                  sizeAdj +
+                  selectedMaterial.price_adj +
+                  selectedFinish.price_adj +
+                  ((!isAlbum && !isMagnets && !isMiniPrints && selectedFrame) ? selectedFrame.price_adj : 0) +
+                  (customText ? 100 : 0) +
+                  capacityPriceAdj +
+                  extrasCost
+              ) * quantity) * (1 - activeTier.discount_percent / 100)).toLocaleString('en-IN')}
+            </span>
           </button>
+          <p className="text-center text-[11px] text-slate-500 mt-2">
+            ✨ Handcrafted Studio Quality • 100% Satisfaction Guarantee • Dynamic UPI Instant QR
+          </p>
         </div>
-
-        {/* Success toast notification */}
-        {successToast && (
-          <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs flex items-center gap-2 animate-bounce">
-            <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span>Successfully added to your craft bag! Opening cart...</span>
-          </div>
-        )}
       </div>
     </div>
   );
