@@ -1,30 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../../context/CartContext';
+import { useCustomerAuth } from '../../context/CustomerAuthContext';
 import { Order } from '../../types';
-import { X, ShieldCheck, ShoppingBag, ArrowRight, AlertCircle } from 'lucide-react';
+import { X, ShieldCheck, ShoppingBag, ArrowRight, AlertCircle, Sparkles, CheckCircle2, User } from 'lucide-react';
 
 interface CheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
   onOrderCreated: (order: Order) => void;
+  onOpenCustomerAuth?: () => void;
 }
 
 export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   isOpen,
   onClose,
-  onOrderCreated
+  onOrderCreated,
+  onOpenCustomerAuth
 }) => {
   const { cart, subtotal, discount, tax, shipping, grandTotal, clearCart } = useCart();
+  const { customer, isLoggedIn, addOrderToHistory, updateAddress } = useCustomerAuth();
 
-  const [customerName, setCustomerName] = useState('');
-  const [customerEmail, setCustomerEmail] = useState('');
-  const [customerPhone, setCustomerPhone] = useState('');
-  const [street, setStreet] = useState('');
-  const [city, setCity] = useState('Ahmedabad');
-  const [state, setState] = useState('Gujarat');
-  const [pincode, setPincode] = useState('');
+  const [customerName, setCustomerName] = useState(customer?.name || '');
+  const [customerEmail, setCustomerEmail] = useState(customer?.email || '');
+  const [customerPhone, setCustomerPhone] = useState(customer?.phone || '');
+  const [street, setStreet] = useState(customer?.saved_address?.street || '');
+  const [city, setCity] = useState(customer?.saved_address?.city || 'Ahmedabad');
+  const [state, setState] = useState(customer?.saved_address?.state || 'Gujarat');
+  const [pincode, setPincode] = useState(customer?.saved_address?.pincode || '');
   const [country, setCountry] = useState('India');
   const [sameAsShipping, setSameAsShipping] = useState(true);
+
+  // Sync when customer changes or logs in
+  useEffect(() => {
+    if (customer) {
+      if (customer.name) setCustomerName(customer.name);
+      if (customer.phone) setCustomerPhone(customer.phone);
+      if (customer.email) setCustomerEmail(customer.email);
+      if (customer.saved_address) {
+        if (customer.saved_address.street) setStreet(customer.saved_address.street);
+        if (customer.saved_address.city) setCity(customer.saved_address.city);
+        if (customer.saved_address.state) setState(customer.saved_address.state);
+        if (customer.saved_address.pincode) setPincode(customer.saved_address.pincode);
+      }
+    }
+  }, [customer]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -84,6 +103,16 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
       const { data: createdOrder } = await res.json();
       clearCart();
+      addOrderToHistory(createdOrder);
+      if (isLoggedIn && customer) {
+        updateAddress({
+          street: street.trim(),
+          city: city.trim(),
+          state: state.trim(),
+          pincode: pincode.trim(),
+          country: country.trim()
+        });
+      }
       onOrderCreated(createdOrder);
     } catch (err: any) {
       setErrorMsg(err.message || 'Error occurred while creating order.');
@@ -105,13 +134,43 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1 text-slate-400 hover:text-slate-700 rounded-full"
+            className="p-1 text-slate-400 hover:text-slate-700 rounded-full cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          {/* Customer Auth Banner */}
+          {isLoggedIn && customer ? (
+            <div className="bg-emerald-50/80 rounded-2xl p-3 border border-emerald-200/80 flex items-center justify-between text-xs">
+              <div className="flex items-center gap-2 text-emerald-900 font-medium">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>
+                  Ordering as <strong>{customer.name}</strong> (+91 {customer.phone.replace(/[^0-9]/g, '').slice(-10)})
+                </span>
+              </div>
+              <span className="text-[10px] bg-emerald-200/80 text-emerald-900 px-2 py-0.5 rounded-full font-bold">
+                Auto-Filled
+              </span>
+            </div>
+          ) : (
+            onOpenCustomerAuth && (
+              <div className="bg-amber-50/70 rounded-2xl p-3 border border-amber-200/60 flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2 text-amber-950 font-medium">
+                  <Sparkles className="w-4 h-4 text-amber-700 shrink-0" />
+                  <span>Have an account or want quick OTP auto-fill?</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={onOpenCustomerAuth}
+                  className="font-bold text-amber-800 hover:text-amber-950 underline cursor-pointer"
+                >
+                  Login with Mobile
+                </button>
+              </div>
+            )
+          )}
           {/* Order Summary Snapshot */}
           <div className="bg-amber-50/70 rounded-2xl p-4 border border-amber-200/60">
             <div className="flex justify-between items-center mb-2">

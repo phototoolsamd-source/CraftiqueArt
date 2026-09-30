@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Search, Compass, ShieldCheck, MessageCircle, Menu, X, ArrowRight } from 'lucide-react';
+import { ShoppingBag, Search, Compass, ShieldCheck, MessageCircle, Menu, X, ArrowRight, User } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
+import { useCustomerAuth } from '../../context/CustomerAuthContext';
 
 interface NavbarProps {
   onNavigate: (view: string, param?: string) => void;
   currentView: string;
   onSearchChange: (q: string) => void;
   searchQuery: string;
+  onOpenCustomerAuth?: () => void;
+  onOpenCustomerAccount?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   currentView,
   onSearchChange,
-  searchQuery
+  searchQuery,
+  onOpenCustomerAuth,
+  onOpenCustomerAccount
 }) => {
   const { itemCount, setIsCartOpen } = useCart();
   const { user, isAuthenticated } = useAuth();
+  const { customer, isLoggedIn, orders } = useCustomerAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const categories = [
@@ -89,23 +95,54 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Actions & Navigation Links */}
-          <div className="flex items-center gap-3 sm:gap-5">
+          <div className="flex items-center gap-2.5 sm:gap-4">
+            {/* Customer Login / My Account */}
+            {isLoggedIn && customer ? (
+              <button
+                type="button"
+                onClick={onOpenCustomerAccount}
+                className="flex items-center gap-1.5 sm:gap-2 text-xs font-semibold py-1.5 px-2.5 sm:px-3 rounded-full bg-amber-50 border border-amber-300 text-amber-950 hover:bg-amber-100 transition-all shadow-xs cursor-pointer"
+                title="View My Orders and Account"
+              >
+                <div className="w-5 h-5 rounded-full bg-amber-700 text-white text-[10px] flex items-center justify-center font-bold shrink-0">
+                  {customer.name ? customer.name[0].toUpperCase() : 'C'}
+                </div>
+                <span className="hidden sm:inline max-w-[85px] truncate font-bold">
+                  {customer.name || customer.phone.slice(-4)}
+                </span>
+                {orders.length > 0 && (
+                  <span className="bg-amber-700 text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">
+                    {orders.length}
+                  </span>
+                )}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={onOpenCustomerAuth}
+                className="flex items-center gap-1.5 text-xs font-semibold py-1.5 px-3 rounded-full bg-white border border-[#E2D8C9] text-slate-800 hover:bg-amber-50 hover:border-amber-400 transition-all shadow-xs cursor-pointer"
+              >
+                <User className="w-3.5 h-3.5 text-amber-700" />
+                <span>Login</span>
+              </button>
+            )}
+
             <button
               onClick={() => onNavigate('track')}
-              className={`hidden sm:flex items-center gap-1.5 text-xs font-semibold py-2 px-3.5 rounded-full transition-colors ${
+              className={`hidden sm:flex items-center gap-1.5 text-xs font-semibold py-2 px-3.5 rounded-full transition-colors cursor-pointer ${
                 currentView === 'track'
-                  ? 'bg-amber-100 text-amber-900'
+                  ? 'bg-amber-100 text-amber-900 font-bold'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-black/5'
               }`}
             >
               <Compass className="w-4 h-4 text-amber-700" />
-              Track Order
+              <span>Track Order</span>
             </button>
 
             {/* Cart Button with Count Badge */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2.5 rounded-full bg-amber-50 border border-amber-200/80 text-amber-950 hover:bg-amber-100 transition-colors flex items-center justify-center shadow-xs"
+              className="relative p-2.5 rounded-full bg-amber-50 border border-amber-200/80 text-amber-950 hover:bg-amber-100 transition-colors flex items-center justify-center shadow-xs cursor-pointer"
               aria-label="Shopping Cart"
             >
               <ShoppingBag className="w-5 h-5 text-amber-800" />
@@ -119,7 +156,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile menu toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-slate-600 hover:text-slate-900"
+              className="md:hidden p-2 text-slate-600 hover:text-slate-900 cursor-pointer"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -187,6 +224,37 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {c.name}
                 </button>
               ))}
+              {isLoggedIn && customer ? (
+                <button
+                  onClick={() => {
+                    if (onOpenCustomerAccount) onOpenCustomerAccount();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-left py-2 px-3 rounded-md text-sm bg-amber-50 text-amber-900 font-bold flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    <User className="w-4 h-4 text-amber-700" />
+                    <span>My Account ({customer.name || customer.phone})</span>
+                  </div>
+                  <span className="bg-amber-700 text-white text-[10px] px-2 py-0.5 rounded-full">
+                    {orders.length} orders
+                  </span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    if (onOpenCustomerAuth) onOpenCustomerAuth();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-left py-2 px-3 rounded-md text-sm text-slate-700 hover:bg-amber-50 font-medium flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    <User className="w-4 h-4 text-amber-700" />
+                    <span>Customer Login with OTP</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-amber-700" />
+                </button>
+              )}
               <button
                 onClick={() => {
                   onNavigate('track');
@@ -194,7 +262,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }}
                 className="text-left py-2 px-3 rounded-md text-sm text-slate-700 hover:bg-amber-50 font-medium flex items-center justify-between"
               >
-                <span>Track Your Order</span>
+                <div className="flex items-center gap-2">
+                  <Compass className="w-4 h-4 text-amber-700" />
+                  <span>Track Your Order</span>
+                </div>
                 <ArrowRight className="w-4 h-4 text-amber-700" />
               </button>
             </div>

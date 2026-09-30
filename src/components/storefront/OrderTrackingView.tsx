@@ -30,16 +30,17 @@ export const OrderTrackingView: React.FC<OrderTrackingViewProps> = ({
       const res = await fetch(`/api/orders/${encodeURIComponent(num.trim())}`);
       if (res.ok) {
         const data = await res.json();
-        setOrder(data.data);
+        const foundOrder = data.data;
+        setOrder(foundOrder);
 
         // Fetch design proof if available
-        const proofRes = await fetch(`/api/design-proofs/${encodeURIComponent(num.trim())}`);
+        const proofRes = await fetch(`/api/design-proofs/${encodeURIComponent(foundOrder.order_number)}`);
         if (proofRes.ok) {
           const pData = await proofRes.json();
           setProof(pData.data);
         }
       } else {
-        setErrorMsg('Order not found. Please double-check your order number (e.g. CRQ-20260929-0001).');
+        setErrorMsg('Order not found. Please double-check your Order Number (e.g. CRQ-20260930-0001) or 10-digit Mobile Number.');
         setOrder(null);
       }
     } catch (err: any) {
@@ -132,11 +133,11 @@ export const OrderTrackingView: React.FC<OrderTrackingViewProps> = ({
         <div className="flex gap-2 pt-2">
           <input
             type="text"
-            placeholder="Enter Order Number (e.g. CRQ-20260929-0001)"
+            placeholder="Enter Order Number (e.g. CRQ-20260930-0001) or 10-digit Mobile Number"
             value={searchNum}
             onChange={(e) => setSearchNum(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && fetchOrderDetails(searchNum)}
-            className="flex-1 bg-white border border-[#DACFBF] rounded-full py-2.5 px-4 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-600/30"
+            className="flex-1 bg-white border border-[#DACFBF] rounded-full py-2.5 px-4 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-600/30 font-medium"
           />
           <button
             onClick={() => fetchOrderDetails(searchNum)}

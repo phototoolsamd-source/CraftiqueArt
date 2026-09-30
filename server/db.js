@@ -958,8 +958,36 @@ class Database {
   }
 
   getOrderById(idOrNum) {
-    return this.data.orders.find(o => o.id === idOrNum || o.order_number === idOrNum);
+    if (!idOrNum) return null;
+    const clean = String(idOrNum).trim();
+    // 1. Check exact order_number or id
+    const exact = this.data.orders.find(o => 
+      o.id === clean || 
+      (o.order_number && o.order_number.toLowerCase() === clean.toLowerCase())
+    );
+    if (exact) return exact;
+
+    // 2. Check customer phone match (last 10 digits)
+    const digitsOnly = clean.replace(/[^0-9]/g, '');
+    if (digitsOnly.length >= 10) {
+      const targetPhone = digitsOnly.slice(-10);
+      const byPhone = this.data.orders.filter(o => 
+        o.customer_phone && o.customer_phone.replace(/[^0-9]/g, '').endsWith(targetPhone)
+      ).sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+      if (byPhone.length > 0) return byPhone[0];
+    }
+    return null;
   }
+
+  getOrdersByCustomerPhone(phone) {
+    if (!phone) return [];
+    const cleanDigits = String(phone).replace(/[^0-9]/g, '').slice(-10);
+    if (!cleanDigits) return [];
+    return this.data.orders.filter(o => 
+      o.customer_phone && o.customer_phone.replace(/[^0-9]/g, '').endsWith(cleanDigits)
+    ).sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+  }
+
 
   createOrder(order) {
     if (!order.id) order.id = `ord-${Date.now()}`;
@@ -994,7 +1022,8 @@ class Database {
       name: order.customer_name,
       email: order.customer_email,
       phone: order.customer_phone,
-      amount: order.grand_total
+      amount: order.grand_total,
+      address: order.shipping_address
     });
 
     this.save();
@@ -1015,23 +1044,39 @@ class Database {
     return null;
   }
 
-  upsertCustomer({ name, email, phone, amount }) {
-    let cust = this.data.customers.find(c => (email && c.email === email) || (phone && c.phone === phone));
+  upsertCustomer({ name, email, phone, amount, address }) {
+    if (!this.data.customers) this.data.customers = [];
+    const cleanPhone = phone ? String(phone).replace(/[^0-9]/g, '').slice(-10) : '';
+    let cust = this.data.customers.find(c => 
+      (cleanPhone && c.phone && c.phone.replace(/[^0-9]/g, '').endsWith(cleanPhone)) ||
+      (email && c.email && c.email.toLowerCase() === email.toLowerCase())
+    );
+
     if (cust) {
       cust.orders_count = (cust.orders_count || 1) + 1;
       cust.total_spent = (cust.total_spent || 0) + (amount || 0);
+      if (name && (!cust.name || cust.name === 'Guest Customer')) cust.name = name;
+      if (email && !cust.email) cust.email = email;
+      if (address && !cust.saved_address) cust.saved_address = address;
+      cust.last_order_at = new Date().toISOString();
     } else {
-      this.data.customers.push({
+      cust = {
         id: `cust-${Date.now()}`,
-        name: name || "Guest Customer",
+        name: name || (cleanPhone ? `Customer ${cleanPhone.slice(-4)}` : "Guest Customer"),
         email: email || "",
-        phone: phone || "",
+        phone: cleanPhone || phone || "",
+        saved_address: address || null,
         orders_count: 1,
         total_spent: amount || 0,
-        created_at: new Date().toISOString()
-      });
+        created_at: new Date().toISOString(),
+        last_order_at: new Date().toISOString()
+      };
+      this.data.customers.push(cust);
     }
+    this.save();
+    return cust;
   }
+
 
   // --- Payments ---
   getPayments() {

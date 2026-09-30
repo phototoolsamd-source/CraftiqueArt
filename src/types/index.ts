@@ -250,3 +250,25 @@ export type UserRole =
   | 'QC'
   | 'Dispatch'
   | 'Customer';
+
+export interface CustomerUser {
+  id: string;
+  name: string;
+  phone: string;
+  email?: string;
+  saved_address?: Address | null;
+  created_at?: string;
+  last_login?: string;
+}
+
+export interface CustomerAuthResponse {
+  success: boolean;
+  message?: string;
+  demoOtp?: string;
+  existing?: boolean;
+  customerName?: string;
+  customer?: CustomerUser;
+  orders?: Order[];
+  error?: string;
+}
+

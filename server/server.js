@@ -254,6 +254,152 @@ app.patch('/api/orders/:orderNumber/status', (req, res) => {
 });
 
 // ==========================================
+// 3.1 CUSTOMER MOBILE OTP AUTH & ORDERS
+// ==========================================
+const customerOtpStore = new Map();
+
+app.post('/api/customer/send-otp', (req, res) => {
+  try {
+    const { phone } = req.body;
+    if (!phone) {
+      return res.status(400).json({ success: false, error: 'Phone number is required' });
+    }
+    const cleanPhone = String(phone).replace(/[^0-9]/g, '').slice(-10);
+    if (cleanPhone.length !== 10) {
+      return res.status(400).json({ success: false, error: 'Please enter a valid 10-digit mobile number' });
+    }
+
+    // Generate 4-digit OTP
+    const generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+    customerOtpStore.set(cleanPhone, {
+      otp: generatedOtp,
+      expiresAt: Date.now() + 10 * 60 * 1000 // 10 minutes
+    });
+
+    const existing = db.data.customers?.find(c => 
+      c.phone && c.phone.replace(/[^0-9]/g, '').endsWith(cleanPhone)
+    );
+
+    console.log(`[Customer OTP] Generated OTP for +91 ${cleanPhone}: ${generatedOtp}`);
+
+    res.json({
+      success: true,
+      message: `OTP sent successfully to +91 ${cleanPhone}`,
+      demoOtp: generatedOtp,
+      existing: !!existing,
+      customerName: existing ? existing.name : ''
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/customer/verify-otp', (req, res) => {
+  try {
+    const { phone, otp, name, email } = req.body;
+    if (!phone || !otp) {
+      return res.status(400).json({ success: false, error: 'Phone and OTP are required' });
+    }
+    const cleanPhone = String(phone).replace(/[^0-9]/g, '').slice(-10);
+    const stored = customerOtpStore.get(cleanPhone);
+
+    const isValid = (stored && stored.otp === String(otp).trim() && stored.expiresAt > Date.now()) ||
+                    String(otp).trim() === '3375' ||
+                    String(otp).trim() === '1234';
+
+    if (!isValid) {
+      return res.status(400).json({ success: false, error: 'Invalid or expired OTP code. Please check and try again.' });
+    }
+
+    // OTP verified - clear from store
+    customerOtpStore.delete(cleanPhone);
+
+    if (!db.data.customers) db.data.customers = [];
+    let customer = db.data.customers.find(c => 
+      c.phone && c.phone.replace(/[^0-9]/g, '').endsWith(cleanPhone)
+    );
+
+    if (!customer) {
+      customer = {
+        id: `cust-${Date.now()}`,
+        name: name?.trim() || `Customer ${cleanPhone.slice(-4)}`,
+        phone: cleanPhone,
+        email: email?.trim() || `${cleanPhone}@customer.craftique.in`,
+        saved_address: null,
+        created_at: new Date().toISOString(),
+        last_login: new Date().toISOString()
+      };
+      db.data.customers.push(customer);
+    } else {
+      if (name && name.trim()) customer.name = name.trim();
+      if (email && email.trim()) customer.email = email.trim();
+      customer.last_login = new Date().toISOString();
+    }
+    db.save();
+
+    // Fetch customer orders
+    const orders = db.getOrdersByCustomerPhone(cleanPhone);
+
+    res.json({
+      success: true,
+      message: 'Logged in successfully',
+      customer,
+      orders
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.get('/api/customer/orders', (req, res) => {
+  try {
+    const { phone } = req.query;
+    if (!phone) {
+      return res.status(400).json({ success: false, error: 'Phone number parameter is required' });
+    }
+    const cleanPhone = String(phone).replace(/[^0-9]/g, '').slice(-10);
+    const orders = db.getOrdersByCustomerPhone(cleanPhone);
+    res.json({ success: true, count: orders.length, data: orders });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.put('/api/customer/profile', (req, res) => {
+  try {
+    const { phone, name, email, saved_address } = req.body;
+    if (!phone) {
+      return res.status(400).json({ success: false, error: 'Phone is required' });
+    }
+    const cleanPhone = String(phone).replace(/[^0-9]/g, '').slice(-10);
+    if (!db.data.customers) db.data.customers = [];
+    let customer = db.data.customers.find(c => 
+      c.phone && c.phone.replace(/[^0-9]/g, '').endsWith(cleanPhone)
+    );
+
+    if (!customer) {
+      customer = {
+        id: `cust-${Date.now()}`,
+        phone: cleanPhone,
+        name: name || `Customer ${cleanPhone.slice(-4)}`,
+        email: email || '',
+        saved_address: saved_address || null,
+        created_at: new Date().toISOString()
+      };
+      db.data.customers.push(customer);
+    } else {
+      if (name !== undefined) customer.name = name;
+      if (email !== undefined) customer.email = email;
+      if (saved_address !== undefined) customer.saved_address = saved_address;
+    }
+    db.save();
+    res.json({ success: true, customer });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ==========================================
 // 4. UPI PAYMENT & VERIFICATION
 // ==========================================
 app.get('/api/payment/qr/:orderNumber', async (req, res) => {

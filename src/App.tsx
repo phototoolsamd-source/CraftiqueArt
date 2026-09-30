@@ -13,6 +13,8 @@ import { CheckoutModal } from './components/storefront/CheckoutModal';
 import { UpiPaymentModal } from './components/storefront/UpiPaymentModal';
 import { OrderSuccessModal } from './components/storefront/OrderSuccessModal';
 import { OrderTrackingView } from './components/storefront/OrderTrackingView';
+import { CustomerAuthModal } from './components/storefront/CustomerAuthModal';
+import { CustomerOrdersModal } from './components/storefront/CustomerOrdersModal';
 
 // Admin components
 import { AdminLayout } from './components/admin/AdminLayout';
@@ -66,6 +68,8 @@ export const App: React.FC = () => {
   const [activeCreatedOrder, setActiveCreatedOrder] = useState<Order | null>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isCustomerAuthOpen, setIsCustomerAuthOpen] = useState(false);
+  const [isCustomerOrdersOpen, setIsCustomerOrdersOpen] = useState(false);
 
   // Products and Categories data
   const [products, setProducts] = useState<Product[]>([]);
@@ -254,6 +258,8 @@ export const App: React.FC = () => {
             onNavigate={handleNavigate}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
+            onOpenCustomerAuth={() => setIsCustomerAuthOpen(true)}
+            onOpenCustomerAccount={() => setIsCustomerOrdersOpen(true)}
           />
 
           <main className="flex-1">
@@ -391,6 +397,7 @@ export const App: React.FC = () => {
           isOpen={isCheckoutOpen}
           onClose={() => setIsCheckoutOpen(false)}
           onOrderCreated={handleOrderCreated}
+          onOpenCustomerAuth={() => setIsCustomerAuthOpen(true)}
         />
       )}
 
@@ -421,6 +428,32 @@ export const App: React.FC = () => {
           }}
         />
       )}
+
+      {/* Customer Mobile OTP Auth Modal */}
+      <CustomerAuthModal
+        isOpen={isCustomerAuthOpen}
+        onClose={() => setIsCustomerAuthOpen(false)}
+        onSuccess={() => {
+          setIsCustomerAuthOpen(false);
+          setIsCustomerOrdersOpen(true);
+        }}
+      />
+
+      {/* Customer Account & Order History Modal */}
+      <CustomerOrdersModal
+        isOpen={isCustomerOrdersOpen}
+        onClose={() => setIsCustomerOrdersOpen(false)}
+        onTrackOrder={(num) => {
+          setIsCustomerOrdersOpen(false);
+          setTrackingOrderNumber(num);
+          setCurrentView('track');
+        }}
+        onStartShopping={() => {
+          setIsCustomerOrdersOpen(false);
+          setCurrentView('home');
+          setSelectedCategorySlug('all');
+        }}
+      />
     </div>
   );
 };
