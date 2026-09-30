@@ -301,6 +301,14 @@ app.post('/api/customer/verify-otp', (req, res) => {
       return res.status(400).json({ success: false, error: 'Phone and OTP are required' });
     }
     const cleanPhone = String(phone).replace(/[^0-9]/g, '').slice(-10);
+    const cleanName = name ? String(name).trim() : '';
+    if (!cleanName) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'તમારું પૂરું નામ દાખલ કરવું ફરજિયાત છે (Your Full Name is required).' 
+      });
+    }
+
     const stored = customerOtpStore.get(cleanPhone);
 
     const isValid = (stored && stored.otp === String(otp).trim() && stored.expiresAt > Date.now()) ||
@@ -322,7 +330,7 @@ app.post('/api/customer/verify-otp', (req, res) => {
     if (!customer) {
       customer = {
         id: `cust-${Date.now()}`,
-        name: name?.trim() || `Customer ${cleanPhone.slice(-4)}`,
+        name: cleanName,
         phone: cleanPhone,
         email: email?.trim() || `${cleanPhone}@customer.craftique.in`,
         saved_address: null,
@@ -331,7 +339,7 @@ app.post('/api/customer/verify-otp', (req, res) => {
       };
       db.data.customers.push(customer);
     } else {
-      if (name && name.trim()) customer.name = name.trim();
+      customer.name = cleanName;
       if (email && email.trim()) customer.email = email.trim();
       customer.last_login = new Date().toISOString();
     }

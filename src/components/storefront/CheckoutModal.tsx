@@ -52,10 +52,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErrorMsg(null);
+    if (!customerName.trim()) {
+      setErrorMsg('ગ્રાહકનું પૂરું નામ દાખલ કરવું ફરજિયાત છે (Customer Full Name is required).');
+      return;
+    }
 
-    if (!customerName.trim() || !customerPhone.trim() || !street.trim() || !pincode.trim()) {
-      setErrorMsg('Please complete all required customer and address fields.');
+    if (!customerPhone.trim() || !street.trim() || !pincode.trim()) {
+      setErrorMsg('Please complete all required customer phone and address fields.');
       return;
     }
 
@@ -200,16 +203,16 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="text-[11px] font-semibold text-slate-600 block mb-1">
-                  Full Name *
+                <label className="text-[11px] font-bold text-slate-800 block mb-1">
+                  Full Name (તમારું પૂરું નામ) <span className="text-rose-500 font-bold">*</span>
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Aarav Sharma"
+                  placeholder="e.g. Ramesh Patel / પ્રિયાંક પટેલ"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
-                  className="w-full bg-white border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:ring-2 focus:ring-amber-600/30"
+                  className="w-full bg-white border border-slate-300 rounded-xl p-2.5 text-xs font-semibold text-slate-900 focus:ring-2 focus:ring-amber-600/30"
                 />
               </div>
 

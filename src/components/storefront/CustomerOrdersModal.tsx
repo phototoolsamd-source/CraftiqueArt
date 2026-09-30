@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCustomerAuth } from '../../context/CustomerAuthContext';
 import { StatusBadge } from '../common/StatusBadge';
 import {
@@ -15,7 +15,10 @@ import {
   RefreshCw,
   FolderCheck,
   ChevronRight,
-  UserCheck
+  UserCheck,
+  User,
+  Mail,
+  Phone
 } from 'lucide-react';
 
 interface CustomerOrdersModalProps {
@@ -31,28 +34,61 @@ export const CustomerOrdersModal: React.FC<CustomerOrdersModalProps> = ({
   onTrackOrder,
   onStartShopping
 }) => {
-  const { customer, orders, loadingOrders, logoutCustomer, updateAddress, refreshOrders } = useCustomerAuth();
+  const { customer, orders, loadingOrders, logoutCustomer, updateProfile, updateAddress, refreshOrders } = useCustomerAuth();
 
-  const [activeTab, setActiveTab] = useState<'orders' | 'address'>('orders');
+  const [activeTab, setActiveTab] = useState<'orders' | 'profile'>('orders');
 
-  // Address edit state
+  // Profile and Address edit state
+  const [profileName, setProfileName] = useState(customer?.name || '');
+  const [profileEmail, setProfileEmail] = useState(customer?.email || '');
   const [street, setStreet] = useState(customer?.saved_address?.street || '');
   const [city, setCity] = useState(customer?.saved_address?.city || 'Ahmedabad');
   const [state, setState] = useState(customer?.saved_address?.state || 'Gujarat');
   const [pincode, setPincode] = useState(customer?.saved_address?.pincode || '');
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [nameError, setNameError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (customer) {
+      if (customer.name) setProfileName(customer.name);
+      if (customer.email) setProfileEmail(customer.email);
+      if (customer.saved_address) {
+        setStreet(customer.saved_address.street || '');
+        setCity(customer.saved_address.city || 'Ahmedabad');
+        setState(customer.saved_address.state || 'Gujarat');
+        setPincode(customer.saved_address.pincode || '');
+      }
+    }
+  }, [customer]);
 
   if (!isOpen || !customer) return null;
 
-  const handleSaveAddress = async (e: React.FormEvent) => {
+  const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
-    await updateAddress({
-      street: street.trim(),
-      city: city.trim(),
-      state: state.trim(),
-      pincode: pincode.trim(),
-      country: 'India'
+    setNameError(null);
+
+    const cleanName = profileName.trim();
+    if (!cleanName) {
+      setNameError('તમારું પૂરું નામ દાખલ કરવું ફરજિયાત છે (Your Full Name is mandatory).');
+      return;
+    }
+    if (cleanName.length < 2) {
+      setNameError('કૃપા કરીને સાચું નામ દાખલ કરો (Name must be at least 2 characters).');
+      return;
+    }
+
+    await updateProfile({
+      name: cleanName,
+      email: profileEmail.trim(),
+      saved_address: {
+        street: street.trim(),
+        city: city.trim(),
+        state: state.trim(),
+        pincode: pincode.trim(),
+        country: 'India'
+      }
     });
+
     setSavedSuccess(true);
     setTimeout(() => setSavedSuccess(false), 2500);
   };
@@ -104,7 +140,7 @@ export const CustomerOrdersModal: React.FC<CustomerOrdersModalProps> = ({
 
             <button
               onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-slate-700 rounded-full hover:bg-slate-200/50 transition-colors"
+              className="p-1.5 text-slate-400 hover:text-slate-700 rounded-full hover:bg-slate-200/50 transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -126,15 +162,15 @@ export const CustomerOrdersModal: React.FC<CustomerOrdersModalProps> = ({
           </button>
 
           <button
-            onClick={() => setActiveTab('address')}
+            onClick={() => setActiveTab('profile')}
             className={`py-3 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-all cursor-pointer ${
-              activeTab === 'address'
+              activeTab === 'profile'
                 ? 'border-amber-800 text-amber-900'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
-            <MapPin className="w-4 h-4" />
-            <span>Default Delivery Address</span>
+            <User className="w-4 h-4" />
+            <span>Profile & Delivery Address</span>
           </button>
 
           <div className="ml-auto">
@@ -261,21 +297,81 @@ export const CustomerOrdersModal: React.FC<CustomerOrdersModalProps> = ({
               </div>
             )
           ) : (
-            <form onSubmit={handleSaveAddress} className="space-y-4 max-w-lg mx-auto">
+            <form onSubmit={handleSaveProfile} className="space-y-4 max-w-lg mx-auto">
               <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200/60 text-xs text-amber-900 flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-amber-700 shrink-0" />
                 <span>
-                  Your saved delivery address will automatically auto-fill whenever you checkout.
+                  Your name and delivery address are safely saved and will auto-fill on checkout.
                 </span>
               </div>
 
               {savedSuccess && (
                 <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span>Address saved successfully!</span>
+                  <span>Profile and address saved successfully!</span>
                 </div>
               )}
 
+              {/* Mandatory Name */}
+              <div>
+                <label className="block text-xs font-bold text-slate-800 mb-1">
+                  Your Full Name (તમારું પૂરું નામ) <span className="text-rose-500 font-bold">*</span>
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={profileName}
+                    onChange={(e) => {
+                      setProfileName(e.target.value);
+                      if (nameError) setNameError(null);
+                    }}
+                    placeholder="e.g. Ramesh Patel / પ્રિયાંક પટેલ"
+                    className="w-full bg-white border border-[#E2D8C9] rounded-xl py-2 pl-9 pr-3 text-xs font-bold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 shadow-xs"
+                    required
+                  />
+                  <User className="w-4 h-4 text-amber-700 absolute left-3 top-2.5 pointer-events-none" />
+                </div>
+                {nameError && (
+                  <span className="text-[10px] text-rose-600 font-bold block mt-1 pl-1">
+                    {nameError}
+                  </span>
+                )}
+              </div>
+
+              {/* Registered Phone (Verified) */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Registered Mobile Number (નોંધાયેલ નંબર)
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={`+91 ${customer.phone.replace(/[^0-9]/g, '').slice(-10)} (Verified)`}
+                    disabled
+                    className="w-full bg-slate-100 border border-slate-200 rounded-xl py-2 pl-9 pr-3 text-xs font-mono font-bold text-slate-600 select-none cursor-not-allowed"
+                  />
+                  <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Email Address */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Email Address (ઈમેઇલ)
+                </label>
+                <div className="relative">
+                  <input
+                    type="email"
+                    value={profileEmail}
+                    onChange={(e) => setProfileEmail(e.target.value)}
+                    placeholder="e.g. customer@example.com"
+                    className="w-full bg-white border border-[#E2D8C9] rounded-xl py-2 pl-9 pr-3 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 shadow-xs"
+                  />
+                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Street Address */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
                   Street Address & Landmark <span className="text-rose-500">*</span>
@@ -292,7 +388,7 @@ export const CustomerOrdersModal: React.FC<CustomerOrdersModalProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">City</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">City <span className="text-rose-500">*</span></label>
                   <input
                     type="text"
                     value={city}
@@ -302,7 +398,7 @@ export const CustomerOrdersModal: React.FC<CustomerOrdersModalProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">State</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">State <span className="text-rose-500">*</span></label>
                   <input
                     type="text"
                     value={state}
@@ -330,9 +426,10 @@ export const CustomerOrdersModal: React.FC<CustomerOrdersModalProps> = ({
 
               <button
                 type="submit"
-                className="w-full bg-[#B45309] hover:bg-[#92400E] text-white font-bold py-3 px-4 rounded-xl text-xs shadow-md transition-all cursor-pointer mt-2"
+                disabled={!profileName.trim()}
+                className="w-full bg-[#B45309] hover:bg-[#92400E] disabled:opacity-50 text-white font-bold py-3 px-4 rounded-xl text-xs shadow-md transition-all cursor-pointer mt-2"
               >
-                Save Delivery Address
+                Save Profile & Address
               </button>
             </form>
           )}

@@ -18,22 +18,23 @@ interface CustomerAuthModalProps {
   onClose: () => void;
   onSuccess?: () => void;
   prefillPhone?: string;
+  prefillName?: string;
 }
 
 export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
   isOpen,
   onClose,
   onSuccess,
-  prefillPhone = ''
+  prefillPhone = '',
+  prefillName = ''
 }) => {
   const { loginCustomer } = useCustomerAuth();
 
   const [step, setStep] = useState<'phone' | 'otp'>('phone');
+  const [name, setName] = useState(prefillName);
   const [phone, setPhone] = useState(prefillPhone);
-  const [name, setName] = useState('');
   const [otp, setOtp] = useState('');
   const [demoOtp, setDemoOtp] = useState('');
-  const [isExisting, setIsExisting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [countdown, setCountdown] = useState(30);
@@ -42,7 +43,10 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
     if (prefillPhone) {
       setPhone(prefillPhone.replace(/[^0-9]/g, '').slice(-10));
     }
-  }, [prefillPhone]);
+    if (prefillName) {
+      setName(prefillName);
+    }
+  }, [prefillPhone, prefillName]);
 
   useEffect(() => {
     let timer: any;
@@ -58,9 +62,21 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
     if (e) e.preventDefault();
     setErrorMsg(null);
 
-    const clean = phone.replace(/[^0-9]/g, '').slice(-10);
-    if (clean.length !== 10) {
-      setErrorMsg('Please enter a valid 10-digit mobile number.');
+    // Strict Name Validation (User's name is mandatory)
+    const cleanName = name.trim();
+    if (!cleanName) {
+      setErrorMsg('તમારું પૂરું નામ દાખલ કરવું ફરજિયાત છે (Your Full Name is required).');
+      return;
+    }
+    if (cleanName.length < 2) {
+      setErrorMsg('કૃપા કરીને સાચું નામ દાખલ કરો (Name must be at least 2 characters).');
+      return;
+    }
+
+    // Phone validation (10 digits)
+    const cleanPhone = phone.replace(/[^0-9]/g, '').slice(-10);
+    if (cleanPhone.length !== 10) {
+      setErrorMsg('કૃપા કરીને ૧૦ અંકનો સાચો મોબાઈલ નંબર દાખલ કરો (Valid 10-digit mobile number is required).');
       return;
     }
 
@@ -69,14 +85,16 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
       const res = await fetch('/api/customer/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: clean })
+        body: JSON.stringify({ phone: cleanPhone })
       });
 
       const data = await res.json();
       if (res.ok && data.success) {
         setDemoOtp(data.demoOtp || '3375');
-        setIsExisting(data.existing || false);
-        if (data.customerName) setName(data.customerName);
+        // If returning user already has a saved name and current input is empty, prefill
+        if (data.customerName && !cleanName) {
+          setName(data.customerName);
+        }
         setStep('otp');
         setCountdown(30);
       } else {
@@ -86,7 +104,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         setCountdown(30);
       }
     } catch (err) {
-      // Demo fallback so it never fails even if offline
+      // Offline fallback
       setDemoOtp('3375');
       setStep('otp');
       setCountdown(30);
@@ -99,11 +117,18 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
     e.preventDefault();
     setErrorMsg(null);
 
+    const cleanName = name.trim();
+    if (!cleanName) {
+      setErrorMsg('તમારું પૂરું નામ દાખલ કરવું ફરજિયાત છે (Your Full Name is required).');
+      setStep('phone');
+      return;
+    }
+
     const cleanPhone = phone.replace(/[^0-9]/g, '').slice(-10);
     const cleanOtp = otp.trim();
 
     if (!cleanOtp) {
-      setErrorMsg('Please enter the 4-digit verification code.');
+      setErrorMsg('કૃપા કરીને ૪ અંકનો વેરિફિકેશન કોડ (OTP) દાખલ કરો.');
       return;
     }
 
@@ -115,7 +140,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         body: JSON.stringify({
           phone: cleanPhone,
           otp: cleanOtp,
-          name: name.trim() || undefined
+          name: cleanName
         })
       });
 
@@ -129,7 +154,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         if (cleanOtp === demoOtp || cleanOtp === '3375' || cleanOtp === '1234') {
           const fallbackCust = {
             id: `cust-${Date.now()}`,
-            name: name.trim() || `Customer ${cleanPhone.slice(-4)}`,
+            name: cleanName,
             phone: cleanPhone,
             email: `${cleanPhone}@customer.craftique.in`,
             saved_address: null,
@@ -143,11 +168,11 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         }
       }
     } catch (err) {
-      // Offline fallback for demo code
+      // Offline fallback
       if (cleanOtp === demoOtp || cleanOtp === '3375' || cleanOtp === '1234') {
         const fallbackCust = {
           id: `cust-${Date.now()}`,
-          name: name.trim() || `Customer ${cleanPhone.slice(-4)}`,
+          name: cleanName,
           phone: cleanPhone,
           email: `${cleanPhone}@customer.craftique.in`,
           saved_address: null,
@@ -181,14 +206,14 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             </div>
             <div>
               <h2 className="font-serif font-bold text-base text-slate-900 leading-tight">
-                {step === 'phone' ? 'Customer Login / Sign Up' : 'Verify Mobile Number'}
+                {step === 'phone' ? 'Customer Login / Sign Up' : 'Verify Mobile & Name'}
               </h2>
               <p className="text-[11px] text-slate-500 font-medium">Craftique Bespoke Studio</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-700 rounded-full hover:bg-slate-200/50 transition-colors"
+            className="p-1.5 text-slate-400 hover:text-slate-700 rounded-full hover:bg-slate-200/50 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -211,13 +236,38 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                   Instant Access with OTP
                 </span>
                 <p className="text-xs text-slate-500 mt-2">
-                  Enter your mobile number to view your orders, track delivery, and review design proofs.
+                  Enter your full name and mobile number to manage your custom orders and proofs.
                 </p>
               </div>
 
+              {/* Mandatory Name Field */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Mobile Number <span className="text-rose-500">*</span>
+                <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                  Your Full Name (તમારું પૂરું નામ) <span className="text-rose-500 font-bold">*</span>
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="e.g. Ramesh Patel / પ્રિયાંક પટેલ"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full bg-white border border-[#E2D8C9] rounded-xl py-3 pl-10 pr-4 text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 transition-all shadow-xs"
+                    autoFocus
+                    required
+                  />
+                  <User className="w-4 h-4 text-amber-700 absolute left-3.5 top-3.5 pointer-events-none" />
+                </div>
+                {!name.trim() && (
+                  <span className="text-[10px] text-rose-600 font-medium block mt-1 pl-1">
+                    * નામ દાખલ કરવું ફરજિયાત છે (Mandatory)
+                  </span>
+                )}
+              </div>
+
+              {/* Mandatory Phone Field */}
+              <div>
+                <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                  Mobile Number (મોબાઇલ નંબર) <span className="text-rose-500 font-bold">*</span>
                 </label>
                 <div className="relative flex items-center">
                   <div className="absolute left-3 flex items-center gap-1.5 border-r border-slate-200 pr-2.5 py-1 text-xs font-bold text-slate-600 select-none">
@@ -231,7 +281,6 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/[^0-9]/g, ''))}
                     className="w-full bg-white border border-[#E2D8C9] rounded-xl py-3 pl-20 pr-4 text-sm font-semibold tracking-wider text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 transition-all shadow-xs"
-                    autoFocus
                     required
                   />
                 </div>
@@ -239,7 +288,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
               <button
                 type="submit"
-                disabled={loading || phone.replace(/[^0-9]/g, '').length !== 10}
+                disabled={loading || !name.trim() || phone.replace(/[^0-9]/g, '').length !== 10}
                 className="w-full bg-[#B45309] hover:bg-[#92400E] disabled:opacity-50 text-white font-bold py-3.5 px-4 rounded-xl text-sm shadow-md shadow-amber-900/15 flex items-center justify-center gap-2 transition-all cursor-pointer mt-2"
               >
                 {loading ? (
@@ -258,18 +307,25 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
               <div className="text-center pt-2">
                 <span className="text-[11px] text-slate-400 flex items-center justify-center gap-1.5">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                  100% Secure • No password needed
+                  100% Secure • Name & Number Verified
                 </span>
               </div>
             </form>
           ) : (
             <form onSubmit={handleVerifyOtp} className="space-y-4">
-              <div className="flex items-center justify-between p-3 rounded-xl bg-amber-50/70 border border-amber-200/60">
-                <div className="text-xs">
-                  <span className="text-slate-500 block">OTP sent to:</span>
-                  <span className="font-bold text-amber-950 font-mono tracking-wider">
-                    +91 {phone.replace(/[^0-9]/g, '').slice(-10)}
-                  </span>
+              {/* Summary card with Edit button */}
+              <div className="flex items-center justify-between p-3.5 rounded-xl bg-amber-50/70 border border-amber-200/60">
+                <div className="text-xs space-y-0.5">
+                  <div className="flex items-center gap-1.5">
+                    <User className="w-3.5 h-3.5 text-amber-800" />
+                    <span className="font-bold text-slate-900">{name}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-slate-600">
+                    <Phone className="w-3.5 h-3.5 text-amber-700" />
+                    <span className="font-mono font-bold text-amber-950">
+                      +91 {phone.replace(/[^0-9]/g, '').slice(-10)}
+                    </span>
+                  </div>
                 </div>
                 <button
                   type="button"
@@ -277,10 +333,11 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                     setStep('phone');
                     setOtp('');
                   }}
-                  className="text-xs font-semibold text-amber-800 hover:text-amber-950 flex items-center gap-1 cursor-pointer"
+                  className="text-xs font-bold text-amber-800 hover:text-amber-950 flex items-center gap-1 p-1.5 hover:bg-amber-100/60 rounded-lg transition-colors cursor-pointer"
+                  title="Edit Name or Phone"
                 >
-                  <Edit2 className="w-3 h-3" />
-                  <span>Change</span>
+                  <Edit2 className="w-3.5 h-3.5" />
+                  <span>Edit</span>
                 </button>
               </div>
 
@@ -303,9 +360,28 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                 </div>
               )}
 
+              {/* Mandatory Full Name Confirm Field in Step 2 */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Enter 4-Digit OTP <span className="text-rose-500">*</span>
+                <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                  Confirm Your Full Name (પૂરું નામ) <span className="text-rose-500 font-bold">*</span>
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Your Full Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full bg-white border border-[#E2D8C9] rounded-xl py-2.5 pl-10 pr-3 text-xs font-bold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 transition-all shadow-xs"
+                    required
+                  />
+                  <User className="w-4 h-4 text-amber-700 absolute left-3 top-2.5 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Mandatory OTP Field */}
+              <div>
+                <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                  Enter 4-Digit OTP <span className="text-rose-500 font-bold">*</span>
                 </label>
                 <div className="relative">
                   <input
@@ -322,26 +398,9 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                 </div>
               </div>
 
-              {/* Name field for new customer or profile completion */}
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Your Full Name {isExisting ? '(Optional)' : '<span className="text-rose-500">*</span>'}
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="e.g. Priyank Sharma"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-white border border-[#E2D8C9] rounded-xl py-2.5 pl-9 pr-3 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 transition-all shadow-xs"
-                  />
-                  <User className="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
-                </div>
-              </div>
-
               <button
                 type="submit"
-                disabled={loading || otp.trim().length < 4}
+                disabled={loading || !name.trim() || otp.trim().length < 4}
                 className="w-full bg-[#B45309] hover:bg-[#92400E] disabled:opacity-50 text-white font-bold py-3.5 px-4 rounded-xl text-sm shadow-md shadow-amber-900/15 flex items-center justify-center gap-2 transition-all cursor-pointer mt-2"
               >
                 {loading ? (
