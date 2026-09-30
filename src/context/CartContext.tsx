@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { CartItem } from '../types';
+import { useSettings } from './SettingsContext';
 
 interface CartContextType {
   cart: CartItem[];
@@ -15,6 +16,8 @@ interface CartContextType {
   shipping: number;
   discount: number;
   grandTotal: number;
+  freeShippingThreshold: number;
+  shippingFee: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -72,11 +75,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setCart([]);
   };
 
+  const { settings } = useSettings();
+  const gstRate = (Number(settings?.gst_rate) || 18) / 100;
+  const shippingFee = Number(settings?.shipping_fee ?? 80);
+  const freeShippingThreshold = Number(settings?.free_shipping_threshold ?? 1500);
+
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cart.reduce((sum, item) => sum + item.total, 0);
   const discount = subtotal > 3000 ? Math.round(subtotal * 0.05) : 0;
-  const tax = Math.round((subtotal - discount) * 0.18);
-  const shipping = (subtotal - discount) >= 1500 || subtotal === 0 ? 0 : 80;
+  const tax = Math.round((subtotal - discount) * gstRate);
+  const shipping = (subtotal - discount) >= freeShippingThreshold || subtotal === 0 ? 0 : shippingFee;
   const grandTotal = Math.max(0, subtotal - discount + tax + shipping);
 
   return (
@@ -94,12 +102,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         tax,
         shipping,
         discount,
-        grandTotal
+        grandTotal,
+        freeShippingThreshold,
+        shippingFee
       }}
     >
       {children}
     </CartContext.Provider>
   );
+
 };
 
 export const useCart = () => {

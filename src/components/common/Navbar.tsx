@@ -3,6 +3,7 @@ import { ShoppingBag, Search, Compass, ShieldCheck, MessageCircle, Menu, X, Arro
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import { useCustomerAuth } from '../../context/CustomerAuthContext';
+import { useSettings } from '../../context/SettingsContext';
 import { ThemeToggle } from './ThemeToggle';
 
 interface NavbarProps {
@@ -25,7 +26,12 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { itemCount, setIsCartOpen } = useCart();
   const { user, isAuthenticated } = useAuth();
   const { customer, isLoggedIn, orders } = useCustomerAuth();
+  const { settings } = useSettings();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const cleanPhone = String(settings.whatsapp_number || '916354871446').replace(/[^0-9]/g, '');
+  const brandTitle = settings.brand_title || 'Craftique';
+  const freeShippingThreshold = settings.free_shipping_threshold || 1500;
 
   const categories = [
     { name: 'All Products', slug: 'all' },
@@ -38,9 +44,9 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header className="sticky top-0 z-40 bg-[#FAF7F2]/95 dark:bg-[#161412]/95 backdrop-blur-md border-b border-[#EBE3D5] dark:border-stone-800 transition-all">
       {/* Top Announcement Bar */}
       <div className="bg-[#B45309] dark:bg-amber-900 text-[#FFFDF9] text-xs py-1.5 px-4 text-center font-medium tracking-wide flex justify-center items-center gap-3">
-        <span>✨ Handcrafted Indian Craftsmanship • Free Shipping above ₹1,499 • Dynamic UPI Instant QR</span>
+        <span>✨ Handcrafted Indian Craftsmanship • Free Shipping above ₹{freeShippingThreshold.toLocaleString('en-IN')} • Dynamic UPI Instant QR</span>
         <a
-          href="https://wa.me/916354871446?text=Hello%20Creaftique%2C%20I%20have%20an%20enquiry%20about%20customized%20products"
+          href={`https://wa.me/${cleanPhone}?text=Hello%20${encodeURIComponent(brandTitle)}%2C%20I%20have%20an%20enquiry%20about%20customized%20products`}
           target="_blank"
           rel="noopener noreferrer"
           className="hidden sm:inline-flex items-center gap-1 text-amber-200 hover:text-white underline font-semibold ml-2"
@@ -48,6 +54,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <MessageCircle className="w-3.5 h-3.5" /> WhatsApp Support
         </a>
       </div>
+
 
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="flex items-center justify-between h-20 sm:h-22 gap-4">
@@ -193,10 +200,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             </span>
             <span className="text-slate-300 dark:text-stone-700">|</span>
             <a
-              href="tel:+916354871446"
+              href={`tel:+${cleanPhone}`}
               className="text-amber-900 dark:text-amber-400 font-semibold hover:underline"
             >
-              +91 63548 71446
+              +{cleanPhone}
             </a>
           </div>
         </nav>

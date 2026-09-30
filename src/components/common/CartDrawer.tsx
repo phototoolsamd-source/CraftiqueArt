@@ -17,14 +17,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout }) => {
     discount,
     tax,
     shipping,
-    grandTotal
+    grandTotal,
+    freeShippingThreshold
   } = useCart();
 
   if (!isCartOpen) return null;
 
-  const freeShippingGoal = 1500;
+  const freeShippingGoal = freeShippingThreshold || 1500;
   const progressPercent = Math.min(100, Math.round((subtotal / freeShippingGoal) * 100));
   const amountNeeded = Math.max(0, freeShippingGoal - subtotal);
+
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">

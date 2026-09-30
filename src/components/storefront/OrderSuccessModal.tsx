@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { Order } from '../../types';
 import { CheckCircle2, Copy, MessageCircle, ExternalLink, ShieldCheck, FolderCheck } from 'lucide-react';
+import { useSettings } from '../../context/SettingsContext';
 
 interface OrderSuccessModalProps {
   order: Order;
@@ -14,6 +15,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
   onTrackOrder,
   onClose
 }) => {
+  const { settings } = useSettings();
   useEffect(() => {
     // Fire festive celebration confetti
     try {
@@ -35,9 +37,12 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const whatsappUrl = `https://wa.me/916354871446?text=${encodeURIComponent(
-    `Hello Creaftique, I have placed Order ${order.order_number} for ₹${order.grand_total.toLocaleString('en-IN')}. Please confirm production.`
+  const cleanPhone = String(settings.whatsapp_number || '916354871446').replace(/[^0-9]/g, '');
+  const brandName = settings.business_name || settings.brand_title || 'Craftique';
+  const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
+    `Hello ${brandName}, I have placed Order ${order.order_number} for ₹${order.grand_total.toLocaleString('en-IN')}. Please confirm production.`
   )}`;
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xs overflow-y-auto">

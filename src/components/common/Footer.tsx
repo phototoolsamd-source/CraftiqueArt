@@ -1,7 +1,13 @@
 import React from 'react';
 import { MessageCircle, ShieldCheck, Heart, MapPin, Mail, Phone, ExternalLink } from 'lucide-react';
+import { useSettings } from '../../context/SettingsContext';
 
 export const Footer: React.FC<{ onNavigate: (v: string, p?: string) => void }> = ({ onNavigate }) => {
+  const { settings } = useSettings();
+  const cleanPhone = String(settings.whatsapp_number || '916354871446').replace(/[^0-9]/g, '');
+  const brandName = settings.brand_title || 'Craftique';
+  const upiId = settings.upi_id || 'aksharstudio-3@okisbii';
+
   return (
     <footer className="bg-[#1E293B] dark:bg-[#0C0B0A] text-slate-300 dark:text-stone-300 pt-16 pb-12 border-t border-slate-800 dark:border-stone-850">
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
@@ -84,13 +90,13 @@ export const Footer: React.FC<{ onNavigate: (v: string, p?: string) => void }> =
               </li>
               <li>
                 <a
-                  href="https://wa.me/916354871446?text=Hi%20Creaftique%20Team%2C%20I%20need%20assistance%20with%20customization"
+                  href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hi ${brandName} Team, I need assistance with customization`)}`}
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-amber-400 transition-colors flex items-center gap-1.5"
                 >
                   <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>WhatsApp: +91 63548 71446</span>
+                  <span>WhatsApp: +{cleanPhone}</span>
                 </a>
               </li>
               <li>
@@ -119,13 +125,14 @@ export const Footer: React.FC<{ onNavigate: (v: string, p?: string) => void }> =
               </div>
               <p className="text-[11px] text-slate-400">
                 Dynamic QR code generated on checkout to: <br/>
-                <span className="font-mono text-amber-300 select-all font-semibold">aksharstudio-3@okisbii</span>
+                <span className="font-mono text-amber-300 select-all font-semibold">{upiId}</span>
               </p>
               <p className="text-[10px] text-slate-500">
                 Supports Google Pay, PhonePe, Paytm, BHIM and all banking apps.
               </p>
             </div>
           </div>
+
         </div>
 
         {/* Bottom Credits */}

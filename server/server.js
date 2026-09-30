@@ -702,13 +702,65 @@ app.get('/api/settings', (req, res) => {
 app.put('/api/settings', (req, res) => {
   const updated = db.updateSettings(req.body);
   db.logAudit({
-    user: 'Super Admin',
+    user: 'Studio Admin',
     action: 'Updated Store Settings',
     entity_type: 'Settings',
     entity_id: 'Store',
     new_value: JSON.stringify(Object.keys(req.body))
   });
   res.json({ success: true, data: updated });
+});
+
+app.post('/api/settings/test-drive', async (req, res) => {
+  const { script_url } = req.body;
+  if (!script_url) {
+    return res.status(400).json({ success: false, error: 'Google Apps Script URL દાખલ કરવી જરૂરી છે (Script URL required)' });
+  }
+
+  try {
+    const response = await fetch(script_url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'ping',
+        order_number: 'CRQ-TEST-0001',
+        customer_name: 'Studio Test Connection',
+        timestamp: new Date().toISOString()
+      }),
+      signal: AbortSignal.timeout(8000)
+    });
+
+    const text = await response.text();
+    let json = null;
+    try { json = JSON.parse(text); } catch (e) {}
+
+    // Check if Google returned an error page
+    if (text.includes('Page not found') || text.includes('unable to open the file') || response.status === 404) {
+      return res.status(400).json({
+        success: false,
+        error: 'ગૂગલ સ્ક્રિપ્ટ લિંક અમાન્ય અથવા 404 છે. કૃપા કરીને સ્ક્રિપ્ટ Web App તરીકે ડિપ્લોય કરો (Access: Anyone).'
+      });
+    }
+
+    if (response.ok || response.status === 200 || (json && json.status === 'ok')) {
+      return res.json({
+        success: true,
+        message: 'Google Apps Script સાથે સફળતાપૂર્વક કનેક્શન થઈ ગયું છે!',
+        details: json || { status: 'ok' }
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: 'Google Apps Script કનેક્ટ થયેલ છે.',
+      details: text.slice(0, 150)
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: `કનેક્શન નિષ્ફળ: ${err.message}`
+    });
+  }
 });
 
 app.get('/api/audit-logs', (req, res) => {

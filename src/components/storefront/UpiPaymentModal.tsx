@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import QRCode from 'qrcode';
 import { Copy, Check, ShieldCheck, ArrowRight, UploadCloud, MessageCircle, AlertCircle, Sparkles, Smartphone } from 'lucide-react';
+import { useSettings } from '../../context/SettingsContext';
 
 interface UpiPaymentModalProps {
   orderNumber: string;
@@ -19,13 +20,15 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
   onPaymentSubmitted,
   onClose
 }) => {
-  const UPI_ID = "aksharstudio-3@okisbii";
-  const BUSINESS_NAME = "Craftique";
+  const { settings } = useSettings();
+  const UPI_ID = settings.upi_id || "aksharstudio-3@okisbii";
+  const BUSINESS_NAME = settings.business_name || "Craftique";
   const cleanAmount = Math.round(amount);
 
   // Exact UPI URI according to specification:
   // upi://pay?pa=aksharstudio-3@okisbii&pn=Craftique&am=1230&cu=INR&tn=CRQ-20260913-0001
   const upiUri = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(BUSINESS_NAME)}&am=${cleanAmount}&cu=INR&tn=${encodeURIComponent(orderNumber)}`;
+
 
   const [qrDataUrl, setQrDataUrl] = useState<string>('');
   const [copiedUpi, setCopiedUpi] = useState(false);
@@ -110,9 +113,11 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
   };
 
   // WhatsApp helper
-  const whatsappUrl = `https://wa.me/916354871446?text=${encodeURIComponent(
-    `Hello Creaftique,\n\nI have placed Order ${orderNumber} for ₹${cleanAmount.toLocaleString('en-IN')}.\nPayment Status: Verification Pending\nCustomer: ${customerName}`
+  const cleanPhone = String(settings.whatsapp_number || '916354871446').replace(/[^0-9]/g, '');
+  const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
+    `Hello ${BUSINESS_NAME},\n\nI have placed Order ${orderNumber} for ₹${cleanAmount.toLocaleString('en-IN')}.\nPayment Status: Verification Pending\nCustomer: ${customerName}`
   )}`;
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs overflow-y-auto">

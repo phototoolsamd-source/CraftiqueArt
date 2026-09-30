@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useCustomerAuth } from '../../context/CustomerAuthContext';
+import { useSettings } from '../../context/SettingsContext';
 import { StatusBadge } from '../common/StatusBadge';
 import {
   X,
@@ -35,6 +36,7 @@ export const CustomerOrdersModal: React.FC<CustomerOrdersModalProps> = ({
   onStartShopping
 }) => {
   const { customer, orders, loadingOrders, logoutCustomer, updateProfile, updateAddress, refreshOrders } = useCustomerAuth();
+  const { settings } = useSettings();
 
   const [activeTab, setActiveTab] = useState<'orders' | 'profile'>('orders');
 
@@ -94,11 +96,14 @@ export const CustomerOrdersModal: React.FC<CustomerOrdersModalProps> = ({
   };
 
   const openWhatsAppSupport = (orderNumber: string) => {
+    const brandName = settings.business_name || settings.brand_title || 'Craftique';
+    const cleanPhone = String(settings.whatsapp_number || '916354871446').replace(/[^0-9]/g, '');
     const text = encodeURIComponent(
-      `Hello Craftique, I am ${customer.name || 'Customer'} (+91 ${customer.phone}). Regarding my order ${orderNumber}, please share an update.`
+      `Hello ${brandName}, I am ${customer.name || 'Customer'} (+91 ${customer.phone}). Regarding my order ${orderNumber}, please share an update.`
     );
-    window.open(`https://wa.me/916354871446?text=${text}`, '_blank');
+    window.open(`https://wa.me/${cleanPhone}?text=${text}`, '_blank');
   };
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-xs overflow-y-auto">
