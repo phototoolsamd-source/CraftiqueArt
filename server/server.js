@@ -266,6 +266,28 @@ app.patch('/api/orders/:orderNumber/status', (req, res) => {
   res.json({ success: true, data: updated });
 });
 
+app.delete('/api/orders/:orderNumber', (req, res) => {
+  const success = db.deleteOrder(req.params.orderNumber);
+  if (!success) {
+    return res.status(404).json({ success: false, error: 'Order not found' });
+  }
+  db.logAudit({
+    user: 'Admin',
+    action: 'Deleted Order',
+    entity_type: 'Order',
+    entity_id: req.params.orderNumber
+  });
+  res.json({ success: true, message: 'Order deleted successfully' });
+});
+
+app.delete('/api/customers/:id', (req, res) => {
+  const success = db.deleteCustomer(req.params.id);
+  if (!success) {
+    return res.status(404).json({ success: false, error: 'Customer not found' });
+  }
+  res.json({ success: true, message: 'Customer deleted successfully' });
+});
+
 // Endpoint: Download all customer uploaded photos for an order as ZIP
 app.get('/api/orders/:orderNumber/download-photos', async (req, res) => {
   try {

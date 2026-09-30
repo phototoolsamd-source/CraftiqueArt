@@ -13,7 +13,8 @@ import {
   Clock,
   Printer,
   FileText,
-  Download
+  Download,
+  Trash2
 } from 'lucide-react';
 
 export const OrdersManager: React.FC<{ initialOrderNumber?: string }> = ({ initialOrderNumber }) => {
@@ -24,6 +25,30 @@ export const OrdersManager: React.FC<{ initialOrderNumber?: string }> = ({ initi
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
   const [updatingStatus, setUpdatingStatus] = useState(false);
+  const [deletingOrder, setDeletingOrder] = useState<string | null>(null);
+
+  const handleDeleteOrder = async (orderNumber: string) => {
+    if (!window.confirm(`Are you sure you want to permanently delete order ${orderNumber}?`)) {
+      return;
+    }
+    setDeletingOrder(orderNumber);
+    try {
+      const res = await fetch(`/api/orders/${orderNumber}`, { method: 'DELETE' });
+      if (res.ok) {
+        setOrders(prev => prev.filter(o => o.order_number !== orderNumber));
+        if (selectedOrder?.order_number === orderNumber) {
+          setSelectedOrder(null);
+        }
+      } else {
+        alert('Could not delete order');
+      }
+    } catch (e) {
+      console.error('Error deleting order:', e);
+      alert('Network error while deleting order');
+    } finally {
+      setDeletingOrder(null);
+    }
+  };
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -194,13 +219,23 @@ export const OrdersManager: React.FC<{ initialOrderNumber?: string }> = ({ initi
                       <StatusBadge status={ord.order_status} />
                     </td>
                     <td className="py-3.5 px-4 text-right">
-                      <button
-                        onClick={() => setSelectedOrder(ord)}
-                        className="bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold px-3 py-1.5 rounded-lg border border-amber-200 transition-colors inline-flex items-center gap-1"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                        <span>Inspect</span>
-                      </button>
+                      <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          onClick={() => setSelectedOrder(ord)}
+                          className="bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold px-3 py-1.5 rounded-lg border border-amber-200 transition-colors inline-flex items-center gap-1 cursor-pointer"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>Inspect</span>
+                        </button>
+                        <button
+                          onClick={() => handleDeleteOrder(ord.order_number)}
+                          disabled={deletingOrder === ord.order_number}
+                          className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer border border-transparent hover:border-rose-200"
+                          title="Delete Order"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -228,12 +263,24 @@ export const OrdersManager: React.FC<{ initialOrderNumber?: string }> = ({ initi
                 </p>
               </div>
 
-              <button
-                onClick={() => setSelectedOrder(null)}
-                className="p-1.5 text-slate-400 hover:text-slate-700 rounded-full"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => handleDeleteOrder(selectedOrder.order_number)}
+                  disabled={deletingOrder === selectedOrder.order_number}
+                  className="px-3 py-1.5 rounded-xl border border-rose-300 text-rose-600 hover:bg-rose-600 hover:text-white transition-all text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs"
+                  title="Permanently Delete Order"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>Delete Order</span>
+                </button>
+
+                <button
+                  onClick={() => setSelectedOrder(null)}
+                  className="p-1.5 text-slate-400 hover:text-slate-700 rounded-full cursor-pointer hover:bg-slate-200/60 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             {/* Modal Body */}

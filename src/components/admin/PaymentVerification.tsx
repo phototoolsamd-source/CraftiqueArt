@@ -41,7 +41,7 @@ export const PaymentVerification: React.FC = () => {
         body: JSON.stringify({
           payment_id: paymentId,
           order_number: orderNumber,
-          verified_by: 'admin@phototoolsai.com',
+          verified_by: 'Studio Admin',
           action,
           rejection_reason: action === 'reject' ? rejectReason : undefined
         })

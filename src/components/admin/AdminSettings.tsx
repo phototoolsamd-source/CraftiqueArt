@@ -9,7 +9,7 @@ export const AdminSettings: React.FC = () => {
     upi_id: 'aksharstudio-3@okisbii',
     whatsapp_number: '916354871446',
     script_url: 'https://script.google.com/macros/s/AKfycbzRwtwNObuYTQXaZA9sOQW8mfArrfosgT2TqoK-s5w8FtYNYwDl6ZaeauhRD_Nz2cF_/exec',
-    admin_emails: ['admin@phototoolsai.com', 'hitesh@phototoolsai.com'],
+    admin_emails: ['admin@craftique.in'],
     gst_rate: 18,
     shipping_fee: 80,
     free_shipping_threshold: 1500,

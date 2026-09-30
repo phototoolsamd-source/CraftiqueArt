@@ -63,7 +63,7 @@ export const QualityControlPanel: React.FC = () => {
           checklist,
           status,
           notes,
-          inspected_by: 'qc-inspector@phototoolsai.com'
+          inspected_by: 'Studio QC'
         })
       });
 

@@ -14,7 +14,7 @@ const INITIAL_SETTINGS = {
   upi_id: "aksharstudio-3@okisbii",
   whatsapp_number: "916354871446",
   script_url: "https://script.google.com/macros/s/AKfycbzRwtwNObuYTQXaZA9sOQW8mfArrfosgT2TqoK-s5w8FtYNYwDl6ZaeauhRD_Nz2cF_/exec",
-  admin_emails: ["admin@phototoolsai.com", "hitesh@phototoolsai.com"],
+  admin_emails: ["admin@craftique.in"],
   gst_rate: 18,
   shipping_fee: 80,
   free_shipping_threshold: 1500,
@@ -571,124 +571,7 @@ const INITIAL_PRODUCTS = [
   }
 ];
 
-const INITIAL_ORDERS = [
-  {
-    id: "ord-1001",
-    order_number: "CRQ-20260929-0001",
-    customer_name: "Aarav Sharma",
-    customer_email: "aarav.sharma@example.com",
-    customer_phone: "+91 98251 12345",
-    shipping_address: {
-      street: "Flat 402, Lotus Residency, CG Road",
-      city: "Ahmedabad",
-      state: "Gujarat",
-      pincode: "380009",
-      country: "India"
-    },
-    billing_address: {
-      same_as_shipping: true
-    },
-    items: [
-      {
-        product_id: "prod-001",
-        sku: "WA001",
-        product_name: "Customized Canvas Wall Art",
-        quantity: 1,
-        size: "18 × 24 inch",
-        material: "Premium Matte Canvas (380 GSM)",
-        finish: "Matte Anti-Glare Coating",
-        frame: "Natural Teak Wood Floating Frame",
-        customization: {
-          text: "Our Journey Begins — Rishikesh 2026",
-          notes: "Please enhance warm sunset tones.",
-          photos: [
-            "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=900&auto=format&fit=crop&q=80"
-          ]
-        },
-        unit_price: 2000,
-        total: 2000
-      }
-    ],
-    subtotal: 2000,
-    discount: 100,
-    tax: 342,
-    shipping: 0,
-    grand_total: 2242,
-    payment_status: "Verified",
-    order_status: "PRODUCTION",
-    payment_id: "pay-1001",
-    utr: "627192847192",
-    payment_screenshot: "https://images.unsplash.com/photo-1556742049-0a67c5574f73?w=500&auto=format&fit=crop&q=80",
-    google_drive_folder: "Creaftique Orders/2026/09/29/CRQ-20260929-0001",
-    google_drive_url: "https://drive.google.com/drive/folders/demo-crq-001",
-    created_at: "2026-09-29T10:15:00Z",
-    updated_at: "2026-09-29T14:30:00Z",
-    timeline: [
-      { status: "NEW", label: "Order Placed", date: "2026-09-29T10:15:00Z", completed: true },
-      { status: "PAYMENT VERIFIED", label: "Payment Verified", date: "2026-09-29T11:00:00Z", completed: true },
-      { status: "DESIGN APPROVAL", label: "Artwork Approved", date: "2026-09-29T13:00:00Z", completed: true },
-      { status: "PRODUCTION", label: "In Production", date: "2026-09-29T14:30:00Z", current: true },
-      { status: "QUALITY CHECK", label: "Quality Check", completed: false },
-      { status: "READY TO DISPATCH", label: "Packing & Labeling", completed: false },
-      { status: "DISPATCHED", label: "Dispatched", completed: false },
-      { status: "DELIVERED", label: "Delivered", completed: false }
-    ]
-  },
-  {
-    id: "ord-1002",
-    order_number: "CRQ-20260929-0002",
-    customer_name: "Pooja Patel",
-    customer_email: "pooja.patel@example.com",
-    customer_phone: "+91 97240 67890",
-    shipping_address: {
-      street: "B-12 Shivalik Villa, Bodakdev",
-      city: "Ahmedabad",
-      state: "Gujarat",
-      pincode: "380054",
-      country: "India"
-    },
-    items: [
-      {
-        product_id: "prod-002",
-        sku: "PA002",
-        product_name: "Heritage Photobook Album",
-        quantity: 1,
-        size: "12 × 8 inch (Landscape Grand)",
-        material: "Lustre Fuji Crystal Pearl (260 GSM)",
-        finish: "Vegan Leather with Gold Foil Embossing",
-        frame: "None",
-        customization: {
-          text: "Rohan & Pooja's Wedding Memoir",
-          photos: [
-            "https://images.unsplash.com/photo-1544717305-2782549b5136?w=900&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1532012164546-f432f2e3777f?w=900&auto=format&fit=crop&q=80"
-          ]
-        },
-        unit_price: 3200,
-        total: 3200
-      }
-    ],
-    subtotal: 3200,
-    discount: 0,
-    tax: 576,
-    shipping: 0,
-    grand_total: 3776,
-    payment_status: "Customer Claimed Paid",
-    order_status: "PAYMENT PENDING",
-    payment_id: "pay-1002",
-    utr: "908123746192",
-    payment_screenshot: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=500&auto=format&fit=crop&q=80",
-    google_drive_folder: "Creaftique Orders/2026/09/29/CRQ-20260929-0002",
-    created_at: "2026-09-29T12:00:00Z",
-    updated_at: "2026-09-29T12:10:00Z",
-    timeline: [
-      { status: "NEW", label: "Order Placed", date: "2026-09-29T12:00:00Z", completed: true },
-      { status: "PAYMENT PENDING", label: "Payment Verification Required", date: "2026-09-29T12:10:00Z", current: true },
-      { status: "DESIGN REQUIRED", label: "Design Work", completed: false },
-      { status: "PRODUCTION", label: "Production", completed: false }
-    ]
-  }
-];
+const INITIAL_ORDERS = [];
 
 class Database {
   constructor() {
@@ -697,77 +580,12 @@ class Database {
       categories: INITIAL_CATEGORIES,
       products: INITIAL_PRODUCTS,
       orders: INITIAL_ORDERS,
-      payments: [
-        {
-          id: "pay-1001",
-          order_id: "ord-1001",
-          order_number: "CRQ-20260929-0001",
-          amount: 2242,
-          utr: "627192847192",
-          screenshot_url: "https://images.unsplash.com/photo-1556742049-0a67c5574f73?w=500&auto=format&fit=crop&q=80",
-          status: "Verified",
-          verified_by: "admin@phototoolsai.com",
-          verified_at: "2026-09-29T11:00:00Z",
-          created_at: "2026-09-29T10:20:00Z"
-        },
-        {
-          id: "pay-1002",
-          order_id: "ord-1002",
-          order_number: "CRQ-20260929-0002",
-          amount: 3776,
-          utr: "908123746192",
-          screenshot_url: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=500&auto=format&fit=crop&q=80",
-          status: "Customer Claimed Paid",
-          created_at: "2026-09-29T12:10:00Z"
-        }
-      ],
-      production_jobs: [
-        {
-          id: "job-1001",
-          order_id: "ord-1001",
-          order_number: "CRQ-20260929-0001",
-          sku: "WA001",
-          product_name: "Customized Canvas Wall Art",
-          size: "18 × 24 inch",
-          material: "Premium Matte Canvas (380 GSM)",
-          finish: "Matte Anti-Glare Coating",
-          status: "In Progress",
-          priority: "High",
-          started_at: "2026-09-29T14:30:00Z"
-        }
-      ],
+      payments: [],
+      production_jobs: [],
       qc_records: [],
       shipments: [],
-      design_proofs: [
-        {
-          id: "proof-1001",
-          order_id: "ord-1001",
-          order_number: "CRQ-20260929-0001",
-          proof_url: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=900&auto=format&fit=crop&q=80",
-          customer_status: "Approved",
-          versions: 1,
-          customer_notes: "Looks stunning! Please proceed to print.",
-          approved_at: "2026-09-29T13:00:00Z"
-        }
-      ],
-      customers: [
-        {
-          id: "cust-1",
-          name: "Aarav Sharma",
-          email: "aarav.sharma@example.com",
-          phone: "+91 98251 12345",
-          orders_count: 1,
-          total_spent: 2242
-        },
-        {
-          id: "cust-2",
-          name: "Pooja Patel",
-          email: "pooja.patel@example.com",
-          phone: "+91 97240 67890",
-          orders_count: 1,
-          total_spent: 3776
-        }
-      ],
+      design_proofs: [],
+      customers: [],
       audit_logs: [
         {
           id: "log-1",
@@ -1054,6 +872,47 @@ class Database {
       return this.data.orders[idx];
     }
     return null;
+  }
+
+  deleteOrder(orderNumber) {
+    if (!this.data.orders) return false;
+    const clean = String(orderNumber).trim();
+    const idx = this.data.orders.findIndex(o => o.order_number === clean || o.id === clean);
+    if (idx === -1) return false;
+    const deleted = this.data.orders.splice(idx, 1)[0];
+
+    // Remove associated payments, production jobs, and design proofs
+    if (this.data.payments) {
+      this.data.payments = this.data.payments.filter(
+        p => p.order_number !== clean && p.order_id !== deleted.id
+      );
+    }
+    if (this.data.production_jobs) {
+      this.data.production_jobs = this.data.production_jobs.filter(
+        j => j.order_number !== clean && j.order_id !== deleted.id
+      );
+    }
+    if (this.data.design_proofs) {
+      this.data.design_proofs = this.data.design_proofs.filter(
+        d => d.order_number !== clean && d.order_id !== deleted.id
+      );
+    }
+
+    this.save();
+    return true;
+  }
+
+  deleteCustomer(idOrPhone) {
+    if (!this.data.customers) return false;
+    const cleanDigits = String(idOrPhone).replace(/[^0-9]/g, '').slice(-10);
+    const idx = this.data.customers.findIndex(c => 
+      c.id === idOrPhone || 
+      (cleanDigits && c.phone && c.phone.replace(/[^0-9]/g, '').endsWith(cleanDigits))
+    );
+    if (idx === -1) return false;
+    this.data.customers.splice(idx, 1);
+    this.save();
+    return true;
   }
 
   upsertCustomer({ name, email, phone, amount, address }) {

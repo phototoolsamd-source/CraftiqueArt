@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { UserRole } from '../../types';
 import {
   LayoutDashboard,
   ShoppingBag,
@@ -36,7 +35,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   onExitAdmin,
   children
 }) => {
-  const { user, role, switchRole, logout, isAuthenticated, login } = useAuth();
+  const { user, logout, isAuthenticated, login } = useAuth();
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState(false);
 
@@ -45,7 +44,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
     const clean = pinInput.trim().toLowerCase();
     // Authorized passcodes: 3375, akshar3375, craftique, admin
     if (clean === '3375' || clean === 'akshar3375' || clean === 'craftique' || clean === 'admin' || clean === 'akshar') {
-      login('admin@phototoolsai.com', pinInput, 'Super Admin');
+      login('admin@craftique.in', pinInput, 'Admin');
       setPinError(false);
       setPinInput('');
     } else {
@@ -138,15 +137,6 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
     { id: 'settings', label: 'Settings', icon: <Settings className="w-4 h-4" /> }
   ];
 
-  const rolesList: UserRole[] = [
-    'Super Admin',
-    'Admin',
-    'Production',
-    'Designer',
-    'QC',
-    'Dispatch'
-  ];
-
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col md:flex-row">
       {/* Sidebar */}
@@ -227,31 +217,23 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
             </span>
           </div>
 
-          {/* Role selector, user profile, and exit button */}
+          {/* Verified Studio Admin Badge & Profile */}
           <div className="flex items-center gap-3">
-            {/* Quick Role Switcher */}
-            <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200">
-              <span className="text-[10px] uppercase font-bold text-slate-500 pl-2">Role:</span>
-              <select
-                value={role}
-                onChange={(e) => switchRole(e.target.value as UserRole)}
-                className="bg-white border-none text-xs font-bold text-amber-900 rounded-lg py-1 px-2.5 shadow-xs focus:ring-1 focus:ring-amber-600 cursor-pointer"
-              >
-                {rolesList.map((r) => (
-                  <option key={r} value={r}>
-                    {r}
-                  </option>
-                ))}
-              </select>
+            <div className="flex items-center gap-1.5 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200/80 shadow-xs">
+              <ShieldCheck className="w-4 h-4 text-amber-700" />
+              <span className="text-xs font-bold text-amber-950">Studio Admin</span>
             </div>
 
             <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
-              <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-900 font-bold flex items-center justify-center text-xs">
-                {user?.name?.[0] || 'A'}
+              <div className="w-8 h-8 rounded-full bg-amber-700 text-white font-bold flex items-center justify-center text-xs shadow-xs">
+                A
               </div>
               <div className="hidden sm:block text-left text-xs">
-                <span className="font-bold text-slate-800 block leading-tight">{user?.name || 'Studio Owner'}</span>
-                <span className="text-[10px] text-slate-400">{user?.email || 'admin@phototoolsai.com'}</span>
+                <span className="font-bold text-slate-900 block leading-tight">Akshar (Owner)</span>
+                <span className="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+                  Studio Active
+                </span>
               </div>
             </div>
 
