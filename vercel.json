@@ -4,7 +4,7 @@
   "buildCommand": "vite build",
   "outputDirectory": "dist",
   "functions": {
-    "api/index.js": {
+    "api/**": {
       "includeFiles": "server/**"
     }
   },

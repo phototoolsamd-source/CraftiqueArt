@@ -1,9 +1,27 @@
-const app = require('../server/server');
+let app;
+let initError = null;
+
+try {
+  app = require('../server/server');
+} catch (e) {
+  initError = {
+    message: e.message,
+    stack: e.stack,
+    name: e.name,
+    code: e.code
+  };
+}
 
 module.exports = (req, res) => {
+  if (initError) {
+    return res.status(500).json({
+      success: false,
+      error: 'Module initialization failed',
+      details: initError
+    });
+  }
+
   try {
-    // On Vercel, URL rewrites may set req.url to /api/index.js.
-    // Restore the original request path from x-matched-path if present.
     const matchedPath = req.headers['x-matched-path'] || req.headers['x-forwarded-uri'];
     if (matchedPath && !matchedPath.endsWith('/api/index.js') && !matchedPath.endsWith('/api/index')) {
       const urlParts = (req.url || '').split('?');
@@ -12,11 +30,11 @@ module.exports = (req, res) => {
     }
     return app(req, res);
   } catch (err) {
-    console.error('[Vercel Serverless Function Error]:', err);
     return res.status(500).json({
       success: false,
-      error: 'Internal Server Error',
-      message: err.message
+      error: 'Request handling error',
+      message: err.message,
+      stack: err.stack
     });
   }
 };
