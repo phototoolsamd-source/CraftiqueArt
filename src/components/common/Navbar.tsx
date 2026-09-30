@@ -49,11 +49,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => onNavigate('home')}
             className="cursor-pointer flex items-center gap-3 group select-none shrink-0"
           >
-            <div className="w-12 h-12 rounded-full overflow-hidden shadow-md shadow-amber-950/20 border-2 border-amber-600/40 group-hover:scale-105 transition-transform shrink-0 bg-black flex items-center justify-center">
+            <div className="w-13 h-13 rounded-full p-1 bg-white shadow-md shadow-amber-950/10 border border-slate-200/80 ring-2 ring-amber-600/25 group-hover:scale-105 group-hover:shadow-lg transition-all shrink-0 flex items-center justify-center">
               <img
                 src="/logo.png"
                 alt="Craftique Production Logo"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain rounded-full"
               />
             </div>
             <div>

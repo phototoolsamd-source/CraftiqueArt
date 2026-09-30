@@ -9,8 +9,8 @@ export const Footer: React.FC<{ onNavigate: (v: string, p?: string) => void }> =
           {/* Brand Info */}
           <div className="space-y-4 md:col-span-1">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-amber-500/40 bg-black flex items-center justify-center shrink-0 shadow-md">
-                <img src="/logo.png" alt="Craftique Production Logo" className="w-full h-full object-cover" />
+              <div className="w-13 h-13 rounded-full p-1 bg-white border border-slate-700 ring-2 ring-amber-500/40 flex items-center justify-center shrink-0 shadow-lg">
+                <img src="/logo.png" alt="Craftique Production Logo" className="w-full h-full object-contain rounded-full" />
               </div>
               <div>
                 <span className="font-serif text-2xl font-bold text-white tracking-tight">
