@@ -100,8 +100,28 @@ class DriveService {
     });
     console.log(`[DriveService] Saved ${photoCount} customer photos to ${folderInfo.localPaths.photos}`);
 
+    // Prepare photos payload for Google Apps Script sync
+    const photosPayload = [];
+    (order.items || []).forEach(item => {
+      const photos = item.customization?.photos || [];
+      photos.forEach((p, idx) => {
+        const photoUrl = typeof p === 'string' ? p : p.url;
+        if (!photoUrl) return;
+        if (photoUrl.startsWith('data:image/')) {
+          const matches = photoUrl.match(/^data:image\/([a-zA-Z0-9]+);base64,(.+)$/);
+          if (matches) {
+            photosPayload.push({
+              filename: `Photo_${photosPayload.length + 1}_${order.order_number}.${matches[1] === 'jpeg' ? 'jpg' : matches[1]}`,
+              mimeType: `image/${matches[1]}`,
+              base64: matches[2]
+            });
+          }
+        }
+      });
+    });
+
     let driveFolderId = `gdrive-fld-${order.order_number}`;
-    let driveUrl = `https://drive.google.com/drive/folders/${driveFolderId}`;
+    let driveUrl = `https://drive.google.com/drive/search?q=${encodeURIComponent(order.order_number)}`;
     let appsScriptStatus = 'Local Initialized';
 
     // Try posting to Apps Script endpoint if configured
@@ -119,9 +139,10 @@ class DriveService {
             customer_phone: order.customer_phone,
             grand_total: order.grand_total,
             items_count: order.items?.length || 1,
-            folder_path: folderInfo.relativePath
+            folder_path: folderInfo.relativePath,
+            photos: photosPayload.slice(0, 10)
           }),
-          signal: AbortSignal.timeout(5000)
+          signal: AbortSignal.timeout(10000)
         });
 
         if (response.ok) {
@@ -136,13 +157,15 @@ class DriveService {
       }
     }
 
-    // Update order with folder info
+    // Update order with folder info & direct URL
     db.updateOrder(order.order_number, {
       google_drive_folder: folderInfo.relativePath,
       google_drive_folder_id: driveFolderId,
+      google_drive_url: driveUrl,
       google_drive_status: appsScriptStatus,
       local_storage_path: folderInfo.localPaths.root
     });
+
 
     return {
       folderPath: folderInfo.relativePath,

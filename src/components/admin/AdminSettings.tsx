@@ -23,7 +23,7 @@ import {
 
 const GOOGLE_SCRIPT_TEMPLATE = `/**
  * Craftique Google Drive Order Management Webhook
- * Automatically creates order folder & subfolders in your Google Drive.
+ * Automatically creates order folder, subfolders & saves customer photos in your Google Drive.
  */
 function doGet(e) {
   return ContentService.createTextOutput(JSON.stringify({ status: "ok", message: "Craftique Google Drive Script Connected!" }))
@@ -38,12 +38,13 @@ function doPost(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
     
-    var orderNumber = data.order_number || "CRQ-" + Utilities.formatDate(new Date(), "GMT+5:30", "yyyyMMdd-HHmmss");
+    var orderNumber = data.order_number || ("CRQ-" + Utilities.formatDate(new Date(), "GMT+5:30", "yyyyMMdd-HHmmss"));
     var customerName = data.customer_name || "Customer";
     
-    // Find or create "Creaftique Orders" master folder in Google Drive
-    var masterFolders = DriveApp.getFoldersByName("Creaftique Orders");
-    var masterFolder = masterFolders.hasNext() ? masterFolders.next() : DriveApp.createFolder("Creaftique Orders");
+    // Find or create "Craftique Orders" master folder in Google Drive
+    var masterFolderName = "Craftique Orders";
+    var masterFolders = DriveApp.getFoldersByName(masterFolderName);
+    var masterFolder = masterFolders.hasNext() ? masterFolders.next() : DriveApp.createFolder(masterFolderName);
     
     var now = new Date();
     var yyyy = Utilities.formatDate(now, "GMT+5:30", "yyyy");
@@ -63,10 +64,31 @@ function doPost(e) {
     var orderFolder = fDay.createFolder(orderNumber + " - " + customerName);
     
     // Create organized subfolders
-    orderFolder.createFolder("Customer Details");
-    orderFolder.createFolder("Uploaded Photos");
-    orderFolder.createFolder("Design Proofs");
-    orderFolder.createFolder("Invoices & Packing");
+    var photosFolder = orderFolder.createFolder("Uploaded Photos");
+    var designFolder = orderFolder.createFolder("Design Proofs");
+    var infoFolder = orderFolder.createFolder("Customer Details");
+    
+    // Save customer summary file
+    var orderSummary = "Order Number: " + orderNumber + "\\n" +
+      "Customer Name: " + customerName + "\\n" +
+      "Customer Phone: " + (data.customer_phone || "N/A") + "\\n" +
+      "Customer Email: " + (data.customer_email || "N/A") + "\\n" +
+      "Total Amount: INR " + (data.grand_total || 0) + "\\n" +
+      "Total Items: " + (data.items_count || 1) + "\\n" +
+      "Date: " + Utilities.formatDate(now, "GMT+5:30", "dd/MM/yyyy HH:mm:ss");
+    infoFolder.createFile("Order_Info.txt", orderSummary, "text/plain");
+
+    // Save uploaded photos directly into Google Drive
+    if (data.photos && data.photos.length > 0) {
+      for (var i = 0; i < data.photos.length; i++) {
+        var p = data.photos[i];
+        if (p.base64) {
+          var decoded = Utilities.base64Decode(p.base64);
+          var blob = Utilities.newBlob(decoded, p.mimeType || 'image/jpeg', p.filename || ('Photo_' + (i + 1) + '.jpg'));
+          photosFolder.createFile(blob);
+        }
+      }
+    }
     
     return ContentService.createTextOutput(JSON.stringify({
       status: "ok",
@@ -79,6 +101,7 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 }`;
+
 
 export const AdminSettings: React.FC = () => {
   const [settings, setSettings] = useState<any>({

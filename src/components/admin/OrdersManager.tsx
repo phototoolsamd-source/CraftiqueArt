@@ -330,22 +330,34 @@ export const OrdersManager: React.FC<{ initialOrderNumber?: string }> = ({ initi
               </div>
 
               {/* Google Drive Order Storage */}
-              <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-center justify-between">
+              <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-2xl border border-amber-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-2.5">
-                  <FolderCheck className="w-5 h-5 text-amber-700" />
+                  <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-800 shrink-0">
+                    <FolderCheck className="w-5 h-5" />
+                  </div>
                   <div>
-                    <span className="font-bold text-xs text-slate-800 block">
-                      Google Drive Order Structure
+                    <span className="font-bold text-xs text-slate-900 block">
+                      Google Drive Folder (ઓર્ડર ફોલ્ડર)
                     </span>
-                    <span className="font-mono text-[11px] text-slate-500">
-                      {selectedOrder.google_drive_folder || 'Creaftique Orders/2026/09/29/' + selectedOrder.order_number}
+                    <span className="font-mono text-[11px] text-slate-600 block">
+                      {selectedOrder.google_drive_folder || ('Craftique Orders/' + selectedOrder.order_number)}
                     </span>
                   </div>
                 </div>
-                <span className="text-xs bg-slate-200 text-slate-700 px-3 py-1 rounded-full font-semibold">
-                  Archival Ready
-                </span>
+
+                <div className="flex items-center gap-2 self-start sm:self-auto">
+                  <a
+                    href={selectedOrder.google_drive_url || `https://drive.google.com/drive/search?q=${encodeURIComponent(selectedOrder.order_number)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-800 hover:bg-amber-900 text-white text-xs font-bold shadow-xs transition-colors cursor-pointer"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>ડ્રાઇવમાં ફોલ્ડર ખોલો (Open Folder)</span>
+                  </a>
+                </div>
               </div>
+
 
               {/* Items & Configuration Snapshot */}
               <div className="space-y-3">
