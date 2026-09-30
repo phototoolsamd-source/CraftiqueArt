@@ -102,23 +102,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               Track Order
             </button>
 
-            {/* Admin Switcher / Login button */}
-            <button
-              onClick={() => onNavigate('admin')}
-              className={`flex items-center gap-1.5 text-xs font-semibold py-2 px-3.5 rounded-full transition-all border ${
-                currentView.startsWith('admin')
-                  ? 'bg-slate-900 text-white border-slate-900 shadow-xs'
-                  : 'bg-white border-[#E2D8C9] text-slate-700 hover:bg-slate-50'
-              }`}
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
-              <span className="hidden sm:inline">Admin Portal</span>
-              <span className="sm:hidden">Admin</span>
-              {isAuthenticated && (
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse ml-0.5" />
-              )}
-            </button>
-
             {/* Cart Button with Count Badge */}
             <button
               onClick={() => setIsCartOpen(true)}

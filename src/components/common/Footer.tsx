@@ -94,14 +94,14 @@ export const Footer: React.FC<{ onNavigate: (v: string, p?: string) => void }> =
                 </a>
               </li>
               <li>
-                <a href="mailto:admin@phototoolsai.com" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                <a href="mailto:support@craftique.in" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
                   <Mail className="w-3.5 h-3.5 text-amber-400" />
-                  <span>admin@phototoolsai.com</span>
+                  <span>support@craftique.in</span>
                 </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('admin')} className="hover:text-amber-400 transition-colors">
-                  Admin & Production Portal
+                <button onClick={() => onNavigate('track')} className="hover:text-amber-400 transition-colors cursor-pointer">
+                  Track Your Custom Order
                 </button>
               </li>
             </ul>

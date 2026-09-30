@@ -120,6 +120,27 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     loadData();
+
+    // Check URL query parameters or path for secret admin access (e.g. ?portal=admin)
+    const params = new URLSearchParams(window.location.search);
+    if (
+      window.location.pathname === '/admin' ||
+      params.get('portal') === 'admin' ||
+      params.get('view') === 'admin' ||
+      params.has('admin')
+    ) {
+      setCurrentView('admin');
+    }
+
+    // Owner shortcut: Ctrl+Shift+A or Cmd+Shift+A toggles admin gate
+    const handleAdminKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        setCurrentView(prev => (prev === 'admin' ? 'home' : 'admin'));
+      }
+    };
+    window.addEventListener('keydown', handleAdminKey);
+    return () => window.removeEventListener('keydown', handleAdminKey);
   }, []);
 
   const handleNavigate = (view: string, param?: string) => {
