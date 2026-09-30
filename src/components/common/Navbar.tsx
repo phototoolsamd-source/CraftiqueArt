@@ -49,18 +49,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => onNavigate('home')}
             className="cursor-pointer flex items-center gap-3 group select-none shrink-0"
           >
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-800 to-amber-600 flex items-center justify-center shadow-md shadow-amber-900/10 group-hover:scale-105 transition-transform">
-              <svg className="w-6 h-6 text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor">
-                <path d="M30 65 C 25 45, 45 25, 65 30 C 75 35, 75 55, 60 65 C 45 75, 35 75, 30 65 Z" strokeWidth="8" />
-                <circle cx="50" cy="50" r="10" fill="#FDE68A" />
-              </svg>
+            <div className="w-12 h-12 rounded-full overflow-hidden shadow-md shadow-amber-950/20 border-2 border-amber-600/40 group-hover:scale-105 transition-transform shrink-0 bg-black flex items-center justify-center">
+              <img
+                src="/logo.png"
+                alt="Craftique Production Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div>
               <span className="font-serif text-2xl font-bold tracking-tight text-slate-900 flex items-center">
-                Creaftique
+                Craftique
               </span>
-              <span className="block text-[10px] uppercase font-bold tracking-widest text-amber-800/80 -mt-1">
-                Create • Customize • Print
+              <span className="block text-[10px] uppercase font-bold tracking-widest text-amber-800/80 -mt-0.5">
+                Handmade & Custom Art
               </span>
             </div>
           </div>

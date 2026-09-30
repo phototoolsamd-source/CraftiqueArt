@@ -42,8 +42,13 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xs overflow-y-auto">
       <div className="bg-[#FFFDF9] rounded-3xl border border-[#E8DFD0] shadow-2xl max-w-lg w-full overflow-hidden my-8 animate-scale-in text-center p-8 space-y-6">
-        <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-800 mx-auto flex items-center justify-center shadow-xs">
-          <CheckCircle2 className="w-9 h-9" />
+        <div className="flex items-center justify-center gap-3">
+          <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-amber-500/50 bg-black shadow-md flex items-center justify-center">
+            <img src="/logo.png" alt="Craftique Production Logo" className="w-full h-full object-cover" />
+          </div>
+          <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shadow-xs">
+            <CheckCircle2 className="w-9 h-9" />
+          </div>
         </div>
 
         <div>

@@ -9,12 +9,17 @@ export const Footer: React.FC<{ onNavigate: (v: string, p?: string) => void }> =
           {/* Brand Info */}
           <div className="space-y-4 md:col-span-1">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 to-amber-500 flex items-center justify-center text-white font-bold">
-                C
+              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-amber-500/40 bg-black flex items-center justify-center shrink-0 shadow-md">
+                <img src="/logo.png" alt="Craftique Production Logo" className="w-full h-full object-cover" />
               </div>
-              <span className="font-serif text-2xl font-bold text-white tracking-tight">
-                Creaftique
-              </span>
+              <div>
+                <span className="font-serif text-2xl font-bold text-white tracking-tight">
+                  Craftique
+                </span>
+                <span className="block text-[10px] uppercase font-bold tracking-widest text-amber-400">
+                  Production Studio
+                </span>
+              </div>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Create. Customize. Print. Cherish. Modern Indian craft meets contemporary giclée printing technology for personalized memories that endure.

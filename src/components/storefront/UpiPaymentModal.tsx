@@ -119,9 +119,14 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
       <div className="bg-[#FFFDF9] rounded-3xl border border-[#E8DFD0] shadow-2xl max-w-lg w-full overflow-hidden my-8 animate-scale-in">
         {/* Header */}
         <div className="bg-gradient-to-r from-amber-900 to-amber-800 text-white p-6 text-center relative">
-          <div className="inline-flex items-center gap-1.5 bg-amber-700/60 backdrop-blur-xs px-3 py-1 rounded-full text-xs font-semibold text-amber-200 mb-2">
-            <ShieldCheck className="w-3.5 h-3.5 text-amber-300" />
-            Direct UPI Payment Gateway
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="w-8 h-8 rounded-full overflow-hidden border border-amber-400/50 bg-black shadow-xs shrink-0">
+              <img src="/logo.png" alt="Craftique" className="w-full h-full object-cover" />
+            </div>
+            <div className="inline-flex items-center gap-1.5 bg-amber-700/60 backdrop-blur-xs px-3 py-1 rounded-full text-xs font-semibold text-amber-200">
+              <ShieldCheck className="w-3.5 h-3.5 text-amber-300" />
+              Craftique Official UPI Gateway
+            </div>
           </div>
           <h2 className="font-serif text-3xl font-bold">
             Pay ₹{cleanAmount.toLocaleString('en-IN')}
