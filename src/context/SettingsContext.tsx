@@ -27,9 +27,10 @@ export const DEFAULT_SETTINGS: AppSettings = {
   free_shipping_threshold: 1500,
   order_prefix: 'CRQ',
   custom_drive_folder_id: '1sX5j-E5gN6l49d5h9fGzE6f6004u5g2e',
-  script_url: 'https://script.google.com/macros/s/AKfycbzRwtwNObuYTQXaZA9sOQW8mfArrfosgT2TqoK-s5w8FtYNYwDl6ZaeauhRD_Nz2cF_/exec',
-  google_script_url: 'https://script.google.com/macros/s/AKfycbzRwtwNObuYTQXaZA9sOQW8mfArrfosgT2TqoK-s5w8FtYNYwDl6ZaeauhRD_Nz2cF_/exec'
+  script_url: 'https://script.google.com/macros/s/AKfycbw2SIchIvwh55FhbrHsnGnWGzFtC1fajbQSK7nQD_P7nof9fXJ7lDOvDShhttMZsAfdwQ/exec',
+  google_script_url: 'https://script.google.com/macros/s/AKfycbw2SIchIvwh55FhbrHsnGnWGzFtC1fajbQSK7nQD_P7nof9fXJ7lDOvDShhttMZsAfdwQ/exec'
 };
+
 
 
 interface SettingsContextType {

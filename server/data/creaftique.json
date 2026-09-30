@@ -5,7 +5,7 @@
     "tagline": "Create. Customize. Print. Cherish.",
     "upi_id": "aksharstudio-3@okisbii",
     "whatsapp_number": "916354871446",
-    "script_url": "https://script.google.com/macros/s/AKfycbzRwtwNObuYTQXaZA9sOQW8mfArrfosgT2TqoK-s5w8FtYNYwDl6ZaeauhRD_Nz2cF_/exec",
+    "script_url": "https://script.google.com/macros/s/AKfycbw2SIchIvwh55FhbrHsnGnWGzFtC1fajbQSK7nQD_P7nof9fXJ7lDOvDShhttMZsAfdwQ/exec",
     "admin_emails": [
       "admin@craftique.in"
     ],
@@ -3740,7 +3740,68 @@
   ],
   "orders": [
     {
+      "id": "ord-demo-001",
+      "order_number": "CRQ-DEMO-001",
+      "customer_name": "Akshar Studio (Demo Test)",
+      "customer_phone": "916354871446",
+      "customer_email": "aksharstudio-3@okisbii",
+      "shipping_address": {
+        "street": "Akshar Studio, Near S.G. Highway",
+        "city": "Ahmedabad",
+        "state": "Gujarat",
+        "pincode": "380054",
+        "country": "India"
+      },
+      "items": [
+        {
+          "cart_item_id": "demo-item-1",
+          "product_id": "prod-sync-canvas_frame_12x18",
+          "sku": "CANVAS_FRAME_12X18",
+          "product_name": "Personalized Artisan Canvas Frame",
+          "image": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=800&auto=format&fit=crop&q=80",
+          "size": "12 × 18 inch",
+          "material": "Museum Grade Canvas",
+          "finish": "Satin Anti-Glare",
+          "quantity": 1,
+          "unit_price": 1250,
+          "total": 1250,
+          "customization": {
+            "text": "Craftique Artisan Studio — Demo Print",
+            "notes": "Premium gallery wrap with wooden floater frame",
+            "photos": [
+              {
+                "url": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=1200&auto=format&fit=crop&q=80",
+                "name": "Demo_Canvas_Print.jpg"
+              }
+            ]
+          },
+          "selected_extras": []
+        }
+      ],
+      "subtotal": 1250,
+      "discount": 0,
+      "tax": 225,
+      "shipping": 0,
+      "grand_total": 1475,
+      "order_status": "NEW",
+      "payment_status": "Verified",
+      "google_drive_folder": "Craftique Orders/2026/09/30/CRQ-DEMO-001 - Akshar Studio (Demo Test)",
+      "google_drive_folder_id": "1fSdaV7e67JTk1h1O7fIt7r4QNAuetOTx",
+      "google_drive_url": "https://drive.google.com/drive/folders/1fSdaV7e67JTk1h1O7fIt7r4QNAuetOTx",
+      "google_drive_status": "Synced with Google Apps Script",
+      "created_at": "2026-09-30T14:21:00.000Z",
+      "timeline": [
+        { "status": "NEW", "label": "Order Placed", "date": "2026-09-30T14:21:00.000Z", "completed": true, "current": true },
+        { "status": "PAYMENT VERIFIED", "label": "Payment Verified", "date": "2026-09-30T14:21:00.000Z", "completed": true },
+        { "status": "DESIGN APPROVAL", "label": "Artwork Approved", "completed": false },
+        { "status": "PRODUCTION", "label": "In Production", "completed": false },
+        { "status": "QUALITY CHECK", "label": "Quality Inspection", "completed": false },
+        { "status": "READY TO DISPATCH", "label": "Ready for Dispatch", "completed": false }
+      ]
+    },
+    {
       "customer_name": "Priyank Shah",
+
       "customer_phone": "9825123456",
       "customer_email": "priyank@example.com",
       "shipping_address": {
