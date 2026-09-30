@@ -804,6 +804,25 @@ class Database {
     }
   }
 
+  // Master ordered category list specified by user
+  static ORDERED_CATEGORIES = [
+    "Canvas Hanging",
+    "Canvas Frame",
+    "Personalized Photo Frame",
+    "Personalized Artwork Frame",
+    "Miniature Frame",
+    "Paper Frame",
+    "Photo Albums",
+    "Magazine Albums",
+    "Photo Magnets",
+    "Insta Photo Cards",
+    "Birthday Party Supplies",
+    "Personalized Labels",
+    "Personalized Stickers",
+    "Personalized Invitation Cards",
+    "Personalized Business Cards"
+  ];
+
   // --- Products ---
   getProducts(filters = {}) {
     let list = [...this.data.products];
@@ -823,6 +842,17 @@ class Database {
     if (filters.featured) {
       list = list.filter(p => p.featured);
     }
+
+    // Sort products by the master 15-category sequence (01 to 15)
+    list.sort((a, b) => {
+      const idxA = Database.ORDERED_CATEGORIES.findIndex(c => c.toLowerCase() === (a.category || '').toLowerCase());
+      const idxB = Database.ORDERED_CATEGORIES.findIndex(c => c.toLowerCase() === (b.category || '').toLowerCase());
+      const posA = idxA === -1 ? 999 : idxA;
+      const posB = idxB === -1 ? 999 : idxB;
+      if (posA !== posB) return posA - posB;
+      return (a.name || '').localeCompare(b.name || '');
+    });
+
     return list;
   }
 
@@ -851,33 +881,46 @@ class Database {
 
   // --- Categories ---
   getCategories() {
-    const staticCats = this.data.categories || [];
+    const ORDERED = Database.ORDERED_CATEGORIES;
     const prodCategories = [...new Set((this.data.products || []).map(p => p.category).filter(Boolean))];
     
-    if (prodCategories.length === 0) return staticCats;
+    // Combine ordered list with any extra discovered categories
+    const allCatNames = [...ORDERED];
+    prodCategories.forEach(c => {
+      if (!allCatNames.some(o => o.toLowerCase() === c.toLowerCase())) {
+        allCatNames.push(c);
+      }
+    });
 
-    const dynamicCats = prodCategories.map(catName => {
+    const categories = allCatNames.map((catName, index) => {
       const slug = catName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-      const existing = staticCats.find(c => c.slug === slug || c.name.toLowerCase() === catName.toLowerCase());
-      if (existing) return existing;
-      
       let icon = 'Sparkles';
       const lower = catName.toLowerCase();
-      if (lower.includes('canvas') || lower.includes('frame') || lower.includes('art')) icon = 'Frame';
-      else if (lower.includes('print') || lower.includes('card') || lower.includes('label')) icon = 'Printer';
-      else if (lower.includes('album')) icon = 'BookOpen';
-      
+      if (lower.includes('hanging') || lower.includes('scroll')) icon = 'Layers';
+      else if (lower.includes('canvas') || lower.includes('frame') || lower.includes('art')) icon = 'Frame';
+      else if (lower.includes('album') || lower.includes('magazine')) icon = 'BookOpen';
+      else if (lower.includes('sticker') || lower.includes('label')) icon = 'Tag';
+      else if (lower.includes('party') || lower.includes('birthday')) icon = 'PartyPopper';
+      else if (lower.includes('card') || lower.includes('invitation') || lower.includes('business')) icon = 'Printer';
+      else if (lower.includes('magnet') || lower.includes('shadow') || lower.includes('miniature')) icon = 'Box';
+
+      const orderNum = index + 1;
+      const orderPrefix = String(orderNum).padStart(2, '0');
+
       return {
         id: `cat-${slug}`,
         name: catName,
         slug: slug,
+        order: orderNum,
+        order_prefix: orderPrefix,
+        display_name: `${orderPrefix}. ${catName}`,
         description: `Bespoke handcrafted ${catName.toLowerCase()} customized to perfection.`,
         icon: icon,
         subcategories: []
       };
     });
 
-    return dynamicCats;
+    return categories;
   }
 
   saveCategory(category) {

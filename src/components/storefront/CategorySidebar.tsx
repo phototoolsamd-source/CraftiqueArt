@@ -124,11 +124,16 @@ export const CategorySidebar: React.FC<CategorySidebarProps> = ({
                     : 'text-slate-700 hover:bg-amber-50/70 hover:text-[#B45309]'
                 }`}
               >
-                <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                  <span className={isSelected ? 'text-amber-200' : 'text-slate-400'}>
+                <div className="flex items-center gap-2 min-w-0 pr-1.5">
+                  <span className={isSelected ? 'text-amber-200 shrink-0' : 'text-slate-400 shrink-0'}>
                     {getIcon(cat.name)}
                   </span>
-                  <span className="truncate">{cat.name}</span>
+                  <span className="truncate">
+                    <span className={`font-mono text-[10px] font-bold mr-1.5 ${isSelected ? 'text-amber-200' : 'text-amber-800/70'}`}>
+                      {cat.order_prefix || String(categories.indexOf(cat) + 1).padStart(2, '0')}.
+                    </span>
+                    {cat.name}
+                  </span>
                 </div>
                 <span
                   className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold shrink-0 ${

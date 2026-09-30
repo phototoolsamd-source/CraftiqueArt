@@ -33,6 +33,24 @@ import { useCart } from './context/CartContext';
 import { useAuth } from './context/AuthContext';
 import { Sparkles, ArrowLeft, Filter, Heart, MessageCircle } from 'lucide-react';
 
+const ORDERED_CATEGORIES = [
+  "Canvas Hanging",
+  "Canvas Frame",
+  "Personalized Photo Frame",
+  "Personalized Artwork Frame",
+  "Miniature Frame",
+  "Paper Frame",
+  "Photo Albums",
+  "Magazine Albums",
+  "Photo Magnets",
+  "Insta Photo Cards",
+  "Birthday Party Supplies",
+  "Personalized Labels",
+  "Personalized Stickers",
+  "Personalized Invitation Cards",
+  "Personalized Business Cards"
+];
+
 export const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<'home' | 'product-detail' | 'track' | 'admin'>('home');
   const [adminTab, setAdminTab] = useState<string>('dashboard');
@@ -57,6 +75,16 @@ export const App: React.FC = () => {
   const { setIsCartOpen } = useCart();
   const { role } = useAuth();
 
+  const sortCategories = (cats: Category[]) => {
+    return [...cats].sort((a, b) => {
+      const idxA = ORDERED_CATEGORIES.findIndex(c => c.toLowerCase() === a.name.toLowerCase() || c.toLowerCase().replace(/[^a-z0-9]+/g, '-') === a.slug);
+      const idxB = ORDERED_CATEGORIES.findIndex(c => c.toLowerCase() === b.name.toLowerCase() || c.toLowerCase().replace(/[^a-z0-9]+/g, '-') === b.slug);
+      const posA = idxA === -1 ? 999 : idxA;
+      const posB = idxB === -1 ? 999 : idxB;
+      return posA - posB;
+    });
+  };
+
   const loadData = async () => {
     try {
       const [pRes, cRes] = await Promise.all([
@@ -71,17 +99,17 @@ export const App: React.FC = () => {
       }
 
       if (cRes?.data && cRes.data.length > 0) {
-        setCategories(cRes.data);
+        setCategories(sortCategories(cRes.data));
       } else {
         const staticData = await fetch('/data/catalog.json').then(r => r.json()).catch(() => null);
-        if (staticData?.categories) setCategories(staticData.categories);
+        if (staticData?.categories) setCategories(sortCategories(staticData.categories));
       }
     } catch (e) {
       console.error('Error loading initial data, fetching static backup:', e);
       try {
         const staticData = await fetch('/data/catalog.json').then(r => r.json());
         if (staticData?.products) setProducts(staticData.products);
-        if (staticData?.categories) setCategories(staticData.categories);
+        if (staticData?.categories) setCategories(sortCategories(staticData.categories));
       } catch (err) {
         console.error('Static backup failed:', err);
       }
@@ -157,10 +185,15 @@ export const App: React.FC = () => {
       if (sortBy === 'price-asc') return a.selling_price - b.selling_price;
       if (sortBy === 'price-desc') return b.selling_price - a.selling_price;
       if (sortBy === 'name') return a.name.localeCompare(b.name);
-      // 'featured'
+      // 'featured' / default: strictly sort by the 15 categories in sequence 01 to 15!
+      const idxA = ORDERED_CATEGORIES.findIndex(c => c.toLowerCase() === (a.category || '').toLowerCase());
+      const idxB = ORDERED_CATEGORIES.findIndex(c => c.toLowerCase() === (b.category || '').toLowerCase());
+      const posA = idxA === -1 ? 999 : idxA;
+      const posB = idxB === -1 ? 999 : idxB;
+      if (posA !== posB) return posA - posB;
       if (a.featured && !b.featured) return -1;
       if (!a.featured && b.featured) return 1;
-      return 0;
+      return (a.name || '').localeCompare(b.name || '');
     });
 
   const handleResetFilters = () => {

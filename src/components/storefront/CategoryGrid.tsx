@@ -101,7 +101,12 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
                     }`}
                   >
                     <span>{getIcon(cat.name)}</span>
-                    <span>{cat.name}</span>
+                    <span>
+                      <span className={`font-mono text-[10px] mr-1 ${isSelected ? 'text-amber-200' : 'text-amber-800/80 font-bold'}`}>
+                        {cat.order_prefix || String(categories.indexOf(cat) + 1).padStart(2, '0')}.
+                      </span>
+                      {cat.name}
+                    </span>
                   </button>
                 );
               })}

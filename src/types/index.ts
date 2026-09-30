@@ -91,6 +91,9 @@ export interface Category {
   id: string;
   name: string;
   slug: string;
+  order?: number;
+  order_prefix?: string;
+  display_name?: string;
   description?: string;
   icon?: string;
   subcategories?: { id: string; name: string; slug: string }[];

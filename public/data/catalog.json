@@ -1,95 +1,242 @@
 {
+  "categories": [
+    {
+      "id": "cat-canvas-hanging",
+      "name": "Canvas Hanging",
+      "slug": "canvas-hanging",
+      "order": 1,
+      "order_prefix": "01",
+      "display_name": "01. Canvas Hanging",
+      "description": "Bespoke handcrafted canvas hanging customized to perfection.",
+      "icon": "Layers",
+      "subcategories": []
+    },
+    {
+      "id": "cat-canvas-frame",
+      "name": "Canvas Frame",
+      "slug": "canvas-frame",
+      "order": 2,
+      "order_prefix": "02",
+      "display_name": "02. Canvas Frame",
+      "description": "Bespoke handcrafted canvas frame customized to perfection.",
+      "icon": "Frame",
+      "subcategories": []
+    },
+    {
+      "id": "cat-personalized-photo-frame",
+      "name": "Personalized Photo Frame",
+      "slug": "personalized-photo-frame",
+      "order": 3,
+      "order_prefix": "03",
+      "display_name": "03. Personalized Photo Frame",
+      "description": "Bespoke handcrafted personalized photo frame customized to perfection.",
+      "icon": "Frame",
+      "subcategories": []
+    },
+    {
+      "id": "cat-personalized-artwork-frame",
+      "name": "Personalized Artwork Frame",
+      "slug": "personalized-artwork-frame",
+      "order": 4,
+      "order_prefix": "04",
+      "display_name": "04. Personalized Artwork Frame",
+      "description": "Bespoke handcrafted personalized artwork frame customized to perfection.",
+      "icon": "Frame",
+      "subcategories": []
+    },
+    {
+      "id": "cat-miniature-frame",
+      "name": "Miniature Frame",
+      "slug": "miniature-frame",
+      "order": 5,
+      "order_prefix": "05",
+      "display_name": "05. Miniature Frame",
+      "description": "Bespoke handcrafted miniature frame customized to perfection.",
+      "icon": "Frame",
+      "subcategories": []
+    },
+    {
+      "id": "cat-paper-frame",
+      "name": "Paper Frame",
+      "slug": "paper-frame",
+      "order": 6,
+      "order_prefix": "06",
+      "display_name": "06. Paper Frame",
+      "description": "Bespoke handcrafted paper frame customized to perfection.",
+      "icon": "Frame",
+      "subcategories": []
+    },
+    {
+      "id": "cat-photo-albums",
+      "name": "Photo Albums",
+      "slug": "photo-albums",
+      "order": 7,
+      "order_prefix": "07",
+      "display_name": "07. Photo Albums",
+      "description": "Bespoke handcrafted photo albums customized to perfection.",
+      "icon": "BookOpen",
+      "subcategories": []
+    },
+    {
+      "id": "cat-magazine-albums",
+      "name": "Magazine Albums",
+      "slug": "magazine-albums",
+      "order": 8,
+      "order_prefix": "08",
+      "display_name": "08. Magazine Albums",
+      "description": "Bespoke handcrafted magazine albums customized to perfection.",
+      "icon": "BookOpen",
+      "subcategories": []
+    },
+    {
+      "id": "cat-photo-magnets",
+      "name": "Photo Magnets",
+      "slug": "photo-magnets",
+      "order": 9,
+      "order_prefix": "09",
+      "display_name": "09. Photo Magnets",
+      "description": "Bespoke handcrafted photo magnets customized to perfection.",
+      "icon": "Box",
+      "subcategories": []
+    },
+    {
+      "id": "cat-insta-photo-cards",
+      "name": "Insta Photo Cards",
+      "slug": "insta-photo-cards",
+      "order": 10,
+      "order_prefix": "10",
+      "display_name": "10. Insta Photo Cards",
+      "description": "Bespoke handcrafted insta photo cards customized to perfection.",
+      "icon": "Printer",
+      "subcategories": []
+    },
+    {
+      "id": "cat-birthday-party-supplies",
+      "name": "Birthday Party Supplies",
+      "slug": "birthday-party-supplies",
+      "order": 11,
+      "order_prefix": "11",
+      "display_name": "11. Birthday Party Supplies",
+      "description": "Bespoke handcrafted birthday party supplies customized to perfection.",
+      "icon": "Frame",
+      "subcategories": []
+    },
+    {
+      "id": "cat-personalized-labels",
+      "name": "Personalized Labels",
+      "slug": "personalized-labels",
+      "order": 12,
+      "order_prefix": "12",
+      "display_name": "12. Personalized Labels",
+      "description": "Bespoke handcrafted personalized labels customized to perfection.",
+      "icon": "Tag",
+      "subcategories": []
+    },
+    {
+      "id": "cat-personalized-stickers",
+      "name": "Personalized Stickers",
+      "slug": "personalized-stickers",
+      "order": 13,
+      "order_prefix": "13",
+      "display_name": "13. Personalized Stickers",
+      "description": "Bespoke handcrafted personalized stickers customized to perfection.",
+      "icon": "Tag",
+      "subcategories": []
+    },
+    {
+      "id": "cat-personalized-invitation-cards",
+      "name": "Personalized Invitation Cards",
+      "slug": "personalized-invitation-cards",
+      "order": 14,
+      "order_prefix": "14",
+      "display_name": "14. Personalized Invitation Cards",
+      "description": "Bespoke handcrafted personalized invitation cards customized to perfection.",
+      "icon": "Printer",
+      "subcategories": []
+    },
+    {
+      "id": "cat-personalized-business-cards",
+      "name": "Personalized Business Cards",
+      "slug": "personalized-business-cards",
+      "order": 15,
+      "order_prefix": "15",
+      "display_name": "15. Personalized Business Cards",
+      "description": "Bespoke handcrafted personalized business cards customized to perfection.",
+      "icon": "Printer",
+      "subcategories": []
+    }
+  ],
   "products": [
     {
-      "id": "prod-sync-personalized_business_cards",
-      "sku": "PERSONALIZED_BUSINESS_CARDS",
-      "name": "Premium Personalized Professional Business Cards",
-      "category": "Personalized Business Cards",
-      "category_slug": "personalized-business-cards",
-      "subcategory": "Personalized Business Cards",
-      "subcategory_slug": "personalized-business-cards",
-      "short_description": "Elevate your professional networking with our Premium Personalized Business Cards.",
-      "full_description": "Elevate your professional networking with our Premium Personalized Business Cards. Crafted from high-quality, heavy-duty cardstock (ranging from 300 to 600 GSM), these cards are designed to make a lasting impression. Choose from three distinct finishes: 'Minimalist' for a clean and timeless aesthetic on crisp white or matte black paper; 'UV' for a sophisticated spot-gloss effect that adds texture and depth; or 'Foil' for a luxurious metallic shine in gold or silver. Our design palette emphasizes elegance with classic black, white, and gold combinations, but is fully customizable to match your brand identity. Each card can be tailored with your custom logo, professional typography, and contact information, ensuring you are 'Brand Ready' for every introduction.",
-      "material": "Heavyweight 400+ GSM Cardstock",
-      "default_size": "3.5 × 2 inches Standard US",
-      "base_price": 399,
-      "selling_price": 399,
-      "mrp": 799,
-      "discount": 50,
+      "id": "prod-sync-canvas_hanging_6x8",
+      "sku": "CANVAS_HANGING_6X8",
+      "name": "Elegant Personalized Canvas Scroll Wall Art",
+      "category": "Canvas Hanging",
+      "category_slug": "canvas-hanging",
+      "subcategory": "6x8",
+      "subcategory_slug": "6x8",
+      "short_description": "Elevate your home decor with our Elegant Personalized Canvas Scroll Wall Art.",
+      "full_description": "Elevate your home decor with our Elegant Personalized Canvas Scroll Wall Art. This unique hanging piece features high-quality textured canvas held by sturdy wooden dowels and accented with decorative cream tassels. Designed for ease and style, it is lightweight and ready to hang. This product turns your personal memories into sophisticated wall art with a warm, natural color palette that suits any room. Fully customizable with your choice of photos, it combines a vintage scroll aesthetic with modern printing quality for a truly premium feel.",
+      "material": "Archival Artist Canvas",
+      "default_size": "6 × 8 Inch",
+      "base_price": 699,
+      "selling_price": 699,
+      "mrp": 1299,
+      "discount": 46,
       "tax": 18,
       "stock": 250,
-      "production_time": "1-2 business days",
+      "production_time": "2-3 business days",
       "tags": [
-        "Personalized Business Cards",
+        "Canvas Hanging",
+        "6x8",
         "Creaftique",
         "Custom Print",
         "Bespoke"
       ],
       "keywords": [
-        "personalized business cards",
-        "premium personalized professional business cards",
-        "personalized_business_cards",
+        "canvas hanging",
+        "elegant personalized canvas scroll wall art",
+        "canvas_hanging_6x8",
         "customized",
         "photo print"
       ],
       "images": [
-        "/catalog-images/15.%20Personalized%20Business%20Cards/03_Craftique_hero_a855.jpg",
-        "/catalog-images/15.%20Personalized%20Business%20Cards/01_Craftique_banner_a855.jpg",
-        "/catalog-images/15.%20Personalized%20Business%20Cards/02_1_Craftique_Size_3_5_x_2_inches__Standard_US__a855.jpg",
-        "/catalog-images/15.%20Personalized%20Business%20Cards/02_2_Craftique_Size_85_x_55_mm__Standard_European__a855.jpg",
-        "/catalog-images/15.%20Personalized%20Business%20Cards/02_3_Craftique_Size_2_5_x_2_5_inches__Square__a855.jpg",
-        "/catalog-images/15.%20Personalized%20Business%20Cards/02_4_Craftique_Size_3_5_x_1_75_inches__Slim__a855.jpg",
-        "/catalog-images/15.%20Personalized%20Business%20Cards/04_Craftique_usage_a855.jpg",
-        "/catalog-images/15.%20Personalized%20Business%20Cards/05_Craftique_details_a855.jpg"
+        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/03_Craftique_hero_983b.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/01_Craftique_banner_983b.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/02_1_Craftique_Size_6_x_8_Inch_983b.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/02_2_Craftique_Size_8_x_12_Inch_983b.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/02_3_Craftique_Size_12_x_18_Inch_983b.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/04_Craftique_usage_983b.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/05_Craftique_details_983b.jpg"
       ],
       "customization_available": true,
       "requires_photo": true,
       "required_photos_count": 1,
       "custom_text_allowed": true,
       "active": true,
-      "featured": false,
+      "featured": true,
       "costs": {
-        "material_cost": 112,
-        "print_cost": 72,
-        "labor_cost": 48,
+        "material_cost": 196,
+        "print_cost": 126,
+        "labor_cost": 84,
         "packaging_cost": 60,
         "shipping_cost": 80
       },
       "custom_options": {
         "sizes": [
           {
-            "name": "3.5 × 2 inches Standard US",
+            "name": "6 × 8 Inch",
             "price_adj": 0,
             "default": true
           },
           {
-            "name": "85 × 55 mm Standard European",
+            "name": "8 × 12 Inch",
             "price_adj": 150,
             "default": false
           },
           {
-            "name": "2.5 × 2.5 inches (Square)",
+            "name": "12 × 18 Inch",
             "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "3.5 × 1.75 inches (Slim)",
-            "price_adj": 450,
-            "default": false
-          },
-          {
-            "name": "Minimalist",
-            "price_adj": 400,
-            "default": false
-          },
-          {
-            "name": "UV",
-            "price_adj": 500,
-            "default": false
-          },
-          {
-            "name": "Foil",
-            "price_adj": 600,
             "default": false
           },
           {
@@ -100,7 +247,7 @@
         ],
         "materials": [
           {
-            "name": "Heavyweight 400+ GSM Cardstock",
+            "name": "Archival Artist Canvas",
             "price_adj": 0,
             "default": true
           },
@@ -177,49 +324,1546 @@
           }
         ]
       },
-      "created_at": "2026-09-29T15:58:42.713Z",
-      "updated_at": "2026-09-29T17:13:45.201Z"
+      "created_at": "2026-09-29T15:58:42.701Z",
+      "updated_at": "2026-09-30T04:31:46.439Z"
     },
     {
-      "id": "prod-sync-personalized_invitation_cards",
-      "sku": "PERSONALIZED_INVITATION_CARDS",
-      "name": "Premium Bespoke Personalized Celebration Invitations",
-      "category": "Personalized Invitation Cards",
-      "category_slug": "personalized-invitation-cards",
-      "subcategory": "Personalized Invitation Cards",
-      "subcategory_slug": "personalized-invitation-cards",
-      "short_description": "Elevate your special moments with our premium personalized invitation cards, crafted from high-quality cardstock with an elegant finish.",
-      "full_description": "Elevate your special moments with our premium personalized invitation cards, crafted from high-quality cardstock with an elegant finish. This collection features a wide range of artwork styles, including timeless floral patterns for weddings, chic geometric designs for engagements, playful illustrations for birthdays, and sophisticated gold-on-black themes for parties. The versatile color palette spans from soft pastels and classic creams to bold metallics and vibrant multi-colors. Fully customizable, these cards allow you to tailor every detail—from names and dates to venue locations—ensuring your invitation perfectly reflects the spirit of your celebration.",
-      "material": "Heavyweight 400+ GSM Cardstock",
-      "default_size": "5x7 inches",
-      "base_price": 499,
-      "selling_price": 499,
-      "mrp": 999,
-      "discount": 50,
+      "id": "prod-sync-canvas_hanging_8x12",
+      "sku": "CANVAS_HANGING_8X12",
+      "name": "Elegant Tassel Canvas Wall Scroll",
+      "category": "Canvas Hanging",
+      "category_slug": "canvas-hanging",
+      "subcategory": "8x12",
+      "subcategory_slug": "8x12",
+      "short_description": "Elevate your home decor with this Custom Portrait Scroll Canvas Wall Hanging.",
+      "full_description": "Elevate your home decor with this Custom Portrait Scroll Canvas Wall Hanging. Crafted from durable, high-quality canvas, it features a stunning high-definition print with an artistic digital oil painting effect. The design is framed by premium wooden rods and finished with elegant white tassels, creating a sophisticated vintage feel. The warm color palette of gold and earthy tones beautifully highlights the subject. Lightweight and easy to hang with an included rope, this piece is fully customizable with your personal photos, making it a perfect gift for special occasions and a unique way to display cherished memories.",
+      "material": "Archival Artist Canvas",
+      "default_size": "6 × 8 Inch",
+      "base_price": 699,
+      "selling_price": 699,
+      "mrp": 1299,
+      "discount": 46,
       "tax": 18,
       "stock": 250,
       "production_time": "2-3 business days",
       "tags": [
-        "Personalized Invitation Cards",
+        "Canvas Hanging",
+        "8x12",
         "Creaftique",
         "Custom Print",
         "Bespoke"
       ],
       "keywords": [
-        "personalized invitation cards",
-        "premium bespoke personalized celebration invitations",
-        "personalized_invitation_cards",
+        "canvas hanging",
+        "elegant tassel canvas wall scroll",
+        "canvas_hanging_8x12",
         "customized",
         "photo print"
       ],
       "images": [
-        "/catalog-images/14.%20Personalized%20Invitation%20Cards/03_Craftique_hero_3e34.jpg",
-        "/catalog-images/14.%20Personalized%20Invitation%20Cards/01_Craftique_banner_3e34.jpg",
-        "/catalog-images/14.%20Personalized%20Invitation%20Cards/02_1_Craftique_Size_5x7_inches_3e34.jpg",
-        "/catalog-images/14.%20Personalized%20Invitation%20Cards/02_2_Craftique_Size_4x6_inches_3e34.jpg",
-        "/catalog-images/14.%20Personalized%20Invitation%20Cards/02_3_Craftique_Size_6x6_inches_3e34.jpg",
-        "/catalog-images/14.%20Personalized%20Invitation%20Cards/04_Craftique_usage_3e34.jpg",
-        "/catalog-images/14.%20Personalized%20Invitation%20Cards/05_Craftique_details_3e34.jpg"
+        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/03_Craftique_hero_7ce7.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/01_Craftique_banner_7ce7.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/02_1_Craftique_Size_6_x_8_Inch_7ce7.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/02_2_Craftique_Size_8_x_12_Inch_7ce7.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/02_3_Craftique_Size_12_x_18_Inch_7ce7.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/04_Craftique_usage_7ce7.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/05_Craftique_details_7ce7.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/06_Craftique_beforeAfter_7ce7.jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 1,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": true,
+      "costs": {
+        "material_cost": 196,
+        "print_cost": 126,
+        "labor_cost": 84,
+        "packaging_cost": 60,
+        "shipping_cost": 80
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "6 × 8 Inch",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "8 × 12 Inch",
+            "price_adj": 150,
+            "default": false
+          },
+          {
+            "name": "12 × 18 Inch",
+            "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "Custom Size / Specifications",
+            "price_adj": 0,
+            "is_custom": true
+          }
+        ],
+        "materials": [
+          {
+            "name": "Archival Artist Canvas",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Ultra-Gloss Luxe Surface",
+            "price_adj": 120
+          },
+          {
+            "name": "Museum Matte Velvet Finish",
+            "price_adj": 180
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Satin Archival Protection",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Anti-Glare UV Seal Coat",
+            "price_adj": 90
+          },
+          {
+            "name": "Diamond Sparkle Holographic Coat",
+            "price_adj": 150
+          }
+        ],
+        "frames": [
+          {
+            "name": "Frameless Standard Wrap / Bare",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Modern Matte Black Architectural Frame",
+            "price_adj": 350
+          },
+          {
+            "name": "Heritage Teak Wood Artisan Frame",
+            "price_adj": 450
+          },
+          {
+            "name": "Warm Champagne Gold Frame",
+            "price_adj": 490
+          }
+        ],
+        "quantity_tiers": [
+          {
+            "min": 1,
+            "max": 9,
+            "discount_percent": 0
+          },
+          {
+            "min": 10,
+            "max": 49,
+            "discount_percent": 15
+          },
+          {
+            "min": 50,
+            "max": 999,
+            "discount_percent": 30
+          }
+        ],
+        "extras": [
+          {
+            "id": "express",
+            "name": "Express 24h VIP Production",
+            "price_adj": 250
+          },
+          {
+            "id": "gift_wrap",
+            "name": "Artisan Gift Box & Handwritten Card",
+            "price_adj": 150
+          }
+        ]
+      },
+      "created_at": "2026-09-29T15:58:42.702Z",
+      "updated_at": "2026-09-30T04:31:46.440Z"
+    },
+    {
+      "id": "prod-sync-canvas_hanging_12x18",
+      "sku": "CANVAS_HANGING_12X18",
+      "name": "Personalized Canvas Hanging Scroll Wall Art",
+      "category": "Canvas Hanging",
+      "category_slug": "canvas-hanging",
+      "subcategory": "12x18",
+      "subcategory_slug": "12x18",
+      "short_description": "Transform your cherished memories into stunning wall decor with our Personalized Canvas Hanging Scroll.",
+      "full_description": "Transform your cherished memories into stunning wall decor with our Personalized Canvas Hanging Scroll. This high-quality piece features a durable, high-definition canvas print with a beautiful artistic oil-painting texture. The canvas is elegantly framed with premium wooden rods at the top and bottom and finished with decorative white tassels, giving it a classic scroll aesthetic. It comes ready to hang with a sturdy rope and wall hook included. Ideal for festive gifts, baby portraits, or special family memories, this lightweight art piece adds a warm, personalized touch to any room. Simply provide your favorite photograph to create a custom piece of home decor that captures every detail with a vibrant color palette.",
+      "material": "Archival Artist Canvas",
+      "default_size": "6x8 inches",
+      "base_price": 699,
+      "selling_price": 699,
+      "mrp": 1299,
+      "discount": 46,
+      "tax": 18,
+      "stock": 250,
+      "production_time": "2-3 business days",
+      "tags": [
+        "Canvas Hanging",
+        "12x18",
+        "Creaftique",
+        "Custom Print",
+        "Bespoke"
+      ],
+      "keywords": [
+        "canvas hanging",
+        "personalized canvas hanging scroll wall art",
+        "canvas_hanging_12x18",
+        "customized",
+        "photo print"
+      ],
+      "images": [
+        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/03_Craftique_hero_fe4f.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/01_Craftique_banner_fe4f.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/02_1_Craftique_Size_6x8_inches_fe4f.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/02_2_Craftique_Size_8x12_inches_fe4f.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/02_3_Craftique_Size_12x18_inches_fe4f.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/04_Craftique_usage_fe4f.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/05_Craftique_details_fe4f.jpg",
+        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/06_Craftique_beforeAfter_fe4f.jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 1,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": true,
+      "costs": {
+        "material_cost": 196,
+        "print_cost": 126,
+        "labor_cost": 84,
+        "packaging_cost": 60,
+        "shipping_cost": 80
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "6x8 inches",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "8x12 inches",
+            "price_adj": 150,
+            "default": false
+          },
+          {
+            "name": "12x18 inches",
+            "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "Custom Size / Specifications",
+            "price_adj": 0,
+            "is_custom": true
+          }
+        ],
+        "materials": [
+          {
+            "name": "Archival Artist Canvas",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Ultra-Gloss Luxe Surface",
+            "price_adj": 120
+          },
+          {
+            "name": "Museum Matte Velvet Finish",
+            "price_adj": 180
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Satin Archival Protection",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Anti-Glare UV Seal Coat",
+            "price_adj": 90
+          },
+          {
+            "name": "Diamond Sparkle Holographic Coat",
+            "price_adj": 150
+          }
+        ],
+        "frames": [
+          {
+            "name": "Frameless Standard Wrap / Bare",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Modern Matte Black Architectural Frame",
+            "price_adj": 350
+          },
+          {
+            "name": "Heritage Teak Wood Artisan Frame",
+            "price_adj": 450
+          },
+          {
+            "name": "Warm Champagne Gold Frame",
+            "price_adj": 490
+          }
+        ],
+        "quantity_tiers": [
+          {
+            "min": 1,
+            "max": 9,
+            "discount_percent": 0
+          },
+          {
+            "min": 10,
+            "max": 49,
+            "discount_percent": 15
+          },
+          {
+            "min": 50,
+            "max": 999,
+            "discount_percent": 30
+          }
+        ],
+        "extras": [
+          {
+            "id": "express",
+            "name": "Express 24h VIP Production",
+            "price_adj": 250
+          },
+          {
+            "id": "gift_wrap",
+            "name": "Artisan Gift Box & Handwritten Card",
+            "price_adj": 150
+          }
+        ]
+      },
+      "created_at": "2026-09-29T15:58:42.702Z",
+      "updated_at": "2026-09-30T04:31:46.442Z"
+    },
+    {
+      "id": "prod-sync-canvas_frame_12x18",
+      "sku": "CANVAS_FRAME_12X18",
+      "name": "Personalized Keepsake Artwork Frame",
+      "category": "Canvas Frame",
+      "category_slug": "canvas-frame",
+      "subcategory": "12x18",
+      "subcategory_slug": "12x18",
+      "short_description": "Transform your favorite photographs into stunning works of art with our Personalized Keepsake Artwork Frame.",
+      "full_description": "Transform your favorite photographs into stunning works of art with our Personalized Keepsake Artwork Frame. This piece features a premium canvas print meticulously crafted in your choice of artistic styles including Watercolor, Digital Painting, Sketch, and Oil Painting. The canvas is housed in a sturdy wooden frame with a sleek, elegant finish and comes ready to hang. Perfect for home decor or as a thoughtful gift for weddings, anniversaries, and special occasions, this custom artwork allows you to tell 'Our Story' through a vibrant, personalized color palette.",
+      "material": "Archival Artist Canvas",
+      "default_size": "6x8 inches",
+      "base_price": 899,
+      "selling_price": 899,
+      "mrp": 1599,
+      "discount": 44,
+      "tax": 18,
+      "stock": 250,
+      "production_time": "2-3 business days",
+      "tags": [
+        "Canvas Frame",
+        "12x18",
+        "Creaftique",
+        "Custom Print",
+        "Bespoke"
+      ],
+      "keywords": [
+        "canvas frame",
+        "personalized keepsake artwork frame",
+        "canvas_frame_12x18",
+        "customized",
+        "photo print"
+      ],
+      "images": [
+        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/03_Craftique_hero_e8f8.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/01_Craftique_banner_e8f8.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/02_1_Craftique_Size_6x8_inches_e8f8.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/02_2_Craftique_Size_8x12_inches_e8f8.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/02_3_Craftique_Size_12x18_inches_e8f8.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/04_Craftique_usage_e8f8.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/05_Craftique_details_e8f8.jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 1,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": true,
+      "costs": {
+        "material_cost": 252,
+        "print_cost": 162,
+        "labor_cost": 108,
+        "packaging_cost": 60,
+        "shipping_cost": 80
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "6x8 inches",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "8x12 inches",
+            "price_adj": 150,
+            "default": false
+          },
+          {
+            "name": "12x18 inches",
+            "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "Custom Size / Specifications",
+            "price_adj": 0,
+            "is_custom": true
+          }
+        ],
+        "materials": [
+          {
+            "name": "Archival Artist Canvas",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Ultra-Gloss Luxe Surface",
+            "price_adj": 120
+          },
+          {
+            "name": "Museum Matte Velvet Finish",
+            "price_adj": 180
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Satin Archival Protection",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Anti-Glare UV Seal Coat",
+            "price_adj": 90
+          },
+          {
+            "name": "Diamond Sparkle Holographic Coat",
+            "price_adj": 150
+          }
+        ],
+        "frames": [
+          {
+            "name": "Frameless Standard Wrap / Bare",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Modern Matte Black Architectural Frame",
+            "price_adj": 350
+          },
+          {
+            "name": "Heritage Teak Wood Artisan Frame",
+            "price_adj": 450
+          },
+          {
+            "name": "Warm Champagne Gold Frame",
+            "price_adj": 490
+          }
+        ],
+        "quantity_tiers": [
+          {
+            "min": 1,
+            "max": 9,
+            "discount_percent": 0
+          },
+          {
+            "min": 10,
+            "max": 49,
+            "discount_percent": 15
+          },
+          {
+            "min": 50,
+            "max": 999,
+            "discount_percent": 30
+          }
+        ],
+        "extras": [
+          {
+            "id": "express",
+            "name": "Express 24h VIP Production",
+            "price_adj": 250
+          },
+          {
+            "id": "gift_wrap",
+            "name": "Artisan Gift Box & Handwritten Card",
+            "price_adj": 150
+          }
+        ]
+      },
+      "created_at": "2026-09-29T15:58:42.704Z",
+      "updated_at": "2026-09-30T04:31:46.444Z"
+    },
+    {
+      "id": "prod-sync-canvas_frame_8x12",
+      "sku": "CANVAS_FRAME_8X12",
+      "name": "Timeless Memories Custom Canvas Wall Art Frame",
+      "category": "Canvas Frame",
+      "category_slug": "canvas-frame",
+      "subcategory": "8x12",
+      "subcategory_slug": "8x12",
+      "short_description": "Elevate your home decor with this premium personalized canvas frame that turns your favorite photographs into stunning oil-painting style wall art.",
+      "full_description": "Elevate your home decor with this premium personalized canvas frame that turns your favorite photographs into stunning oil-painting style wall art. Crafted with high-definition printing on durable, museum-quality canvas, the piece features a sophisticated textured gold and brown background that adds depth and an artistic touch. The artwork is encased in a sturdy wooden floating frame with an elegant black finish, providing a modern and high-end look. Perfect for gifting on anniversaries, weddings, or special occasions, this piece comes ready to hang with pre-installed hardware. You can customize it by providing any high-resolution personal photo to be transformed into this timeless masterpiece.",
+      "material": "Archival Artist Canvas",
+      "default_size": "6 × 8 Inch",
+      "base_price": 899,
+      "selling_price": 899,
+      "mrp": 1599,
+      "discount": 44,
+      "tax": 18,
+      "stock": 250,
+      "production_time": "2-3 business days",
+      "tags": [
+        "Canvas Frame",
+        "8x12",
+        "Creaftique",
+        "Custom Print",
+        "Bespoke"
+      ],
+      "keywords": [
+        "canvas frame",
+        "timeless memories custom canvas wall art frame",
+        "canvas_frame_8x12",
+        "customized",
+        "photo print"
+      ],
+      "images": [
+        "/catalog-images/02.%20Canvas%20Frame/02%208x12/03_Craftique_hero_9777.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/02%208x12/01_Craftique_banner_9777.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/02%208x12/02_1_Craftique_Size_6_x_8_Inch_9777.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/02%208x12/02_2_Craftique_Size_8_x_12_Inch_9777.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/02%208x12/02_3_Craftique_Size_12_x_18_Inch_9777.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/02%208x12/04_Craftique_usage_9777.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/02%208x12/05_Craftique_details_9777.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/02%208x12/06_Craftique_beforeAfter_9777.jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 1,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": true,
+      "costs": {
+        "material_cost": 252,
+        "print_cost": 162,
+        "labor_cost": 108,
+        "packaging_cost": 60,
+        "shipping_cost": 80
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "6 × 8 Inch",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "8 × 12 Inch",
+            "price_adj": 150,
+            "default": false
+          },
+          {
+            "name": "12 × 18 Inch",
+            "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "Custom Size / Specifications",
+            "price_adj": 0,
+            "is_custom": true
+          }
+        ],
+        "materials": [
+          {
+            "name": "Archival Artist Canvas",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Ultra-Gloss Luxe Surface",
+            "price_adj": 120
+          },
+          {
+            "name": "Museum Matte Velvet Finish",
+            "price_adj": 180
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Satin Archival Protection",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Anti-Glare UV Seal Coat",
+            "price_adj": 90
+          },
+          {
+            "name": "Diamond Sparkle Holographic Coat",
+            "price_adj": 150
+          }
+        ],
+        "frames": [
+          {
+            "name": "Frameless Standard Wrap / Bare",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Modern Matte Black Architectural Frame",
+            "price_adj": 350
+          },
+          {
+            "name": "Heritage Teak Wood Artisan Frame",
+            "price_adj": 450
+          },
+          {
+            "name": "Warm Champagne Gold Frame",
+            "price_adj": 490
+          }
+        ],
+        "quantity_tiers": [
+          {
+            "min": 1,
+            "max": 9,
+            "discount_percent": 0
+          },
+          {
+            "min": 10,
+            "max": 49,
+            "discount_percent": 15
+          },
+          {
+            "min": 50,
+            "max": 999,
+            "discount_percent": 30
+          }
+        ],
+        "extras": [
+          {
+            "id": "express",
+            "name": "Express 24h VIP Production",
+            "price_adj": 250
+          },
+          {
+            "id": "gift_wrap",
+            "name": "Artisan Gift Box & Handwritten Card",
+            "price_adj": 150
+          }
+        ]
+      },
+      "created_at": "2026-09-29T15:58:42.703Z",
+      "updated_at": "2026-09-30T04:31:46.443Z"
+    },
+    {
+      "id": "prod-sync-canvas_frame_6x8",
+      "sku": "CANVAS_FRAME_6X8",
+      "name": "Timeless Moments - Custom Wood Framed Canvas Wall Art",
+      "category": "Canvas Frame",
+      "category_slug": "canvas-frame",
+      "subcategory": "6x8",
+      "subcategory_slug": "6x8",
+      "short_description": "Transform your favorite memories into professional-grade decor with our Timeless Wall Art Canvas Frame.",
+      "full_description": "Transform your favorite memories into professional-grade decor with our Timeless Wall Art Canvas Frame. This high-quality piece features a premium canvas print with a rich texture, elegantly housed in a sturdy wooden frame with a deep brown grain. Designed for durability and style, the frame offers a premium finish that complements any interior color palette, from warm earth tones to soft pastels. This product is fully customizable with your own photographs, making it a perfect gift or personal keepsake. It arrives ready to hang with pre-installed hardware for effortless installation.",
+      "material": "Archival Artist Canvas",
+      "default_size": "6 × 8 Inch",
+      "base_price": 899,
+      "selling_price": 899,
+      "mrp": 1599,
+      "discount": 44,
+      "tax": 18,
+      "stock": 250,
+      "production_time": "2-3 business days",
+      "tags": [
+        "Canvas Frame",
+        "6x8",
+        "Creaftique",
+        "Custom Print",
+        "Bespoke"
+      ],
+      "keywords": [
+        "canvas frame",
+        "timeless moments - custom wood framed canvas wall art",
+        "canvas_frame_6x8",
+        "customized",
+        "photo print"
+      ],
+      "images": [
+        "/catalog-images/02.%20Canvas%20Frame/01%206x8/03_Craftique_hero_d29e.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/01%206x8/01_Craftique_banner_d29e.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/01%206x8/02_1_Craftique_Size_6_x_8_Inch_d29e.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/01%206x8/02_2_Craftique_Size_8_x_12_Inch_d29e.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/01%206x8/02_3_Craftique_Size_12_x_18_Inch_d29e.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/01%206x8/04_Craftique_usage_d29e.jpg",
+        "/catalog-images/02.%20Canvas%20Frame/01%206x8/05_Craftique_details_d29e.jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 1,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": true,
+      "costs": {
+        "material_cost": 252,
+        "print_cost": 162,
+        "labor_cost": 108,
+        "packaging_cost": 60,
+        "shipping_cost": 80
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "6 × 8 Inch",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "8 × 12 Inch",
+            "price_adj": 150,
+            "default": false
+          },
+          {
+            "name": "12 × 18 Inch",
+            "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "Custom Size / Specifications",
+            "price_adj": 0,
+            "is_custom": true
+          }
+        ],
+        "materials": [
+          {
+            "name": "Archival Artist Canvas",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Ultra-Gloss Luxe Surface",
+            "price_adj": 120
+          },
+          {
+            "name": "Museum Matte Velvet Finish",
+            "price_adj": 180
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Satin Archival Protection",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Anti-Glare UV Seal Coat",
+            "price_adj": 90
+          },
+          {
+            "name": "Diamond Sparkle Holographic Coat",
+            "price_adj": 150
+          }
+        ],
+        "frames": [
+          {
+            "name": "Frameless Standard Wrap / Bare",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Modern Matte Black Architectural Frame",
+            "price_adj": 350
+          },
+          {
+            "name": "Heritage Teak Wood Artisan Frame",
+            "price_adj": 450
+          },
+          {
+            "name": "Warm Champagne Gold Frame",
+            "price_adj": 490
+          }
+        ],
+        "quantity_tiers": [
+          {
+            "min": 1,
+            "max": 9,
+            "discount_percent": 0
+          },
+          {
+            "min": 10,
+            "max": 49,
+            "discount_percent": 15
+          },
+          {
+            "min": 50,
+            "max": 999,
+            "discount_percent": 30
+          }
+        ],
+        "extras": [
+          {
+            "id": "express",
+            "name": "Express 24h VIP Production",
+            "price_adj": 250
+          },
+          {
+            "id": "gift_wrap",
+            "name": "Artisan Gift Box & Handwritten Card",
+            "price_adj": 150
+          }
+        ]
+      },
+      "created_at": "2026-09-29T15:58:42.702Z",
+      "updated_at": "2026-09-30T04:31:46.443Z"
+    },
+    {
+      "id": "prod-sync-personalized_photo_frame_wrap_canvas_frame",
+      "sku": "PERSONALIZED_PHOTO_FRAME_WRAP_CANVAS_FRAME",
+      "name": "Personalized Premium Gallery Wrap Canvas",
+      "category": "Personalized Photo Frame",
+      "category_slug": "personalized-photo-frame",
+      "subcategory": "Wrap Canvas Frame",
+      "subcategory_slug": "wrap-canvas-frame",
+      "short_description": "Elevate your home decor with this premium gallery wrap canvas featuring a divine and vibrant depiction of Lord Rama in a lush, mystical forest.",
+      "full_description": "Elevate your home decor with this premium gallery wrap canvas featuring a divine and vibrant depiction of Lord Rama in a lush, mystical forest. This high-quality artwork is printed on professional-grade canvas using vibrant inks to ensure long-lasting color brilliance. It comes stretched over a sturdy wooden frame with a wrap-around finish, giving it a modern, frameless look that's ready to hang. The color palette includes deep forest greens, vibrant oranges, and glowing golden yellows, styled in a detailed digital painting technique. This product is fully customizable, allowing you to turn your favorite personal images into stunning, custom-sized wall art pieces.",
+      "material": "Archival Artist Canvas",
+      "default_size": "8 × 8 Inch",
+      "base_price": 799,
+      "selling_price": 799,
+      "mrp": 1499,
+      "discount": 47,
+      "tax": 18,
+      "stock": 250,
+      "production_time": "2-3 business days",
+      "tags": [
+        "Personalized Photo Frame",
+        "Wrap Canvas Frame",
+        "Creaftique",
+        "Custom Print",
+        "Bespoke"
+      ],
+      "keywords": [
+        "personalized photo frame",
+        "personalized premium gallery wrap canvas",
+        "personalized_photo_frame_wrap_canvas_frame",
+        "customized",
+        "photo print"
+      ],
+      "images": [
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/03_Craftique_hero_07dd.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/01_Craftique_banner_07dd.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/02_1_Craftique_Size_8_x_8_Inch_07dd.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/02_2_Craftique_Size_12_x_12_Inch_07dd.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/02_3_Craftique_Size_18_x_18_Inch_07dd.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/02_4_Craftique_Size_6_x_8_Inch_07dd.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/02_5_Craftique_Size_8_x_12_Inch_07dd.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/02_6_Craftique_Size_12_x_18_Inch_07dd.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/04_Craftique_usage_07dd.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/05_Craftique_details_07dd.jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 1,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": false,
+      "costs": {
+        "material_cost": 224,
+        "print_cost": 144,
+        "labor_cost": 96,
+        "packaging_cost": 60,
+        "shipping_cost": 80
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "8 × 8 Inch",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "12 × 12 Inch",
+            "price_adj": 150,
+            "default": false
+          },
+          {
+            "name": "18 × 18 Inch",
+            "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "6 × 8 Inch",
+            "price_adj": 450,
+            "default": false
+          },
+          {
+            "name": "8 × 12 Inch",
+            "price_adj": 600,
+            "default": false
+          },
+          {
+            "name": "12 × 18 Inch",
+            "price_adj": 750,
+            "default": false
+          },
+          {
+            "name": "Custom Size / Specifications",
+            "price_adj": 0,
+            "is_custom": true
+          }
+        ],
+        "materials": [
+          {
+            "name": "Archival Artist Canvas",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Ultra-Gloss Luxe Surface",
+            "price_adj": 120
+          },
+          {
+            "name": "Museum Matte Velvet Finish",
+            "price_adj": 180
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Satin Archival Protection",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Anti-Glare UV Seal Coat",
+            "price_adj": 90
+          },
+          {
+            "name": "Diamond Sparkle Holographic Coat",
+            "price_adj": 150
+          }
+        ],
+        "frames": [
+          {
+            "name": "Frameless Standard Wrap / Bare",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Modern Matte Black Architectural Frame",
+            "price_adj": 350
+          },
+          {
+            "name": "Heritage Teak Wood Artisan Frame",
+            "price_adj": 450
+          },
+          {
+            "name": "Warm Champagne Gold Frame",
+            "price_adj": 490
+          }
+        ],
+        "quantity_tiers": [
+          {
+            "min": 1,
+            "max": 9,
+            "discount_percent": 0
+          },
+          {
+            "min": 10,
+            "max": 49,
+            "discount_percent": 15
+          },
+          {
+            "min": 50,
+            "max": 999,
+            "discount_percent": 30
+          }
+        ],
+        "extras": [
+          {
+            "id": "express",
+            "name": "Express 24h VIP Production",
+            "price_adj": 250
+          },
+          {
+            "id": "gift_wrap",
+            "name": "Artisan Gift Box & Handwritten Card",
+            "price_adj": 150
+          }
+        ]
+      },
+      "created_at": "2026-09-29T15:58:42.705Z",
+      "updated_at": "2026-09-30T04:31:46.445Z"
+    },
+    {
+      "id": "prod-sync-personalized_photo_frame_wooden_frame",
+      "sku": "PERSONALIZED_PHOTO_FRAME_WOODEN_FRAME",
+      "name": "Timeless Memories Personalized Photo Frame",
+      "category": "Personalized Photo Frame",
+      "category_slug": "personalized-photo-frame",
+      "subcategory": "Wooden Frame",
+      "subcategory_slug": "wooden-frame",
+      "short_description": "Capture your most cherished moments with our high-quality Personalized Photo Frame.",
+      "full_description": "Capture your most cherished moments with our high-quality Personalized Photo Frame. This product features a selection of styles, including a classic dark-grained Wooden Frame for a timeless look and a modern Wrap Canvas Frame for a contemporary aesthetic. Each piece is crafted using premium printing techniques to ensure vibrant colors and sharp details. The color palette revolves around natural, earthy wood tones that complement any home decor. These frames are fully customizable with your own photographs, making them an ideal, elegant gift for anniversaries, weddings, or family milestones.",
+      "material": "Archival Artist Canvas",
+      "default_size": "6x8 inches",
+      "base_price": 799,
+      "selling_price": 799,
+      "mrp": 1499,
+      "discount": 47,
+      "tax": 18,
+      "stock": 250,
+      "production_time": "2-3 business days",
+      "tags": [
+        "Personalized Photo Frame",
+        "Wooden Frame",
+        "Creaftique",
+        "Custom Print",
+        "Bespoke"
+      ],
+      "keywords": [
+        "personalized photo frame",
+        "timeless memories personalized photo frame",
+        "personalized_photo_frame_wooden_frame",
+        "customized",
+        "photo print"
+      ],
+      "images": [
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/03_Craftique_hero_ec79.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/01_Craftique_banner_ec79.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/02_1_Craftique_Size_6x8_inches_ec79.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/02_2_Craftique_Size_8x12_inches_ec79.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/02_3_Craftique_Size_12x18_inches_ec79.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/04_Craftique_usage_ec79.jpg",
+        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/05_Craftique_details_ec79.jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 1,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": false,
+      "costs": {
+        "material_cost": 224,
+        "print_cost": 144,
+        "labor_cost": 96,
+        "packaging_cost": 60,
+        "shipping_cost": 80
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "6x8 inches",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "8x12 inches",
+            "price_adj": 150,
+            "default": false
+          },
+          {
+            "name": "12x18 inches",
+            "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "Custom Size / Specifications",
+            "price_adj": 0,
+            "is_custom": true
+          }
+        ],
+        "materials": [
+          {
+            "name": "Archival Artist Canvas",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Ultra-Gloss Luxe Surface",
+            "price_adj": 120
+          },
+          {
+            "name": "Museum Matte Velvet Finish",
+            "price_adj": 180
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Satin Archival Protection",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Anti-Glare UV Seal Coat",
+            "price_adj": 90
+          },
+          {
+            "name": "Diamond Sparkle Holographic Coat",
+            "price_adj": 150
+          }
+        ],
+        "frames": [
+          {
+            "name": "Frameless Standard Wrap / Bare",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Modern Matte Black Architectural Frame",
+            "price_adj": 350
+          },
+          {
+            "name": "Heritage Teak Wood Artisan Frame",
+            "price_adj": 450
+          },
+          {
+            "name": "Warm Champagne Gold Frame",
+            "price_adj": 490
+          }
+        ],
+        "quantity_tiers": [
+          {
+            "min": 1,
+            "max": 9,
+            "discount_percent": 0
+          },
+          {
+            "min": 10,
+            "max": 49,
+            "discount_percent": 15
+          },
+          {
+            "min": 50,
+            "max": 999,
+            "discount_percent": 30
+          }
+        ],
+        "extras": [
+          {
+            "id": "express",
+            "name": "Express 24h VIP Production",
+            "price_adj": 250
+          },
+          {
+            "id": "gift_wrap",
+            "name": "Artisan Gift Box & Handwritten Card",
+            "price_adj": 150
+          }
+        ]
+      },
+      "created_at": "2026-09-29T15:58:42.705Z",
+      "updated_at": "2026-09-30T04:31:46.446Z"
+    },
+    {
+      "id": "prod-sync-personalized_artwork_frame",
+      "sku": "PERSONALIZED_ARTWORK_FRAME",
+      "name": "Custom Personalized Photo Art Masterpiece",
+      "category": "Personalized Artwork Frame",
+      "category_slug": "personalized-artwork-frame",
+      "subcategory": "Personalized Artwork Frame",
+      "subcategory_slug": "personalized-artwork-frame",
+      "short_description": "Transform your cherished memories into stunning masterpieces with our Personalized Photo Manipulation service.",
+      "full_description": "Transform your cherished memories into stunning masterpieces with our Personalized Photo Manipulation service. We offer a variety of artistic styles including Watercolor, Digital Art, Sketch Art, and Oil Painting to suit your aesthetic. Our premium quality prints are expertly crafted on high-grade canvas or professional photo paper and come beautifully framed in a classic dark wood finish. The color palette varies from vibrant and rich hues to elegant monochrome sketches. Perfect as a unique gift, this custom artwork allows for complete personalization from your own photos, ensuring a one-of-a-kind piece for your home or office.",
+      "material": "Archival Artist Canvas",
+      "default_size": "6 × 8 Inch",
+      "base_price": 849,
+      "selling_price": 849,
+      "mrp": 1599,
+      "discount": 47,
+      "tax": 18,
+      "stock": 250,
+      "production_time": "2-3 business days",
+      "tags": [
+        "Personalized Artwork Frame",
+        "Creaftique",
+        "Custom Print",
+        "Bespoke"
+      ],
+      "keywords": [
+        "personalized artwork frame",
+        "custom personalized photo art masterpiece",
+        "personalized_artwork_frame",
+        "customized",
+        "photo print"
+      ],
+      "images": [
+        "/catalog-images/04.%20Personalized%20Artwork%20Frame/03_Craftique_hero_752e.jpg",
+        "/catalog-images/04.%20Personalized%20Artwork%20Frame/01_Craftique_banner_752e.jpg",
+        "/catalog-images/04.%20Personalized%20Artwork%20Frame/02_1_Craftique_Size_6_x_8_Inch_752e.jpg",
+        "/catalog-images/04.%20Personalized%20Artwork%20Frame/02_2_Craftique_Size_8_x_12_Inch_752e.jpg",
+        "/catalog-images/04.%20Personalized%20Artwork%20Frame/02_3_Craftique_Size_12_x_18_Inch_752e.jpg",
+        "/catalog-images/04.%20Personalized%20Artwork%20Frame/04_Craftique_usage_752e.jpg",
+        "/catalog-images/04.%20Personalized%20Artwork%20Frame/05_Craftique_details_752e.jpg",
+        "/catalog-images/04.%20Personalized%20Artwork%20Frame/06_Craftique_beforeAfter_752e.jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 1,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": false,
+      "costs": {
+        "material_cost": 238,
+        "print_cost": 153,
+        "labor_cost": 102,
+        "packaging_cost": 60,
+        "shipping_cost": 80
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "6 × 8 Inch",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "8 × 12 Inch",
+            "price_adj": 150,
+            "default": false
+          },
+          {
+            "name": "12 × 18 Inch",
+            "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "6x8 Inch",
+            "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "8x12 Inch",
+            "price_adj": 400,
+            "default": false
+          },
+          {
+            "name": "12x18 Inch",
+            "price_adj": 500,
+            "default": false
+          },
+          {
+            "name": "Custom Size / Specifications",
+            "price_adj": 0,
+            "is_custom": true
+          }
+        ],
+        "materials": [
+          {
+            "name": "Archival Artist Canvas",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Ultra-Gloss Luxe Surface",
+            "price_adj": 120
+          },
+          {
+            "name": "Museum Matte Velvet Finish",
+            "price_adj": 180
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Satin Archival Protection",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Anti-Glare UV Seal Coat",
+            "price_adj": 90
+          },
+          {
+            "name": "Diamond Sparkle Holographic Coat",
+            "price_adj": 150
+          }
+        ],
+        "frames": [
+          {
+            "name": "Frameless Standard Wrap / Bare",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Modern Matte Black Architectural Frame",
+            "price_adj": 350
+          },
+          {
+            "name": "Heritage Teak Wood Artisan Frame",
+            "price_adj": 450
+          },
+          {
+            "name": "Warm Champagne Gold Frame",
+            "price_adj": 490
+          }
+        ],
+        "quantity_tiers": [
+          {
+            "min": 1,
+            "max": 9,
+            "discount_percent": 0
+          },
+          {
+            "min": 10,
+            "max": 49,
+            "discount_percent": 15
+          },
+          {
+            "min": 50,
+            "max": 999,
+            "discount_percent": 30
+          }
+        ],
+        "extras": [
+          {
+            "id": "express",
+            "name": "Express 24h VIP Production",
+            "price_adj": 250
+          },
+          {
+            "id": "gift_wrap",
+            "name": "Artisan Gift Box & Handwritten Card",
+            "price_adj": 150
+          }
+        ]
+      },
+      "created_at": "2026-09-29T15:58:42.705Z",
+      "updated_at": "2026-09-30T04:31:46.447Z"
+    },
+    {
+      "id": "prod-sync-miniature_frame",
+      "sku": "MINIATURE_FRAME",
+      "name": "Eternal Besties 3D Customized Shadow Box Frame",
+      "category": "Miniature Frame",
+      "category_slug": "miniature-frame",
+      "subcategory": "Miniature Frame",
+      "subcategory_slug": "miniature-frame",
+      "short_description": "Celebrate an unbreakable bond with this 'Eternal Besties' 3D Customized Shadow Box.",
+      "full_description": "Celebrate an unbreakable bond with this 'Eternal Besties' 3D Customized Shadow Box. This intricately designed diorama frame features a premium white synthetic wood border and high-quality acrylic protection. The background is layered with a sentimental typography print in soft blues and greys. The 3D layout includes a central cutout of two friends, flanked by four smaller customized photo frames to capture multiple memories. Handcrafted miniature elements, such as a black display shelf, tiny books, a coffee mug, and potted plants, create a realistic and charming depth. The color palette is a vibrant yet soft mix of pastels, blacks, and whites. This product is fully customizable—customers can upload five personal photos and choose specific text or names for the miniature elements, making it a perfect, unique gift for birthdays or friendship anniversaries.",
+      "material": "Cast Acrylic Sheet",
+      "default_size": "8x10 inches",
+      "base_price": 649,
+      "selling_price": 649,
+      "mrp": 1199,
+      "discount": 46,
+      "tax": 18,
+      "stock": 250,
+      "production_time": "2-3 business days",
+      "tags": [
+        "Miniature Frame",
+        "Creaftique",
+        "Custom Print",
+        "Bespoke"
+      ],
+      "keywords": [
+        "miniature frame",
+        "eternal besties 3d customized shadow box frame",
+        "miniature_frame",
+        "customized",
+        "photo print"
+      ],
+      "images": [
+        "/catalog-images/05.%20Miniature%20Frame/03_Craftique_hero_3dab.jpg",
+        "/catalog-images/05.%20Miniature%20Frame/01_Craftique_banner_3dab.jpg",
+        "/catalog-images/05.%20Miniature%20Frame/02_1_Craftique_Size_8x10_inches_3dab.jpg",
+        "/catalog-images/05.%20Miniature%20Frame/02_2_Craftique_Size_10x12_inches_3dab.jpg",
+        "/catalog-images/05.%20Miniature%20Frame/02_3_Craftique_Size_12x12_inches_3dab.jpg",
+        "/catalog-images/05.%20Miniature%20Frame/02_4_Craftique_Size_12x15_inches_3dab.jpg",
+        "/catalog-images/05.%20Miniature%20Frame/04_Craftique_usage_3dab.jpg",
+        "/catalog-images/05.%20Miniature%20Frame/05_Craftique_details_3dab.jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 1,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": false,
+      "costs": {
+        "material_cost": 182,
+        "print_cost": 117,
+        "labor_cost": 78,
+        "packaging_cost": 60,
+        "shipping_cost": 80
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "8x10 inches",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "10x12 inches",
+            "price_adj": 150,
+            "default": false
+          },
+          {
+            "name": "12x12 inches",
+            "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "12x15 inches",
+            "price_adj": 450,
+            "default": false
+          },
+          {
+            "name": "8x6 Inch",
+            "price_adj": 400,
+            "default": false
+          },
+          {
+            "name": "12x8 Inch",
+            "price_adj": 500,
+            "default": false
+          },
+          {
+            "name": "18x12 Inch",
+            "price_adj": 600,
+            "default": false
+          },
+          {
+            "name": "Custom Size / Specifications",
+            "price_adj": 0,
+            "is_custom": true
+          }
+        ],
+        "materials": [
+          {
+            "name": "Cast Acrylic Sheet",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Ultra-Gloss Luxe Surface",
+            "price_adj": 120
+          },
+          {
+            "name": "Museum Matte Velvet Finish",
+            "price_adj": 180
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Satin Archival Protection",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Anti-Glare UV Seal Coat",
+            "price_adj": 90
+          },
+          {
+            "name": "Diamond Sparkle Holographic Coat",
+            "price_adj": 150
+          }
+        ],
+        "frames": [
+          {
+            "name": "Frameless Standard Wrap / Bare",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Modern Matte Black Architectural Frame",
+            "price_adj": 350
+          },
+          {
+            "name": "Heritage Teak Wood Artisan Frame",
+            "price_adj": 450
+          },
+          {
+            "name": "Warm Champagne Gold Frame",
+            "price_adj": 490
+          }
+        ],
+        "quantity_tiers": [
+          {
+            "min": 1,
+            "max": 9,
+            "discount_percent": 0
+          },
+          {
+            "min": 10,
+            "max": 49,
+            "discount_percent": 15
+          },
+          {
+            "min": 50,
+            "max": 999,
+            "discount_percent": 30
+          }
+        ],
+        "extras": [
+          {
+            "id": "express",
+            "name": "Express 24h VIP Production",
+            "price_adj": 250
+          },
+          {
+            "id": "gift_wrap",
+            "name": "Artisan Gift Box & Handwritten Card",
+            "price_adj": 150
+          }
+        ]
+      },
+      "created_at": "2026-09-29T15:58:42.706Z",
+      "updated_at": "2026-09-30T04:31:46.448Z"
+    },
+    {
+      "id": "prod-sync-paper_frame_paper_print_frame",
+      "sku": "PAPER_FRAME_PAPER_PRINT_FRAME",
+      "name": "Minimalist Botanical Paper Photo Frame",
+      "category": "Paper Frame",
+      "category_slug": "paper-frame",
+      "subcategory": "Paper Print Frame",
+      "subcategory_slug": "paper-print-frame",
+      "short_description": "This elegant Paper Frame offers a lightweight and stylish way to display your most cherished memories.",
+      "full_description": "This elegant Paper Frame offers a lightweight and stylish way to display your most cherished memories. Crafted from premium cardstock with a high-quality matte finish, it features a beautiful botanical artwork style with delicate green leaf illustrations on a crisp white background. The frame is designed for easy display and makes a perfect, thoughtful gift. You can fully customize this piece with your own high-resolution family photos and personalized text for a unique, heartfelt touch. Its minimalist aesthetic fits perfectly in any modern home or office space.",
+      "material": "Heavyweight 400+ GSM Cardstock",
+      "default_size": "8x8 inches",
+      "base_price": 499,
+      "selling_price": 499,
+      "mrp": 899,
+      "discount": 44,
+      "tax": 18,
+      "stock": 250,
+      "production_time": "1-2 business days",
+      "tags": [
+        "Paper Frame",
+        "Paper Print Frame",
+        "Creaftique",
+        "Custom Print",
+        "Bespoke"
+      ],
+      "keywords": [
+        "paper frame",
+        "minimalist botanical paper photo frame",
+        "paper_frame_paper_print_frame",
+        "customized",
+        "photo print"
+      ],
+      "images": [
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/03_Craftique_hero_0a03.jpg",
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/01_Craftique_banner_0a03.jpg",
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/02_1_Craftique_Size_8x8_inches_0a03.jpg",
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/02_2_Craftique_Size_10x10_inches_0a03.jpg",
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/02_3_Craftique_Size_12x12_inches_0a03.jpg",
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/04_Craftique_usage_0a03.jpg",
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/05_Craftique_details_0a03.jpg"
       ],
       "customization_available": true,
       "requires_photo": true,
@@ -237,48 +1881,18 @@
       "custom_options": {
         "sizes": [
           {
-            "name": "5x7 inches",
+            "name": "8x8 inches",
             "price_adj": 0,
             "default": true
           },
           {
-            "name": "4x6 inches",
+            "name": "10x10 inches",
             "price_adj": 150,
             "default": false
           },
           {
-            "name": "6x6 inches",
+            "name": "12x12 inches",
             "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "Wedding Invitations",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "Engagement Invitations",
-            "price_adj": 400,
-            "default": false
-          },
-          {
-            "name": "Birthday Invitations",
-            "price_adj": 500,
-            "default": false
-          },
-          {
-            "name": "Party Invitations",
-            "price_adj": 600,
-            "default": false
-          },
-          {
-            "name": "Inauguration Invitations",
-            "price_adj": 700,
-            "default": false
-          },
-          {
-            "name": "Event Invitations",
-            "price_adj": 800,
             "default": false
           },
           {
@@ -366,50 +1980,50 @@
           }
         ]
       },
-      "created_at": "2026-09-29T15:58:42.713Z",
-      "updated_at": "2026-09-29T17:13:45.200Z"
+      "created_at": "2026-09-29T15:58:42.707Z",
+      "updated_at": "2026-09-30T04:31:46.449Z"
     },
     {
-      "id": "prod-sync-personalized_stickers",
-      "sku": "PERSONALIZED_STICKERS",
-      "name": "Premium Custom Personalized Stickers & Brand Decals",
-      "category": "Personalized Stickers",
-      "category_slug": "personalized-stickers",
-      "subcategory": "Personalized Stickers",
-      "subcategory_slug": "personalized-stickers",
-      "short_description": "Our Personalized Stickers are designed to help you stick your brand and share your style with ease.",
-      "full_description": "Our Personalized Stickers are designed to help you stick your brand and share your style with ease. Featuring high-quality premium printing, these stickers boast a vibrant color palette and sharp imagery, from whimsical illustrations and motivational typography to professional floral designs. Made with a strong, durable adhesive, they are perfect for branding products, personalizing laptops and water bottles, or adding a special touch to packaging. These stickers offer full customization, including custom die-cut shapes and personalized text, ensuring they meet your specific creative or business needs.",
-      "material": "Bespoke Substrate",
-      "default_size": "2x2 inches",
-      "base_price": 199,
-      "selling_price": 199,
-      "mrp": 399,
-      "discount": 50,
+      "id": "prod-sync-paper_frame_paper_layer_fram",
+      "sku": "PAPER_FRAME_PAPER_LAYER_FRAM",
+      "name": "Personalized Layered Paper Frame",
+      "category": "Paper Frame",
+      "category_slug": "paper-frame",
+      "subcategory": "Paper Layer Fram",
+      "subcategory_slug": "paper-layer-fram",
+      "short_description": "This elegant paper frame features a multi-layered 3D paper-cut heart design adorned with delicate floral accents in a soft palette of sage green, dusty pink, and cream.",
+      "full_description": "This elegant paper frame features a multi-layered 3D paper-cut heart design adorned with delicate floral accents in a soft palette of sage green, dusty pink, and cream. Crafted from premium high-quality cardstock, this lightweight frame is designed for easy display and makes a perfect gift for weddings, anniversaries, or special milestones. The artwork is fully customizable, allowing you to include a personal photograph, names, a family surname, and a significant date. The sleek black frame provides a modern touch to the classic, romantic aesthetic, ensuring it fits beautifully in any space.",
+      "material": "Heavyweight 400+ GSM Cardstock",
+      "default_size": "8x8 inches",
+      "base_price": 499,
+      "selling_price": 499,
+      "mrp": 899,
+      "discount": 44,
       "tax": 18,
       "stock": 250,
       "production_time": "1-2 business days",
       "tags": [
-        "Personalized Stickers",
+        "Paper Frame",
+        "Paper Layer Fram",
         "Creaftique",
         "Custom Print",
         "Bespoke"
       ],
       "keywords": [
-        "personalized stickers",
-        "premium custom personalized stickers & brand decals",
-        "personalized_stickers",
+        "paper frame",
+        "personalized layered paper frame",
+        "paper_frame_paper_layer_fram",
         "customized",
         "photo print"
       ],
       "images": [
-        "/catalog-images/13.%20Personalized%20Stickers/03_Craftique_hero_7708.jpg",
-        "/catalog-images/13.%20Personalized%20Stickers/01_Craftique_banner_7708.jpg",
-        "/catalog-images/13.%20Personalized%20Stickers/02_1_Craftique_Size_2x2_inches_7708.jpg",
-        "/catalog-images/13.%20Personalized%20Stickers/02_2_Craftique_Size_3x3_inches_7708.jpg",
-        "/catalog-images/13.%20Personalized%20Stickers/02_3_Craftique_Size_4x6_inch_sticker_sheets_7708.jpg",
-        "/catalog-images/13.%20Personalized%20Stickers/02_4_Craftique_Size_Custom_die_cut_sizes_7708.jpg",
-        "/catalog-images/13.%20Personalized%20Stickers/04_Craftique_usage_7708.jpg",
-        "/catalog-images/13.%20Personalized%20Stickers/05_Craftique_details_7708.jpg"
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/03_Craftique_hero_2e47.jpg",
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/01_Craftique_banner_2e47.jpg",
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/02_1_Craftique_Size_8x8_inches_2e47.jpg",
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/02_2_Craftique_Size_10x10_inches_2e47.jpg",
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/02_3_Craftique_Size_12x12_inches_2e47.jpg",
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/04_Craftique_usage_2e47.jpg",
+        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/05_Craftique_details_2e47.jpg"
       ],
       "customization_available": true,
       "requires_photo": true,
@@ -418,52 +2032,27 @@
       "active": true,
       "featured": false,
       "costs": {
-        "material_cost": 56,
-        "print_cost": 36,
-        "labor_cost": 24,
+        "material_cost": 140,
+        "print_cost": 90,
+        "labor_cost": 60,
         "packaging_cost": 60,
         "shipping_cost": 80
       },
       "custom_options": {
         "sizes": [
           {
-            "name": "2x2 inches",
+            "name": "8x8 inches",
             "price_adj": 0,
             "default": true
           },
           {
-            "name": "3x3 inches",
+            "name": "10x10 inches",
             "price_adj": 150,
             "default": false
           },
           {
-            "name": "4x6 inch sticker sheets",
+            "name": "12x12 inches",
             "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "Custom die cut sizes",
-            "price_adj": 450,
-            "default": false
-          },
-          {
-            "name": "Round Stickers",
-            "price_adj": 400,
-            "default": false
-          },
-          {
-            "name": "Shape Cut Stickers",
-            "price_adj": 500,
-            "default": false
-          },
-          {
-            "name": "Packaging Stickers",
-            "price_adj": 600,
-            "default": false
-          },
-          {
-            "name": "Product Stickers",
-            "price_adj": 700,
             "default": false
           },
           {
@@ -474,7 +2063,7 @@
         ],
         "materials": [
           {
-            "name": "Bespoke Substrate",
+            "name": "Heavyweight 400+ GSM Cardstock",
             "price_adj": 0,
             "default": true
           },
@@ -551,51 +2140,49 @@
           }
         ]
       },
-      "created_at": "2026-09-29T15:58:42.712Z",
-      "updated_at": "2026-09-29T17:13:45.199Z"
+      "created_at": "2026-09-29T15:58:42.707Z",
+      "updated_at": "2026-09-30T04:31:46.449Z"
     },
     {
-      "id": "prod-sync-personalized_labels",
-      "sku": "PERSONALIZED_LABELS",
-      "name": "StickItUp All-in-One Personalized Custom Label Set",
-      "category": "Personalized Labels",
-      "category_slug": "personalized-labels",
-      "subcategory": "Personalized Labels",
-      "subcategory_slug": "personalized-labels",
-      "short_description": "Transform your organization with our premium Personalized Label Stickers.",
-      "full_description": "Transform your organization with our premium Personalized Label Stickers. Crafted from high-quality, durable adhesive paper with a high-definition print finish, these labels are designed to last. The collection features a vibrant color palette ranging from cheerful pastels for school labels to professional neutral tones for office and business use. The artwork style is versatile, offering playful illustrations like rockets and rainbows for children, alongside clean, minimalist icons for professional filing. Fully customizable, you can add names, grades, subjects, company logos, website URLs, or pricing. Ideal for school supplies, office binders, retail pricing, and branded shipping boxes, these labels ensure a strong, long-lasting stick on almost any smooth surface.",
-      "material": "Archival Fine Art Paper",
-      "default_size": "4 × 3 inches School Book Labels",
-      "base_price": 249,
-      "selling_price": 249,
-      "mrp": 499,
-      "discount": 50,
+      "id": "prod-sync-photo_albums",
+      "sku": "PHOTO_ALBUMS",
+      "name": "Timeless Journeys Personalized Linen Photo Album",
+      "category": "Photo Albums",
+      "category_slug": "photo-albums",
+      "subcategory": "Photo Albums",
+      "subcategory_slug": "photo-albums",
+      "short_description": "Preserve your most precious memories with this elegant, high-quality photo album.",
+      "full_description": "Preserve your most precious memories with this elegant, high-quality photo album. Designed with a premium linen-textured hardcover and durable binding, it ensures your stories are protected for generations. The color palette features timeless neutral tones of beige and cream, beautifully complemented by delicate green botanical watercolor illustrations. The artwork style is sophisticated and sentimental, making it an ideal choice for wedding memories, family milestones, or travel adventures. Every aspect can be customized, from the personalized cover photo and unique title text to the interior page layouts and heartfelt messages, creating a truly one-of-a-kind keepsake or the perfect personalized gift.",
+      "material": "Premium Woven Linen",
+      "default_size": "8 × 6 Inch",
+      "base_price": 1299,
+      "selling_price": 1299,
+      "mrp": 2499,
+      "discount": 48,
       "tax": 18,
       "stock": 250,
-      "production_time": "1-2 business days",
+      "production_time": "3-4 business days",
       "tags": [
-        "Personalized Labels",
+        "Photo Albums",
         "Creaftique",
         "Custom Print",
         "Bespoke"
       ],
       "keywords": [
-        "personalized labels",
-        "stickitup all-in-one personalized custom label set",
-        "personalized_labels",
+        "photo albums",
+        "timeless journeys personalized linen photo album",
+        "photo_albums",
         "customized",
         "photo print"
       ],
       "images": [
-        "/catalog-images/12.%20Personalized%20Labels/03_Craftique_hero_0ae4.jpg",
-        "/catalog-images/12.%20Personalized%20Labels/01_Craftique_banner_0ae4.jpg",
-        "/catalog-images/12.%20Personalized%20Labels/02_1_Craftique_Size_4_x_3_inches__School_Book_Labels__0ae4.jpg",
-        "/catalog-images/12.%20Personalized%20Labels/02_2_Craftique_Size_3_x_2_inches__File___Binder_Labels__0ae4.jpg",
-        "/catalog-images/12.%20Personalized%20Labels/02_3_Craftique_Size_1_5_x_1_5_inches__Square_Price_Tags__0ae4.jpg",
-        "/catalog-images/12.%20Personalized%20Labels/02_4_Craftique_Size_4_x_2_inches__Large_Company_Labels__0ae4.jpg",
-        "/catalog-images/12.%20Personalized%20Labels/02_5_Craftique_Size_1_5_x_1_5_inches__Round_Thank_You_Stickers__0ae4.jpg",
-        "/catalog-images/12.%20Personalized%20Labels/04_Craftique_usage_0ae4.jpg",
-        "/catalog-images/12.%20Personalized%20Labels/05_Craftique_details_0ae4.jpg"
+        "/catalog-images/07.%20Photo%20Albums/03_Craftique_hero_1fdb.jpg",
+        "/catalog-images/07.%20Photo%20Albums/01_Craftique_banner_1fdb.jpg",
+        "/catalog-images/07.%20Photo%20Albums/02_1_Craftique_Size_8_x_6_Inch_1fdb.jpg",
+        "/catalog-images/07.%20Photo%20Albums/02_2_Craftique_Size_12_x_8_Inch_1fdb.jpg",
+        "/catalog-images/07.%20Photo%20Albums/02_3_Craftique_Size_18_x_12_Inch_1fdb.jpg",
+        "/catalog-images/07.%20Photo%20Albums/04_Craftique_usage_1fdb.jpg",
+        "/catalog-images/07.%20Photo%20Albums/05_Craftique_details_1fdb.jpg"
       ],
       "customization_available": true,
       "requires_photo": true,
@@ -604,57 +2191,208 @@
       "active": true,
       "featured": false,
       "costs": {
-        "material_cost": 70,
-        "print_cost": 45,
-        "labor_cost": 30,
+        "material_cost": 364,
+        "print_cost": 234,
+        "labor_cost": 156,
         "packaging_cost": 60,
         "shipping_cost": 80
       },
       "custom_options": {
         "sizes": [
           {
-            "name": "4 × 3 inches School Book Labels",
+            "name": "8 × 6 Inch",
             "price_adj": 0,
             "default": true
           },
           {
-            "name": "3 × 2 inches (File) Binder Labels",
+            "name": "12 × 8 Inch",
             "price_adj": 150,
             "default": false
           },
           {
-            "name": "1.5 × 1.5 inches Square Price Tags",
+            "name": "18 × 12 Inch",
             "price_adj": 300,
             "default": false
           },
           {
-            "name": "4 × 2 inches Large Company Labels",
-            "price_adj": 450,
+            "name": "8x6 Inch",
+            "price_adj": 300,
             "default": false
           },
           {
-            "name": "1.5 × 1.5 inches Round Thank You Stickers",
-            "price_adj": 600,
+            "name": "12x8 Inch",
+            "price_adj": 400,
             "default": false
           },
           {
-            "name": "School Book Labels",
+            "name": "18x12 Inch",
             "price_adj": 500,
             "default": false
           },
           {
-            "name": "File Labels",
-            "price_adj": 600,
+            "name": "Custom Size / Specifications",
+            "price_adj": 0,
+            "is_custom": true
+          }
+        ],
+        "materials": [
+          {
+            "name": "Premium Woven Linen",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Ultra-Gloss Luxe Surface",
+            "price_adj": 120
+          },
+          {
+            "name": "Museum Matte Velvet Finish",
+            "price_adj": 180
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Satin Archival Protection",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Anti-Glare UV Seal Coat",
+            "price_adj": 90
+          },
+          {
+            "name": "Diamond Sparkle Holographic Coat",
+            "price_adj": 150
+          }
+        ],
+        "frames": [
+          {
+            "name": "Frameless Standard Wrap / Bare",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Modern Matte Black Architectural Frame",
+            "price_adj": 350
+          },
+          {
+            "name": "Heritage Teak Wood Artisan Frame",
+            "price_adj": 450
+          },
+          {
+            "name": "Warm Champagne Gold Frame",
+            "price_adj": 490
+          }
+        ],
+        "quantity_tiers": [
+          {
+            "min": 1,
+            "max": 9,
+            "discount_percent": 0
+          },
+          {
+            "min": 10,
+            "max": 49,
+            "discount_percent": 15
+          },
+          {
+            "min": 50,
+            "max": 999,
+            "discount_percent": 30
+          }
+        ],
+        "extras": [
+          {
+            "id": "express",
+            "name": "Express 24h VIP Production",
+            "price_adj": 250
+          },
+          {
+            "id": "gift_wrap",
+            "name": "Artisan Gift Box & Handwritten Card",
+            "price_adj": 150
+          }
+        ]
+      },
+      "created_at": "2026-09-29T15:58:42.708Z",
+      "updated_at": "2026-09-30T04:31:46.450Z"
+    },
+    {
+      "id": "prod-sync-magazine_albums_a4",
+      "sku": "MAGAZINE_ALBUMS_A4",
+      "name": "Premium Magazine-Style Personalized Family Photo Album",
+      "category": "Magazine Albums",
+      "category_slug": "magazine-albums",
+      "subcategory": "A4",
+      "subcategory_slug": "a4",
+      "short_description": "Transform your cherished memories into a professional-grade publication with our Magazine-Style Albums.",
+      "full_description": "Transform your cherished memories into a professional-grade publication with our Magazine-Style Albums. Crafted with premium archival-grade paper for a luxurious feel, these albums feature a sophisticated color palette of soft pastels and cream tones, accented by elegant floral artwork. The modern layout style mirrors high-end lifestyle magazines, utilizing contemporary typography and clean design elements. Fully customizable, you can personalize everything from the cover title and interior captions to the specific grid layouts and background motifs, ensuring every page tells your unique story with a premium print finish.",
+      "material": "Archival Fine Art Paper",
+      "default_size": "A4 8.3 × 11.7 inches",
+      "base_price": 1299,
+      "selling_price": 1299,
+      "mrp": 2499,
+      "discount": 48,
+      "tax": 18,
+      "stock": 250,
+      "production_time": "3-4 business days",
+      "tags": [
+        "Magazine Albums",
+        "A4",
+        "Creaftique",
+        "Custom Print",
+        "Bespoke"
+      ],
+      "keywords": [
+        "magazine albums",
+        "premium magazine-style personalized family photo album",
+        "magazine_albums_a4",
+        "customized",
+        "photo print"
+      ],
+      "images": [
+        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/03_Craftique_hero_7a56.jpg",
+        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/01_Craftique_banner_7a56.jpg",
+        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/02_1_Craftique_Size_A4__8_3_x_11_7_inches__7a56.jpg",
+        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/02_2_Craftique_Size_A5__5_8_x_8_3_inches__7a56.jpg",
+        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/02_3_Craftique_Size_Square__8_x_8_inches__7a56.jpg",
+        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/02_4_Craftique_Size_Square__12_x_12_inches__7a56.jpg",
+        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/04_Craftique_usage_7a56.jpg",
+        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/05_Craftique_details_7a56.jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 1,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": false,
+      "costs": {
+        "material_cost": 364,
+        "print_cost": 234,
+        "labor_cost": 156,
+        "packaging_cost": 60,
+        "shipping_cost": 80
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "A4 8.3 × 11.7 inches",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "A5 5.8 × 8.3 inches",
+            "price_adj": 150,
             "default": false
           },
           {
-            "name": "Price Labels",
-            "price_adj": 700,
+            "name": "Square 8 × 8 inches",
+            "price_adj": 300,
             "default": false
           },
           {
-            "name": "Company Labels",
-            "price_adj": 800,
+            "name": "Square 12 × 12 inches",
+            "price_adj": 450,
             "default": false
           },
           {
@@ -742,8 +2480,307 @@
           }
         ]
       },
-      "created_at": "2026-09-29T15:58:42.711Z",
-      "updated_at": "2026-09-29T17:13:45.198Z"
+      "created_at": "2026-09-29T15:58:42.708Z",
+      "updated_at": "2026-09-30T04:31:46.451Z"
+    },
+    {
+      "id": "prod-sync-photo_magnets",
+      "sku": "PHOTO_MAGNETS",
+      "name": "Personalized Polaroid-Style Photo Magnets",
+      "category": "Photo Magnets",
+      "category_slug": "photo-magnets",
+      "subcategory": "Photo Magnets",
+      "subcategory_slug": "photo-magnets",
+      "short_description": "Transform your favorite memories into functional art with these custom polaroid-style photo magnets.",
+      "full_description": "Transform your favorite memories into functional art with these custom polaroid-style photo magnets. Each magnet features a high-quality, vibrant print on a durable substrate with a strong, full-surface magnetic backing. The design follows a classic polaroid aesthetic with a clean white border and space for personalized captions and small icons at the bottom. Perfect for refrigerators, lockers, or any magnetic surface, these magnets are fully customizable with your personal photos and text, making them an ideal gift for any occasion.",
+      "material": "Magnetic Substrate + Neodymium",
+      "default_size": "2 × 3 inches",
+      "base_price": 349,
+      "selling_price": 349,
+      "mrp": 699,
+      "discount": 50,
+      "tax": 18,
+      "stock": 250,
+      "production_time": "1-2 business days",
+      "tags": [
+        "Photo Magnets",
+        "Creaftique",
+        "Custom Print",
+        "Bespoke"
+      ],
+      "keywords": [
+        "photo magnets",
+        "personalized polaroid-style photo magnets",
+        "photo_magnets",
+        "customized",
+        "photo print"
+      ],
+      "images": [
+        "/catalog-images/09.%20Photo%20Magnets/03_Craftique_hero_6b46.jpg",
+        "/catalog-images/09.%20Photo%20Magnets/01_Craftique_banner_6b46.jpg",
+        "/catalog-images/09.%20Photo%20Magnets/02_1_Craftique_Size_2_x_3_inches_6b46.jpg",
+        "/catalog-images/09.%20Photo%20Magnets/04_Craftique_usage_6b46.jpg",
+        "/catalog-images/09.%20Photo%20Magnets/05_Craftique_details_6b46.jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 6,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": false,
+      "costs": {
+        "material_cost": 98,
+        "print_cost": 63,
+        "labor_cost": 42,
+        "packaging_cost": 60,
+        "shipping_cost": 80
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "2 × 3 inches",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "2x3 Inch",
+            "price_adj": 100,
+            "default": false
+          },
+          {
+            "name": "Custom Size / Specifications",
+            "price_adj": 0,
+            "is_custom": true
+          }
+        ],
+        "materials": [
+          {
+            "name": "Magnetic Substrate + Neodymium",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Ultra-Gloss Luxe Surface",
+            "price_adj": 120
+          },
+          {
+            "name": "Museum Matte Velvet Finish",
+            "price_adj": 180
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Satin Archival Protection",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Anti-Glare UV Seal Coat",
+            "price_adj": 90
+          },
+          {
+            "name": "Diamond Sparkle Holographic Coat",
+            "price_adj": 150
+          }
+        ],
+        "frames": [
+          {
+            "name": "Frameless Standard Wrap / Bare",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Modern Matte Black Architectural Frame",
+            "price_adj": 350
+          },
+          {
+            "name": "Heritage Teak Wood Artisan Frame",
+            "price_adj": 450
+          },
+          {
+            "name": "Warm Champagne Gold Frame",
+            "price_adj": 490
+          }
+        ],
+        "quantity_tiers": [
+          {
+            "min": 1,
+            "max": 9,
+            "discount_percent": 0
+          },
+          {
+            "min": 10,
+            "max": 49,
+            "discount_percent": 15
+          },
+          {
+            "min": 50,
+            "max": 999,
+            "discount_percent": 30
+          }
+        ],
+        "extras": [
+          {
+            "id": "express",
+            "name": "Express 24h VIP Production",
+            "price_adj": 250
+          },
+          {
+            "id": "gift_wrap",
+            "name": "Artisan Gift Box & Handwritten Card",
+            "price_adj": 150
+          }
+        ]
+      },
+      "created_at": "2026-09-29T15:58:42.709Z",
+      "updated_at": "2026-09-30T04:31:46.452Z"
+    },
+    {
+      "id": "prod-sync-insta_photo_cards",
+      "sku": "INSTA_PHOTO_CARDS",
+      "name": "Insta Photo Cards: Personalized Mini Prints",
+      "category": "Insta Photo Cards",
+      "category_slug": "insta-photo-cards",
+      "subcategory": "Insta Photo Cards",
+      "subcategory_slug": "insta-photo-cards",
+      "short_description": "Bring your digital feed to life with these premium Insta Photo Cards.",
+      "full_description": "Bring your digital feed to life with these premium Insta Photo Cards. Designed with a classic social media aesthetic, each card features a square photo area, iconic interactive symbols, and space for a custom caption. Crafted from thick, high-quality matte or glossy cardstock, these prints are durable and resistant to fading. The color palette is vibrant and true-to-life, mirroring the original quality of your digital files. These cards are fully customizable with your personal photos and heart-felt captions, making them perfect for scrapbooking, wall decor, or as a thoughtful gift for any occasion. Each pack comes gift-ready for a polished presentation.",
+      "material": "Heavyweight 400+ GSM Cardstock",
+      "default_size": "2 × 3 inches",
+      "base_price": 299,
+      "selling_price": 299,
+      "mrp": 599,
+      "discount": 50,
+      "tax": 18,
+      "stock": 250,
+      "production_time": "1-2 business days",
+      "tags": [
+        "Insta Photo Cards",
+        "Creaftique",
+        "Custom Print",
+        "Bespoke"
+      ],
+      "keywords": [
+        "insta photo cards",
+        "insta photo cards: personalized mini prints",
+        "insta_photo_cards",
+        "customized",
+        "photo print"
+      ],
+      "images": [
+        "/catalog-images/10.%20Insta%20Photo%20Cards/03_Craftique_hero_1fa2.jpg",
+        "/catalog-images/10.%20Insta%20Photo%20Cards/01_Craftique_banner_1fa2.jpg",
+        "/catalog-images/10.%20Insta%20Photo%20Cards/02_1_Craftique_Size_2_x_3_inches_1fa2.jpg",
+        "/catalog-images/10.%20Insta%20Photo%20Cards/04_Craftique_usage_1fa2.jpg",
+        "/catalog-images/10.%20Insta%20Photo%20Cards/05_Craftique_details_1fa2.jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 1,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": false,
+      "costs": {
+        "material_cost": 84,
+        "print_cost": 54,
+        "labor_cost": 36,
+        "packaging_cost": 60,
+        "shipping_cost": 80
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "2 × 3 inches",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Custom Size / Specifications",
+            "price_adj": 0,
+            "is_custom": true
+          }
+        ],
+        "materials": [
+          {
+            "name": "Heavyweight 400+ GSM Cardstock",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Ultra-Gloss Luxe Surface",
+            "price_adj": 120
+          },
+          {
+            "name": "Museum Matte Velvet Finish",
+            "price_adj": 180
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Satin Archival Protection",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Anti-Glare UV Seal Coat",
+            "price_adj": 90
+          },
+          {
+            "name": "Diamond Sparkle Holographic Coat",
+            "price_adj": 150
+          }
+        ],
+        "frames": [
+          {
+            "name": "Frameless Standard Wrap / Bare",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Modern Matte Black Architectural Frame",
+            "price_adj": 350
+          },
+          {
+            "name": "Heritage Teak Wood Artisan Frame",
+            "price_adj": 450
+          },
+          {
+            "name": "Warm Champagne Gold Frame",
+            "price_adj": 490
+          }
+        ],
+        "quantity_tiers": [
+          {
+            "min": 1,
+            "max": 9,
+            "discount_percent": 0
+          },
+          {
+            "min": 10,
+            "max": 49,
+            "discount_percent": 15
+          },
+          {
+            "min": 50,
+            "max": 999,
+            "discount_percent": 30
+          }
+        ],
+        "extras": [
+          {
+            "id": "express",
+            "name": "Express 24h VIP Production",
+            "price_adj": 250
+          },
+          {
+            "id": "gift_wrap",
+            "name": "Artisan Gift Box & Handwritten Card",
+            "price_adj": 150
+          }
+        ]
+      },
+      "created_at": "2026-09-29T15:58:42.710Z",
+      "updated_at": "2026-09-30T04:31:46.453Z"
     },
     {
       "id": "prod-sync-birthday_party_supplies",
@@ -945,349 +2982,50 @@
         ]
       },
       "created_at": "2026-09-29T15:58:42.710Z",
-      "updated_at": "2026-09-29T17:13:45.197Z"
+      "updated_at": "2026-09-30T04:31:46.454Z"
     },
     {
-      "id": "prod-sync-insta_photo_cards",
-      "sku": "INSTA_PHOTO_CARDS",
-      "name": "Insta Photo Cards: Personalized Mini Prints",
-      "category": "Insta Photo Cards",
-      "category_slug": "insta-photo-cards",
-      "subcategory": "Insta Photo Cards",
-      "subcategory_slug": "insta-photo-cards",
-      "short_description": "Bring your digital feed to life with these premium Insta Photo Cards.",
-      "full_description": "Bring your digital feed to life with these premium Insta Photo Cards. Designed with a classic social media aesthetic, each card features a square photo area, iconic interactive symbols, and space for a custom caption. Crafted from thick, high-quality matte or glossy cardstock, these prints are durable and resistant to fading. The color palette is vibrant and true-to-life, mirroring the original quality of your digital files. These cards are fully customizable with your personal photos and heart-felt captions, making them perfect for scrapbooking, wall decor, or as a thoughtful gift for any occasion. Each pack comes gift-ready for a polished presentation.",
-      "material": "Heavyweight 400+ GSM Cardstock",
-      "default_size": "2 × 3 inches",
-      "base_price": 299,
-      "selling_price": 299,
-      "mrp": 599,
-      "discount": 50,
-      "tax": 18,
-      "stock": 250,
-      "production_time": "1-2 business days",
-      "tags": [
-        "Insta Photo Cards",
-        "Creaftique",
-        "Custom Print",
-        "Bespoke"
-      ],
-      "keywords": [
-        "insta photo cards",
-        "insta photo cards: personalized mini prints",
-        "insta_photo_cards",
-        "customized",
-        "photo print"
-      ],
-      "images": [
-        "/catalog-images/10.%20Insta%20Photo%20Cards/03_Craftique_hero_1fa2.jpg",
-        "/catalog-images/10.%20Insta%20Photo%20Cards/01_Craftique_banner_1fa2.jpg",
-        "/catalog-images/10.%20Insta%20Photo%20Cards/02_1_Craftique_Size_2_x_3_inches_1fa2.jpg",
-        "/catalog-images/10.%20Insta%20Photo%20Cards/04_Craftique_usage_1fa2.jpg",
-        "/catalog-images/10.%20Insta%20Photo%20Cards/05_Craftique_details_1fa2.jpg"
-      ],
-      "customization_available": true,
-      "requires_photo": true,
-      "required_photos_count": 1,
-      "custom_text_allowed": true,
-      "active": true,
-      "featured": false,
-      "costs": {
-        "material_cost": 84,
-        "print_cost": 54,
-        "labor_cost": 36,
-        "packaging_cost": 60,
-        "shipping_cost": 80
-      },
-      "custom_options": {
-        "sizes": [
-          {
-            "name": "2 × 3 inches",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Custom Size / Specifications",
-            "price_adj": 0,
-            "is_custom": true
-          }
-        ],
-        "materials": [
-          {
-            "name": "Heavyweight 400+ GSM Cardstock",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Ultra-Gloss Luxe Surface",
-            "price_adj": 120
-          },
-          {
-            "name": "Museum Matte Velvet Finish",
-            "price_adj": 180
-          }
-        ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
-        "quantity_tiers": [
-          {
-            "min": 1,
-            "max": 9,
-            "discount_percent": 0
-          },
-          {
-            "min": 10,
-            "max": 49,
-            "discount_percent": 15
-          },
-          {
-            "min": 50,
-            "max": 999,
-            "discount_percent": 30
-          }
-        ],
-        "extras": [
-          {
-            "id": "express",
-            "name": "Express 24h VIP Production",
-            "price_adj": 250
-          },
-          {
-            "id": "gift_wrap",
-            "name": "Artisan Gift Box & Handwritten Card",
-            "price_adj": 150
-          }
-        ]
-      },
-      "created_at": "2026-09-29T15:58:42.710Z",
-      "updated_at": "2026-09-29T17:13:45.196Z"
-    },
-    {
-      "id": "prod-sync-photo_magnets",
-      "sku": "PHOTO_MAGNETS",
-      "name": "Personalized Polaroid-Style Photo Magnets",
-      "category": "Photo Magnets",
-      "category_slug": "photo-magnets",
-      "subcategory": "Photo Magnets",
-      "subcategory_slug": "photo-magnets",
-      "short_description": "Transform your favorite memories into functional art with these custom polaroid-style photo magnets.",
-      "full_description": "Transform your favorite memories into functional art with these custom polaroid-style photo magnets. Each magnet features a high-quality, vibrant print on a durable substrate with a strong, full-surface magnetic backing. The design follows a classic polaroid aesthetic with a clean white border and space for personalized captions and small icons at the bottom. Perfect for refrigerators, lockers, or any magnetic surface, these magnets are fully customizable with your personal photos and text, making them an ideal gift for any occasion.",
-      "material": "Magnetic Substrate + Neodymium",
-      "default_size": "2 × 3 inches",
-      "base_price": 349,
-      "selling_price": 349,
-      "mrp": 699,
-      "discount": 50,
-      "tax": 18,
-      "stock": 250,
-      "production_time": "1-2 business days",
-      "tags": [
-        "Photo Magnets",
-        "Creaftique",
-        "Custom Print",
-        "Bespoke"
-      ],
-      "keywords": [
-        "photo magnets",
-        "personalized polaroid-style photo magnets",
-        "photo_magnets",
-        "customized",
-        "photo print"
-      ],
-      "images": [
-        "/catalog-images/09.%20Photo%20Magnets/03_Craftique_hero_6b46.jpg",
-        "/catalog-images/09.%20Photo%20Magnets/01_Craftique_banner_6b46.jpg",
-        "/catalog-images/09.%20Photo%20Magnets/02_1_Craftique_Size_2_x_3_inches_6b46.jpg",
-        "/catalog-images/09.%20Photo%20Magnets/04_Craftique_usage_6b46.jpg",
-        "/catalog-images/09.%20Photo%20Magnets/05_Craftique_details_6b46.jpg"
-      ],
-      "customization_available": true,
-      "requires_photo": true,
-      "required_photos_count": 6,
-      "custom_text_allowed": true,
-      "active": true,
-      "featured": false,
-      "costs": {
-        "material_cost": 98,
-        "print_cost": 63,
-        "labor_cost": 42,
-        "packaging_cost": 60,
-        "shipping_cost": 80
-      },
-      "custom_options": {
-        "sizes": [
-          {
-            "name": "2 × 3 inches",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "2x3 Inch",
-            "price_adj": 100,
-            "default": false
-          },
-          {
-            "name": "Custom Size / Specifications",
-            "price_adj": 0,
-            "is_custom": true
-          }
-        ],
-        "materials": [
-          {
-            "name": "Magnetic Substrate + Neodymium",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Ultra-Gloss Luxe Surface",
-            "price_adj": 120
-          },
-          {
-            "name": "Museum Matte Velvet Finish",
-            "price_adj": 180
-          }
-        ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
-        "quantity_tiers": [
-          {
-            "min": 1,
-            "max": 9,
-            "discount_percent": 0
-          },
-          {
-            "min": 10,
-            "max": 49,
-            "discount_percent": 15
-          },
-          {
-            "min": 50,
-            "max": 999,
-            "discount_percent": 30
-          }
-        ],
-        "extras": [
-          {
-            "id": "express",
-            "name": "Express 24h VIP Production",
-            "price_adj": 250
-          },
-          {
-            "id": "gift_wrap",
-            "name": "Artisan Gift Box & Handwritten Card",
-            "price_adj": 150
-          }
-        ]
-      },
-      "created_at": "2026-09-29T15:58:42.709Z",
-      "updated_at": "2026-09-29T17:13:45.195Z"
-    },
-    {
-      "id": "prod-sync-magazine_albums_a4",
-      "sku": "MAGAZINE_ALBUMS_A4",
-      "name": "Premium Magazine-Style Personalized Family Photo Album",
-      "category": "Magazine Albums",
-      "category_slug": "magazine-albums",
-      "subcategory": "A4",
-      "subcategory_slug": "a4",
-      "short_description": "Transform your cherished memories into a professional-grade publication with our Magazine-Style Albums.",
-      "full_description": "Transform your cherished memories into a professional-grade publication with our Magazine-Style Albums. Crafted with premium archival-grade paper for a luxurious feel, these albums feature a sophisticated color palette of soft pastels and cream tones, accented by elegant floral artwork. The modern layout style mirrors high-end lifestyle magazines, utilizing contemporary typography and clean design elements. Fully customizable, you can personalize everything from the cover title and interior captions to the specific grid layouts and background motifs, ensuring every page tells your unique story with a premium print finish.",
+      "id": "prod-sync-personalized_labels",
+      "sku": "PERSONALIZED_LABELS",
+      "name": "StickItUp All-in-One Personalized Custom Label Set",
+      "category": "Personalized Labels",
+      "category_slug": "personalized-labels",
+      "subcategory": "Personalized Labels",
+      "subcategory_slug": "personalized-labels",
+      "short_description": "Transform your organization with our premium Personalized Label Stickers.",
+      "full_description": "Transform your organization with our premium Personalized Label Stickers. Crafted from high-quality, durable adhesive paper with a high-definition print finish, these labels are designed to last. The collection features a vibrant color palette ranging from cheerful pastels for school labels to professional neutral tones for office and business use. The artwork style is versatile, offering playful illustrations like rockets and rainbows for children, alongside clean, minimalist icons for professional filing. Fully customizable, you can add names, grades, subjects, company logos, website URLs, or pricing. Ideal for school supplies, office binders, retail pricing, and branded shipping boxes, these labels ensure a strong, long-lasting stick on almost any smooth surface.",
       "material": "Archival Fine Art Paper",
-      "default_size": "A4 8.3 × 11.7 inches",
-      "base_price": 1299,
-      "selling_price": 1299,
-      "mrp": 2499,
-      "discount": 48,
+      "default_size": "4 × 3 inches School Book Labels",
+      "base_price": 249,
+      "selling_price": 249,
+      "mrp": 499,
+      "discount": 50,
       "tax": 18,
       "stock": 250,
-      "production_time": "3-4 business days",
+      "production_time": "1-2 business days",
       "tags": [
-        "Magazine Albums",
-        "A4",
+        "Personalized Labels",
         "Creaftique",
         "Custom Print",
         "Bespoke"
       ],
       "keywords": [
-        "magazine albums",
-        "premium magazine-style personalized family photo album",
-        "magazine_albums_a4",
+        "personalized labels",
+        "stickitup all-in-one personalized custom label set",
+        "personalized_labels",
         "customized",
         "photo print"
       ],
       "images": [
-        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/03_Craftique_hero_7a56.jpg",
-        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/01_Craftique_banner_7a56.jpg",
-        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/02_1_Craftique_Size_A4__8_3_x_11_7_inches__7a56.jpg",
-        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/02_2_Craftique_Size_A5__5_8_x_8_3_inches__7a56.jpg",
-        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/02_3_Craftique_Size_Square__8_x_8_inches__7a56.jpg",
-        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/02_4_Craftique_Size_Square__12_x_12_inches__7a56.jpg",
-        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/04_Craftique_usage_7a56.jpg",
-        "/catalog-images/08.%20Magazine%20Albums/01.%20A4/05_Craftique_details_7a56.jpg"
+        "/catalog-images/12.%20Personalized%20Labels/03_Craftique_hero_0ae4.jpg",
+        "/catalog-images/12.%20Personalized%20Labels/01_Craftique_banner_0ae4.jpg",
+        "/catalog-images/12.%20Personalized%20Labels/02_1_Craftique_Size_4_x_3_inches__School_Book_Labels__0ae4.jpg",
+        "/catalog-images/12.%20Personalized%20Labels/02_2_Craftique_Size_3_x_2_inches__File___Binder_Labels__0ae4.jpg",
+        "/catalog-images/12.%20Personalized%20Labels/02_3_Craftique_Size_1_5_x_1_5_inches__Square_Price_Tags__0ae4.jpg",
+        "/catalog-images/12.%20Personalized%20Labels/02_4_Craftique_Size_4_x_2_inches__Large_Company_Labels__0ae4.jpg",
+        "/catalog-images/12.%20Personalized%20Labels/02_5_Craftique_Size_1_5_x_1_5_inches__Round_Thank_You_Stickers__0ae4.jpg",
+        "/catalog-images/12.%20Personalized%20Labels/04_Craftique_usage_0ae4.jpg",
+        "/catalog-images/12.%20Personalized%20Labels/05_Craftique_details_0ae4.jpg"
       ],
       "customization_available": true,
       "requires_photo": true,
@@ -1296,32 +3034,57 @@
       "active": true,
       "featured": false,
       "costs": {
-        "material_cost": 364,
-        "print_cost": 234,
-        "labor_cost": 156,
+        "material_cost": 70,
+        "print_cost": 45,
+        "labor_cost": 30,
         "packaging_cost": 60,
         "shipping_cost": 80
       },
       "custom_options": {
         "sizes": [
           {
-            "name": "A4 8.3 × 11.7 inches",
+            "name": "4 × 3 inches School Book Labels",
             "price_adj": 0,
             "default": true
           },
           {
-            "name": "A5 5.8 × 8.3 inches",
+            "name": "3 × 2 inches (File) Binder Labels",
             "price_adj": 150,
             "default": false
           },
           {
-            "name": "Square 8 × 8 inches",
+            "name": "1.5 × 1.5 inches Square Price Tags",
             "price_adj": 300,
             "default": false
           },
           {
-            "name": "Square 12 × 12 inches",
+            "name": "4 × 2 inches Large Company Labels",
             "price_adj": 450,
+            "default": false
+          },
+          {
+            "name": "1.5 × 1.5 inches Round Thank You Stickers",
+            "price_adj": 600,
+            "default": false
+          },
+          {
+            "name": "School Book Labels",
+            "price_adj": 500,
+            "default": false
+          },
+          {
+            "name": "File Labels",
+            "price_adj": 600,
+            "default": false
+          },
+          {
+            "name": "Price Labels",
+            "price_adj": 700,
+            "default": false
+          },
+          {
+            "name": "Company Labels",
+            "price_adj": 800,
             "default": false
           },
           {
@@ -1409,49 +3172,50 @@
           }
         ]
       },
-      "created_at": "2026-09-29T15:58:42.708Z",
-      "updated_at": "2026-09-29T17:13:45.194Z"
+      "created_at": "2026-09-29T15:58:42.711Z",
+      "updated_at": "2026-09-30T04:31:46.456Z"
     },
     {
-      "id": "prod-sync-photo_albums",
-      "sku": "PHOTO_ALBUMS",
-      "name": "Timeless Journeys Personalized Linen Photo Album",
-      "category": "Photo Albums",
-      "category_slug": "photo-albums",
-      "subcategory": "Photo Albums",
-      "subcategory_slug": "photo-albums",
-      "short_description": "Preserve your most precious memories with this elegant, high-quality photo album.",
-      "full_description": "Preserve your most precious memories with this elegant, high-quality photo album. Designed with a premium linen-textured hardcover and durable binding, it ensures your stories are protected for generations. The color palette features timeless neutral tones of beige and cream, beautifully complemented by delicate green botanical watercolor illustrations. The artwork style is sophisticated and sentimental, making it an ideal choice for wedding memories, family milestones, or travel adventures. Every aspect can be customized, from the personalized cover photo and unique title text to the interior page layouts and heartfelt messages, creating a truly one-of-a-kind keepsake or the perfect personalized gift.",
-      "material": "Premium Woven Linen",
-      "default_size": "8 × 6 Inch",
-      "base_price": 1299,
-      "selling_price": 1299,
-      "mrp": 2499,
-      "discount": 48,
+      "id": "prod-sync-personalized_stickers",
+      "sku": "PERSONALIZED_STICKERS",
+      "name": "Premium Custom Personalized Stickers & Brand Decals",
+      "category": "Personalized Stickers",
+      "category_slug": "personalized-stickers",
+      "subcategory": "Personalized Stickers",
+      "subcategory_slug": "personalized-stickers",
+      "short_description": "Our Personalized Stickers are designed to help you stick your brand and share your style with ease.",
+      "full_description": "Our Personalized Stickers are designed to help you stick your brand and share your style with ease. Featuring high-quality premium printing, these stickers boast a vibrant color palette and sharp imagery, from whimsical illustrations and motivational typography to professional floral designs. Made with a strong, durable adhesive, they are perfect for branding products, personalizing laptops and water bottles, or adding a special touch to packaging. These stickers offer full customization, including custom die-cut shapes and personalized text, ensuring they meet your specific creative or business needs.",
+      "material": "Bespoke Substrate",
+      "default_size": "2x2 inches",
+      "base_price": 199,
+      "selling_price": 199,
+      "mrp": 399,
+      "discount": 50,
       "tax": 18,
       "stock": 250,
-      "production_time": "3-4 business days",
+      "production_time": "1-2 business days",
       "tags": [
-        "Photo Albums",
+        "Personalized Stickers",
         "Creaftique",
         "Custom Print",
         "Bespoke"
       ],
       "keywords": [
-        "photo albums",
-        "timeless journeys personalized linen photo album",
-        "photo_albums",
+        "personalized stickers",
+        "premium custom personalized stickers & brand decals",
+        "personalized_stickers",
         "customized",
         "photo print"
       ],
       "images": [
-        "/catalog-images/07.%20Photo%20Albums/03_Craftique_hero_1fdb.jpg",
-        "/catalog-images/07.%20Photo%20Albums/01_Craftique_banner_1fdb.jpg",
-        "/catalog-images/07.%20Photo%20Albums/02_1_Craftique_Size_8_x_6_Inch_1fdb.jpg",
-        "/catalog-images/07.%20Photo%20Albums/02_2_Craftique_Size_12_x_8_Inch_1fdb.jpg",
-        "/catalog-images/07.%20Photo%20Albums/02_3_Craftique_Size_18_x_12_Inch_1fdb.jpg",
-        "/catalog-images/07.%20Photo%20Albums/04_Craftique_usage_1fdb.jpg",
-        "/catalog-images/07.%20Photo%20Albums/05_Craftique_details_1fdb.jpg"
+        "/catalog-images/13.%20Personalized%20Stickers/03_Craftique_hero_7708.jpg",
+        "/catalog-images/13.%20Personalized%20Stickers/01_Craftique_banner_7708.jpg",
+        "/catalog-images/13.%20Personalized%20Stickers/02_1_Craftique_Size_2x2_inches_7708.jpg",
+        "/catalog-images/13.%20Personalized%20Stickers/02_2_Craftique_Size_3x3_inches_7708.jpg",
+        "/catalog-images/13.%20Personalized%20Stickers/02_3_Craftique_Size_4x6_inch_sticker_sheets_7708.jpg",
+        "/catalog-images/13.%20Personalized%20Stickers/02_4_Craftique_Size_Custom_die_cut_sizes_7708.jpg",
+        "/catalog-images/13.%20Personalized%20Stickers/04_Craftique_usage_7708.jpg",
+        "/catalog-images/13.%20Personalized%20Stickers/05_Craftique_details_7708.jpg"
       ],
       "customization_available": true,
       "requires_photo": true,
@@ -1460,42 +3224,52 @@
       "active": true,
       "featured": false,
       "costs": {
-        "material_cost": 364,
-        "print_cost": 234,
-        "labor_cost": 156,
+        "material_cost": 56,
+        "print_cost": 36,
+        "labor_cost": 24,
         "packaging_cost": 60,
         "shipping_cost": 80
       },
       "custom_options": {
         "sizes": [
           {
-            "name": "8 × 6 Inch",
+            "name": "2x2 inches",
             "price_adj": 0,
             "default": true
           },
           {
-            "name": "12 × 8 Inch",
+            "name": "3x3 inches",
             "price_adj": 150,
             "default": false
           },
           {
-            "name": "18 × 12 Inch",
+            "name": "4x6 inch sticker sheets",
             "price_adj": 300,
             "default": false
           },
           {
-            "name": "8x6 Inch",
-            "price_adj": 300,
+            "name": "Custom die cut sizes",
+            "price_adj": 450,
             "default": false
           },
           {
-            "name": "12x8 Inch",
+            "name": "Round Stickers",
             "price_adj": 400,
             "default": false
           },
           {
-            "name": "18x12 Inch",
+            "name": "Shape Cut Stickers",
             "price_adj": 500,
+            "default": false
+          },
+          {
+            "name": "Packaging Stickers",
+            "price_adj": 600,
+            "default": false
+          },
+          {
+            "name": "Product Stickers",
+            "price_adj": 700,
             "default": false
           },
           {
@@ -1506,7 +3280,7 @@
         ],
         "materials": [
           {
-            "name": "Premium Woven Linen",
+            "name": "Bespoke Substrate",
             "price_adj": 0,
             "default": true
           },
@@ -1583,50 +3357,49 @@
           }
         ]
       },
-      "created_at": "2026-09-29T15:58:42.708Z",
-      "updated_at": "2026-09-29T17:13:45.193Z"
+      "created_at": "2026-09-29T15:58:42.712Z",
+      "updated_at": "2026-09-30T04:31:46.457Z"
     },
     {
-      "id": "prod-sync-paper_frame_paper_print_frame",
-      "sku": "PAPER_FRAME_PAPER_PRINT_FRAME",
-      "name": "Minimalist Botanical Paper Photo Frame",
-      "category": "Paper Frame",
-      "category_slug": "paper-frame",
-      "subcategory": "Paper Print Frame",
-      "subcategory_slug": "paper-print-frame",
-      "short_description": "This elegant Paper Frame offers a lightweight and stylish way to display your most cherished memories.",
-      "full_description": "This elegant Paper Frame offers a lightweight and stylish way to display your most cherished memories. Crafted from premium cardstock with a high-quality matte finish, it features a beautiful botanical artwork style with delicate green leaf illustrations on a crisp white background. The frame is designed for easy display and makes a perfect, thoughtful gift. You can fully customize this piece with your own high-resolution family photos and personalized text for a unique, heartfelt touch. Its minimalist aesthetic fits perfectly in any modern home or office space.",
+      "id": "prod-sync-personalized_invitation_cards",
+      "sku": "PERSONALIZED_INVITATION_CARDS",
+      "name": "Premium Bespoke Personalized Celebration Invitations",
+      "category": "Personalized Invitation Cards",
+      "category_slug": "personalized-invitation-cards",
+      "subcategory": "Personalized Invitation Cards",
+      "subcategory_slug": "personalized-invitation-cards",
+      "short_description": "Elevate your special moments with our premium personalized invitation cards, crafted from high-quality cardstock with an elegant finish.",
+      "full_description": "Elevate your special moments with our premium personalized invitation cards, crafted from high-quality cardstock with an elegant finish. This collection features a wide range of artwork styles, including timeless floral patterns for weddings, chic geometric designs for engagements, playful illustrations for birthdays, and sophisticated gold-on-black themes for parties. The versatile color palette spans from soft pastels and classic creams to bold metallics and vibrant multi-colors. Fully customizable, these cards allow you to tailor every detail—from names and dates to venue locations—ensuring your invitation perfectly reflects the spirit of your celebration.",
       "material": "Heavyweight 400+ GSM Cardstock",
-      "default_size": "8x8 inches",
+      "default_size": "5x7 inches",
       "base_price": 499,
       "selling_price": 499,
-      "mrp": 899,
-      "discount": 44,
+      "mrp": 999,
+      "discount": 50,
       "tax": 18,
       "stock": 250,
-      "production_time": "1-2 business days",
+      "production_time": "2-3 business days",
       "tags": [
-        "Paper Frame",
-        "Paper Print Frame",
+        "Personalized Invitation Cards",
         "Creaftique",
         "Custom Print",
         "Bespoke"
       ],
       "keywords": [
-        "paper frame",
-        "minimalist botanical paper photo frame",
-        "paper_frame_paper_print_frame",
+        "personalized invitation cards",
+        "premium bespoke personalized celebration invitations",
+        "personalized_invitation_cards",
         "customized",
         "photo print"
       ],
       "images": [
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/03_Craftique_hero_0a03.jpg",
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/01_Craftique_banner_0a03.jpg",
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/02_1_Craftique_Size_8x8_inches_0a03.jpg",
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/02_2_Craftique_Size_10x10_inches_0a03.jpg",
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/02_3_Craftique_Size_12x12_inches_0a03.jpg",
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/04_Craftique_usage_0a03.jpg",
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Print%20Frame/05_Craftique_details_0a03.jpg"
+        "/catalog-images/14.%20Personalized%20Invitation%20Cards/03_Craftique_hero_3e34.jpg",
+        "/catalog-images/14.%20Personalized%20Invitation%20Cards/01_Craftique_banner_3e34.jpg",
+        "/catalog-images/14.%20Personalized%20Invitation%20Cards/02_1_Craftique_Size_5x7_inches_3e34.jpg",
+        "/catalog-images/14.%20Personalized%20Invitation%20Cards/02_2_Craftique_Size_4x6_inches_3e34.jpg",
+        "/catalog-images/14.%20Personalized%20Invitation%20Cards/02_3_Craftique_Size_6x6_inches_3e34.jpg",
+        "/catalog-images/14.%20Personalized%20Invitation%20Cards/04_Craftique_usage_3e34.jpg",
+        "/catalog-images/14.%20Personalized%20Invitation%20Cards/05_Craftique_details_3e34.jpg"
       ],
       "customization_available": true,
       "requires_photo": true,
@@ -1644,18 +3417,48 @@
       "custom_options": {
         "sizes": [
           {
-            "name": "8x8 inches",
+            "name": "5x7 inches",
             "price_adj": 0,
             "default": true
           },
           {
-            "name": "10x10 inches",
+            "name": "4x6 inches",
             "price_adj": 150,
             "default": false
           },
           {
-            "name": "12x12 inches",
+            "name": "6x6 inches",
             "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "Wedding Invitations",
+            "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "Engagement Invitations",
+            "price_adj": 400,
+            "default": false
+          },
+          {
+            "name": "Birthday Invitations",
+            "price_adj": 500,
+            "default": false
+          },
+          {
+            "name": "Party Invitations",
+            "price_adj": 600,
+            "default": false
+          },
+          {
+            "name": "Inauguration Invitations",
+            "price_adj": 700,
+            "default": false
+          },
+          {
+            "name": "Event Invitations",
+            "price_adj": 800,
             "default": false
           },
           {
@@ -1743,50 +3546,50 @@
           }
         ]
       },
-      "created_at": "2026-09-29T15:58:42.707Z",
-      "updated_at": "2026-09-29T17:13:45.192Z"
+      "created_at": "2026-09-29T15:58:42.713Z",
+      "updated_at": "2026-09-30T04:31:46.457Z"
     },
     {
-      "id": "prod-sync-paper_frame_paper_layer_fram",
-      "sku": "PAPER_FRAME_PAPER_LAYER_FRAM",
-      "name": "Personalized Layered Paper Frame",
-      "category": "Paper Frame",
-      "category_slug": "paper-frame",
-      "subcategory": "Paper Layer Fram",
-      "subcategory_slug": "paper-layer-fram",
-      "short_description": "This elegant paper frame features a multi-layered 3D paper-cut heart design adorned with delicate floral accents in a soft palette of sage green, dusty pink, and cream.",
-      "full_description": "This elegant paper frame features a multi-layered 3D paper-cut heart design adorned with delicate floral accents in a soft palette of sage green, dusty pink, and cream. Crafted from premium high-quality cardstock, this lightweight frame is designed for easy display and makes a perfect gift for weddings, anniversaries, or special milestones. The artwork is fully customizable, allowing you to include a personal photograph, names, a family surname, and a significant date. The sleek black frame provides a modern touch to the classic, romantic aesthetic, ensuring it fits beautifully in any space.",
+      "id": "prod-sync-personalized_business_cards",
+      "sku": "PERSONALIZED_BUSINESS_CARDS",
+      "name": "Premium Personalized Professional Business Cards",
+      "category": "Personalized Business Cards",
+      "category_slug": "personalized-business-cards",
+      "subcategory": "Personalized Business Cards",
+      "subcategory_slug": "personalized-business-cards",
+      "short_description": "Elevate your professional networking with our Premium Personalized Business Cards.",
+      "full_description": "Elevate your professional networking with our Premium Personalized Business Cards. Crafted from high-quality, heavy-duty cardstock (ranging from 300 to 600 GSM), these cards are designed to make a lasting impression. Choose from three distinct finishes: 'Minimalist' for a clean and timeless aesthetic on crisp white or matte black paper; 'UV' for a sophisticated spot-gloss effect that adds texture and depth; or 'Foil' for a luxurious metallic shine in gold or silver. Our design palette emphasizes elegance with classic black, white, and gold combinations, but is fully customizable to match your brand identity. Each card can be tailored with your custom logo, professional typography, and contact information, ensuring you are 'Brand Ready' for every introduction.",
       "material": "Heavyweight 400+ GSM Cardstock",
-      "default_size": "8x8 inches",
-      "base_price": 499,
-      "selling_price": 499,
-      "mrp": 899,
-      "discount": 44,
+      "default_size": "3.5 × 2 inches Standard US",
+      "base_price": 399,
+      "selling_price": 399,
+      "mrp": 799,
+      "discount": 50,
       "tax": 18,
       "stock": 250,
       "production_time": "1-2 business days",
       "tags": [
-        "Paper Frame",
-        "Paper Layer Fram",
+        "Personalized Business Cards",
         "Creaftique",
         "Custom Print",
         "Bespoke"
       ],
       "keywords": [
-        "paper frame",
-        "personalized layered paper frame",
-        "paper_frame_paper_layer_fram",
+        "personalized business cards",
+        "premium personalized professional business cards",
+        "personalized_business_cards",
         "customized",
         "photo print"
       ],
       "images": [
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/03_Craftique_hero_2e47.jpg",
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/01_Craftique_banner_2e47.jpg",
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/02_1_Craftique_Size_8x8_inches_2e47.jpg",
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/02_2_Craftique_Size_10x10_inches_2e47.jpg",
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/02_3_Craftique_Size_12x12_inches_2e47.jpg",
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/04_Craftique_usage_2e47.jpg",
-        "/catalog-images/06.%20Paper%20Frame/Paper%20Layer%20Fram/05_Craftique_details_2e47.jpg"
+        "/catalog-images/15.%20Personalized%20Business%20Cards/03_Craftique_hero_a855.jpg",
+        "/catalog-images/15.%20Personalized%20Business%20Cards/01_Craftique_banner_a855.jpg",
+        "/catalog-images/15.%20Personalized%20Business%20Cards/02_1_Craftique_Size_3_5_x_2_inches__Standard_US__a855.jpg",
+        "/catalog-images/15.%20Personalized%20Business%20Cards/02_2_Craftique_Size_85_x_55_mm__Standard_European__a855.jpg",
+        "/catalog-images/15.%20Personalized%20Business%20Cards/02_3_Craftique_Size_2_5_x_2_5_inches__Square__a855.jpg",
+        "/catalog-images/15.%20Personalized%20Business%20Cards/02_4_Craftique_Size_3_5_x_1_75_inches__Slim__a855.jpg",
+        "/catalog-images/15.%20Personalized%20Business%20Cards/04_Craftique_usage_a855.jpg",
+        "/catalog-images/15.%20Personalized%20Business%20Cards/05_Craftique_details_a855.jpg"
       ],
       "customization_available": true,
       "requires_photo": true,
@@ -1795,27 +3598,47 @@
       "active": true,
       "featured": false,
       "costs": {
-        "material_cost": 140,
-        "print_cost": 90,
-        "labor_cost": 60,
+        "material_cost": 112,
+        "print_cost": 72,
+        "labor_cost": 48,
         "packaging_cost": 60,
         "shipping_cost": 80
       },
       "custom_options": {
         "sizes": [
           {
-            "name": "8x8 inches",
+            "name": "3.5 × 2 inches Standard US",
             "price_adj": 0,
             "default": true
           },
           {
-            "name": "10x10 inches",
+            "name": "85 × 55 mm Standard European",
             "price_adj": 150,
             "default": false
           },
           {
-            "name": "12x12 inches",
+            "name": "2.5 × 2.5 inches (Square)",
             "price_adj": 300,
+            "default": false
+          },
+          {
+            "name": "3.5 × 1.75 inches (Slim)",
+            "price_adj": 450,
+            "default": false
+          },
+          {
+            "name": "Minimalist",
+            "price_adj": 400,
+            "default": false
+          },
+          {
+            "name": "UV",
+            "price_adj": 500,
+            "default": false
+          },
+          {
+            "name": "Foil",
+            "price_adj": 600,
             "default": false
           },
           {
@@ -1903,1813 +3726,8 @@
           }
         ]
       },
-      "created_at": "2026-09-29T15:58:42.707Z",
-      "updated_at": "2026-09-29T17:13:45.192Z"
-    },
-    {
-      "id": "prod-sync-miniature_frame",
-      "sku": "MINIATURE_FRAME",
-      "name": "Eternal Besties 3D Customized Shadow Box Frame",
-      "category": "Miniature Frame",
-      "category_slug": "miniature-frame",
-      "subcategory": "Miniature Frame",
-      "subcategory_slug": "miniature-frame",
-      "short_description": "Celebrate an unbreakable bond with this 'Eternal Besties' 3D Customized Shadow Box.",
-      "full_description": "Celebrate an unbreakable bond with this 'Eternal Besties' 3D Customized Shadow Box. This intricately designed diorama frame features a premium white synthetic wood border and high-quality acrylic protection. The background is layered with a sentimental typography print in soft blues and greys. The 3D layout includes a central cutout of two friends, flanked by four smaller customized photo frames to capture multiple memories. Handcrafted miniature elements, such as a black display shelf, tiny books, a coffee mug, and potted plants, create a realistic and charming depth. The color palette is a vibrant yet soft mix of pastels, blacks, and whites. This product is fully customizable—customers can upload five personal photos and choose specific text or names for the miniature elements, making it a perfect, unique gift for birthdays or friendship anniversaries.",
-      "material": "Cast Acrylic Sheet",
-      "default_size": "8x10 inches",
-      "base_price": 649,
-      "selling_price": 649,
-      "mrp": 1199,
-      "discount": 46,
-      "tax": 18,
-      "stock": 250,
-      "production_time": "2-3 business days",
-      "tags": [
-        "Miniature Frame",
-        "Creaftique",
-        "Custom Print",
-        "Bespoke"
-      ],
-      "keywords": [
-        "miniature frame",
-        "eternal besties 3d customized shadow box frame",
-        "miniature_frame",
-        "customized",
-        "photo print"
-      ],
-      "images": [
-        "/catalog-images/05.%20Miniature%20Frame/03_Craftique_hero_3dab.jpg",
-        "/catalog-images/05.%20Miniature%20Frame/01_Craftique_banner_3dab.jpg",
-        "/catalog-images/05.%20Miniature%20Frame/02_1_Craftique_Size_8x10_inches_3dab.jpg",
-        "/catalog-images/05.%20Miniature%20Frame/02_2_Craftique_Size_10x12_inches_3dab.jpg",
-        "/catalog-images/05.%20Miniature%20Frame/02_3_Craftique_Size_12x12_inches_3dab.jpg",
-        "/catalog-images/05.%20Miniature%20Frame/02_4_Craftique_Size_12x15_inches_3dab.jpg",
-        "/catalog-images/05.%20Miniature%20Frame/04_Craftique_usage_3dab.jpg",
-        "/catalog-images/05.%20Miniature%20Frame/05_Craftique_details_3dab.jpg"
-      ],
-      "customization_available": true,
-      "requires_photo": true,
-      "required_photos_count": 1,
-      "custom_text_allowed": true,
-      "active": true,
-      "featured": false,
-      "costs": {
-        "material_cost": 182,
-        "print_cost": 117,
-        "labor_cost": 78,
-        "packaging_cost": 60,
-        "shipping_cost": 80
-      },
-      "custom_options": {
-        "sizes": [
-          {
-            "name": "8x10 inches",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "10x12 inches",
-            "price_adj": 150,
-            "default": false
-          },
-          {
-            "name": "12x12 inches",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "12x15 inches",
-            "price_adj": 450,
-            "default": false
-          },
-          {
-            "name": "8x6 Inch",
-            "price_adj": 400,
-            "default": false
-          },
-          {
-            "name": "12x8 Inch",
-            "price_adj": 500,
-            "default": false
-          },
-          {
-            "name": "18x12 Inch",
-            "price_adj": 600,
-            "default": false
-          },
-          {
-            "name": "Custom Size / Specifications",
-            "price_adj": 0,
-            "is_custom": true
-          }
-        ],
-        "materials": [
-          {
-            "name": "Cast Acrylic Sheet",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Ultra-Gloss Luxe Surface",
-            "price_adj": 120
-          },
-          {
-            "name": "Museum Matte Velvet Finish",
-            "price_adj": 180
-          }
-        ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
-        "quantity_tiers": [
-          {
-            "min": 1,
-            "max": 9,
-            "discount_percent": 0
-          },
-          {
-            "min": 10,
-            "max": 49,
-            "discount_percent": 15
-          },
-          {
-            "min": 50,
-            "max": 999,
-            "discount_percent": 30
-          }
-        ],
-        "extras": [
-          {
-            "id": "express",
-            "name": "Express 24h VIP Production",
-            "price_adj": 250
-          },
-          {
-            "id": "gift_wrap",
-            "name": "Artisan Gift Box & Handwritten Card",
-            "price_adj": 150
-          }
-        ]
-      },
-      "created_at": "2026-09-29T15:58:42.706Z",
-      "updated_at": "2026-09-29T17:13:45.191Z"
-    },
-    {
-      "id": "prod-sync-personalized_artwork_frame",
-      "sku": "PERSONALIZED_ARTWORK_FRAME",
-      "name": "Custom Personalized Photo Art Masterpiece",
-      "category": "Personalized Artwork Frame",
-      "category_slug": "personalized-artwork-frame",
-      "subcategory": "Personalized Artwork Frame",
-      "subcategory_slug": "personalized-artwork-frame",
-      "short_description": "Transform your cherished memories into stunning masterpieces with our Personalized Photo Manipulation service.",
-      "full_description": "Transform your cherished memories into stunning masterpieces with our Personalized Photo Manipulation service. We offer a variety of artistic styles including Watercolor, Digital Art, Sketch Art, and Oil Painting to suit your aesthetic. Our premium quality prints are expertly crafted on high-grade canvas or professional photo paper and come beautifully framed in a classic dark wood finish. The color palette varies from vibrant and rich hues to elegant monochrome sketches. Perfect as a unique gift, this custom artwork allows for complete personalization from your own photos, ensuring a one-of-a-kind piece for your home or office.",
-      "material": "Archival Artist Canvas",
-      "default_size": "6 × 8 Inch",
-      "base_price": 849,
-      "selling_price": 849,
-      "mrp": 1599,
-      "discount": 47,
-      "tax": 18,
-      "stock": 250,
-      "production_time": "2-3 business days",
-      "tags": [
-        "Personalized Artwork Frame",
-        "Creaftique",
-        "Custom Print",
-        "Bespoke"
-      ],
-      "keywords": [
-        "personalized artwork frame",
-        "custom personalized photo art masterpiece",
-        "personalized_artwork_frame",
-        "customized",
-        "photo print"
-      ],
-      "images": [
-        "/catalog-images/04.%20Personalized%20Artwork%20Frame/03_Craftique_hero_752e.jpg",
-        "/catalog-images/04.%20Personalized%20Artwork%20Frame/01_Craftique_banner_752e.jpg",
-        "/catalog-images/04.%20Personalized%20Artwork%20Frame/02_1_Craftique_Size_6_x_8_Inch_752e.jpg",
-        "/catalog-images/04.%20Personalized%20Artwork%20Frame/02_2_Craftique_Size_8_x_12_Inch_752e.jpg",
-        "/catalog-images/04.%20Personalized%20Artwork%20Frame/02_3_Craftique_Size_12_x_18_Inch_752e.jpg",
-        "/catalog-images/04.%20Personalized%20Artwork%20Frame/04_Craftique_usage_752e.jpg",
-        "/catalog-images/04.%20Personalized%20Artwork%20Frame/05_Craftique_details_752e.jpg",
-        "/catalog-images/04.%20Personalized%20Artwork%20Frame/06_Craftique_beforeAfter_752e.jpg"
-      ],
-      "customization_available": true,
-      "requires_photo": true,
-      "required_photos_count": 1,
-      "custom_text_allowed": true,
-      "active": true,
-      "featured": false,
-      "costs": {
-        "material_cost": 238,
-        "print_cost": 153,
-        "labor_cost": 102,
-        "packaging_cost": 60,
-        "shipping_cost": 80
-      },
-      "custom_options": {
-        "sizes": [
-          {
-            "name": "6 × 8 Inch",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "8 × 12 Inch",
-            "price_adj": 150,
-            "default": false
-          },
-          {
-            "name": "12 × 18 Inch",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "6x8 Inch",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "8x12 Inch",
-            "price_adj": 400,
-            "default": false
-          },
-          {
-            "name": "12x18 Inch",
-            "price_adj": 500,
-            "default": false
-          },
-          {
-            "name": "Custom Size / Specifications",
-            "price_adj": 0,
-            "is_custom": true
-          }
-        ],
-        "materials": [
-          {
-            "name": "Archival Artist Canvas",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Ultra-Gloss Luxe Surface",
-            "price_adj": 120
-          },
-          {
-            "name": "Museum Matte Velvet Finish",
-            "price_adj": 180
-          }
-        ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
-        "quantity_tiers": [
-          {
-            "min": 1,
-            "max": 9,
-            "discount_percent": 0
-          },
-          {
-            "min": 10,
-            "max": 49,
-            "discount_percent": 15
-          },
-          {
-            "min": 50,
-            "max": 999,
-            "discount_percent": 30
-          }
-        ],
-        "extras": [
-          {
-            "id": "express",
-            "name": "Express 24h VIP Production",
-            "price_adj": 250
-          },
-          {
-            "id": "gift_wrap",
-            "name": "Artisan Gift Box & Handwritten Card",
-            "price_adj": 150
-          }
-        ]
-      },
-      "created_at": "2026-09-29T15:58:42.705Z",
-      "updated_at": "2026-09-29T17:13:45.190Z"
-    },
-    {
-      "id": "prod-sync-personalized_photo_frame_wooden_frame",
-      "sku": "PERSONALIZED_PHOTO_FRAME_WOODEN_FRAME",
-      "name": "Timeless Memories Personalized Photo Frame",
-      "category": "Personalized Photo Frame",
-      "category_slug": "personalized-photo-frame",
-      "subcategory": "Wooden Frame",
-      "subcategory_slug": "wooden-frame",
-      "short_description": "Capture your most cherished moments with our high-quality Personalized Photo Frame.",
-      "full_description": "Capture your most cherished moments with our high-quality Personalized Photo Frame. This product features a selection of styles, including a classic dark-grained Wooden Frame for a timeless look and a modern Wrap Canvas Frame for a contemporary aesthetic. Each piece is crafted using premium printing techniques to ensure vibrant colors and sharp details. The color palette revolves around natural, earthy wood tones that complement any home decor. These frames are fully customizable with your own photographs, making them an ideal, elegant gift for anniversaries, weddings, or family milestones.",
-      "material": "Archival Artist Canvas",
-      "default_size": "6x8 inches",
-      "base_price": 799,
-      "selling_price": 799,
-      "mrp": 1499,
-      "discount": 47,
-      "tax": 18,
-      "stock": 250,
-      "production_time": "2-3 business days",
-      "tags": [
-        "Personalized Photo Frame",
-        "Wooden Frame",
-        "Creaftique",
-        "Custom Print",
-        "Bespoke"
-      ],
-      "keywords": [
-        "personalized photo frame",
-        "timeless memories personalized photo frame",
-        "personalized_photo_frame_wooden_frame",
-        "customized",
-        "photo print"
-      ],
-      "images": [
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/03_Craftique_hero_ec79.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/01_Craftique_banner_ec79.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/02_1_Craftique_Size_6x8_inches_ec79.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/02_2_Craftique_Size_8x12_inches_ec79.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/02_3_Craftique_Size_12x18_inches_ec79.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/04_Craftique_usage_ec79.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/02.%20Wooden%20Frame/05_Craftique_details_ec79.jpg"
-      ],
-      "customization_available": true,
-      "requires_photo": true,
-      "required_photos_count": 1,
-      "custom_text_allowed": true,
-      "active": true,
-      "featured": false,
-      "costs": {
-        "material_cost": 224,
-        "print_cost": 144,
-        "labor_cost": 96,
-        "packaging_cost": 60,
-        "shipping_cost": 80
-      },
-      "custom_options": {
-        "sizes": [
-          {
-            "name": "6x8 inches",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "8x12 inches",
-            "price_adj": 150,
-            "default": false
-          },
-          {
-            "name": "12x18 inches",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "Custom Size / Specifications",
-            "price_adj": 0,
-            "is_custom": true
-          }
-        ],
-        "materials": [
-          {
-            "name": "Archival Artist Canvas",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Ultra-Gloss Luxe Surface",
-            "price_adj": 120
-          },
-          {
-            "name": "Museum Matte Velvet Finish",
-            "price_adj": 180
-          }
-        ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
-        "quantity_tiers": [
-          {
-            "min": 1,
-            "max": 9,
-            "discount_percent": 0
-          },
-          {
-            "min": 10,
-            "max": 49,
-            "discount_percent": 15
-          },
-          {
-            "min": 50,
-            "max": 999,
-            "discount_percent": 30
-          }
-        ],
-        "extras": [
-          {
-            "id": "express",
-            "name": "Express 24h VIP Production",
-            "price_adj": 250
-          },
-          {
-            "id": "gift_wrap",
-            "name": "Artisan Gift Box & Handwritten Card",
-            "price_adj": 150
-          }
-        ]
-      },
-      "created_at": "2026-09-29T15:58:42.705Z",
-      "updated_at": "2026-09-29T17:13:45.189Z"
-    },
-    {
-      "id": "prod-sync-personalized_photo_frame_wrap_canvas_frame",
-      "sku": "PERSONALIZED_PHOTO_FRAME_WRAP_CANVAS_FRAME",
-      "name": "Personalized Premium Gallery Wrap Canvas",
-      "category": "Personalized Photo Frame",
-      "category_slug": "personalized-photo-frame",
-      "subcategory": "Wrap Canvas Frame",
-      "subcategory_slug": "wrap-canvas-frame",
-      "short_description": "Elevate your home decor with this premium gallery wrap canvas featuring a divine and vibrant depiction of Lord Rama in a lush, mystical forest.",
-      "full_description": "Elevate your home decor with this premium gallery wrap canvas featuring a divine and vibrant depiction of Lord Rama in a lush, mystical forest. This high-quality artwork is printed on professional-grade canvas using vibrant inks to ensure long-lasting color brilliance. It comes stretched over a sturdy wooden frame with a wrap-around finish, giving it a modern, frameless look that's ready to hang. The color palette includes deep forest greens, vibrant oranges, and glowing golden yellows, styled in a detailed digital painting technique. This product is fully customizable, allowing you to turn your favorite personal images into stunning, custom-sized wall art pieces.",
-      "material": "Archival Artist Canvas",
-      "default_size": "8 × 8 Inch",
-      "base_price": 799,
-      "selling_price": 799,
-      "mrp": 1499,
-      "discount": 47,
-      "tax": 18,
-      "stock": 250,
-      "production_time": "2-3 business days",
-      "tags": [
-        "Personalized Photo Frame",
-        "Wrap Canvas Frame",
-        "Creaftique",
-        "Custom Print",
-        "Bespoke"
-      ],
-      "keywords": [
-        "personalized photo frame",
-        "personalized premium gallery wrap canvas",
-        "personalized_photo_frame_wrap_canvas_frame",
-        "customized",
-        "photo print"
-      ],
-      "images": [
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/03_Craftique_hero_07dd.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/01_Craftique_banner_07dd.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/02_1_Craftique_Size_8_x_8_Inch_07dd.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/02_2_Craftique_Size_12_x_12_Inch_07dd.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/02_3_Craftique_Size_18_x_18_Inch_07dd.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/02_4_Craftique_Size_6_x_8_Inch_07dd.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/02_5_Craftique_Size_8_x_12_Inch_07dd.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/02_6_Craftique_Size_12_x_18_Inch_07dd.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/04_Craftique_usage_07dd.jpg",
-        "/catalog-images/03.%20Personalized%20Photo%20Frame/01.%20Wrap%20Canvas%20Frame/05_Craftique_details_07dd.jpg"
-      ],
-      "customization_available": true,
-      "requires_photo": true,
-      "required_photos_count": 1,
-      "custom_text_allowed": true,
-      "active": true,
-      "featured": false,
-      "costs": {
-        "material_cost": 224,
-        "print_cost": 144,
-        "labor_cost": 96,
-        "packaging_cost": 60,
-        "shipping_cost": 80
-      },
-      "custom_options": {
-        "sizes": [
-          {
-            "name": "8 × 8 Inch",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "12 × 12 Inch",
-            "price_adj": 150,
-            "default": false
-          },
-          {
-            "name": "18 × 18 Inch",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "6 × 8 Inch",
-            "price_adj": 450,
-            "default": false
-          },
-          {
-            "name": "8 × 12 Inch",
-            "price_adj": 600,
-            "default": false
-          },
-          {
-            "name": "12 × 18 Inch",
-            "price_adj": 750,
-            "default": false
-          },
-          {
-            "name": "Custom Size / Specifications",
-            "price_adj": 0,
-            "is_custom": true
-          }
-        ],
-        "materials": [
-          {
-            "name": "Archival Artist Canvas",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Ultra-Gloss Luxe Surface",
-            "price_adj": 120
-          },
-          {
-            "name": "Museum Matte Velvet Finish",
-            "price_adj": 180
-          }
-        ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
-        "quantity_tiers": [
-          {
-            "min": 1,
-            "max": 9,
-            "discount_percent": 0
-          },
-          {
-            "min": 10,
-            "max": 49,
-            "discount_percent": 15
-          },
-          {
-            "min": 50,
-            "max": 999,
-            "discount_percent": 30
-          }
-        ],
-        "extras": [
-          {
-            "id": "express",
-            "name": "Express 24h VIP Production",
-            "price_adj": 250
-          },
-          {
-            "id": "gift_wrap",
-            "name": "Artisan Gift Box & Handwritten Card",
-            "price_adj": 150
-          }
-        ]
-      },
-      "created_at": "2026-09-29T15:58:42.705Z",
-      "updated_at": "2026-09-29T17:13:45.188Z"
-    },
-    {
-      "id": "prod-sync-canvas_frame_12x18",
-      "sku": "CANVAS_FRAME_12X18",
-      "name": "Personalized Keepsake Artwork Frame",
-      "category": "Canvas Frame",
-      "category_slug": "canvas-frame",
-      "subcategory": "12x18",
-      "subcategory_slug": "12x18",
-      "short_description": "Transform your favorite photographs into stunning works of art with our Personalized Keepsake Artwork Frame.",
-      "full_description": "Transform your favorite photographs into stunning works of art with our Personalized Keepsake Artwork Frame. This piece features a premium canvas print meticulously crafted in your choice of artistic styles including Watercolor, Digital Painting, Sketch, and Oil Painting. The canvas is housed in a sturdy wooden frame with a sleek, elegant finish and comes ready to hang. Perfect for home decor or as a thoughtful gift for weddings, anniversaries, and special occasions, this custom artwork allows you to tell 'Our Story' through a vibrant, personalized color palette.",
-      "material": "Archival Artist Canvas",
-      "default_size": "6x8 inches",
-      "base_price": 899,
-      "selling_price": 899,
-      "mrp": 1599,
-      "discount": 44,
-      "tax": 18,
-      "stock": 250,
-      "production_time": "2-3 business days",
-      "tags": [
-        "Canvas Frame",
-        "12x18",
-        "Creaftique",
-        "Custom Print",
-        "Bespoke"
-      ],
-      "keywords": [
-        "canvas frame",
-        "personalized keepsake artwork frame",
-        "canvas_frame_12x18",
-        "customized",
-        "photo print"
-      ],
-      "images": [
-        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/03_Craftique_hero_e8f8.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/01_Craftique_banner_e8f8.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/02_1_Craftique_Size_6x8_inches_e8f8.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/02_2_Craftique_Size_8x12_inches_e8f8.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/02_3_Craftique_Size_12x18_inches_e8f8.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/04_Craftique_usage_e8f8.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/03%2012x18/05_Craftique_details_e8f8.jpg"
-      ],
-      "customization_available": true,
-      "requires_photo": true,
-      "required_photos_count": 1,
-      "custom_text_allowed": true,
-      "active": true,
-      "featured": true,
-      "costs": {
-        "material_cost": 252,
-        "print_cost": 162,
-        "labor_cost": 108,
-        "packaging_cost": 60,
-        "shipping_cost": 80
-      },
-      "custom_options": {
-        "sizes": [
-          {
-            "name": "6x8 inches",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "8x12 inches",
-            "price_adj": 150,
-            "default": false
-          },
-          {
-            "name": "12x18 inches",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "Custom Size / Specifications",
-            "price_adj": 0,
-            "is_custom": true
-          }
-        ],
-        "materials": [
-          {
-            "name": "Archival Artist Canvas",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Ultra-Gloss Luxe Surface",
-            "price_adj": 120
-          },
-          {
-            "name": "Museum Matte Velvet Finish",
-            "price_adj": 180
-          }
-        ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
-        "quantity_tiers": [
-          {
-            "min": 1,
-            "max": 9,
-            "discount_percent": 0
-          },
-          {
-            "min": 10,
-            "max": 49,
-            "discount_percent": 15
-          },
-          {
-            "min": 50,
-            "max": 999,
-            "discount_percent": 30
-          }
-        ],
-        "extras": [
-          {
-            "id": "express",
-            "name": "Express 24h VIP Production",
-            "price_adj": 250
-          },
-          {
-            "id": "gift_wrap",
-            "name": "Artisan Gift Box & Handwritten Card",
-            "price_adj": 150
-          }
-        ]
-      },
-      "created_at": "2026-09-29T15:58:42.704Z",
-      "updated_at": "2026-09-29T17:13:45.187Z"
-    },
-    {
-      "id": "prod-sync-canvas_frame_8x12",
-      "sku": "CANVAS_FRAME_8X12",
-      "name": "Timeless Memories Custom Canvas Wall Art Frame",
-      "category": "Canvas Frame",
-      "category_slug": "canvas-frame",
-      "subcategory": "8x12",
-      "subcategory_slug": "8x12",
-      "short_description": "Elevate your home decor with this premium personalized canvas frame that turns your favorite photographs into stunning oil-painting style wall art.",
-      "full_description": "Elevate your home decor with this premium personalized canvas frame that turns your favorite photographs into stunning oil-painting style wall art. Crafted with high-definition printing on durable, museum-quality canvas, the piece features a sophisticated textured gold and brown background that adds depth and an artistic touch. The artwork is encased in a sturdy wooden floating frame with an elegant black finish, providing a modern and high-end look. Perfect for gifting on anniversaries, weddings, or special occasions, this piece comes ready to hang with pre-installed hardware. You can customize it by providing any high-resolution personal photo to be transformed into this timeless masterpiece.",
-      "material": "Archival Artist Canvas",
-      "default_size": "6 × 8 Inch",
-      "base_price": 899,
-      "selling_price": 899,
-      "mrp": 1599,
-      "discount": 44,
-      "tax": 18,
-      "stock": 250,
-      "production_time": "2-3 business days",
-      "tags": [
-        "Canvas Frame",
-        "8x12",
-        "Creaftique",
-        "Custom Print",
-        "Bespoke"
-      ],
-      "keywords": [
-        "canvas frame",
-        "timeless memories custom canvas wall art frame",
-        "canvas_frame_8x12",
-        "customized",
-        "photo print"
-      ],
-      "images": [
-        "/catalog-images/02.%20Canvas%20Frame/02%208x12/03_Craftique_hero_9777.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/02%208x12/01_Craftique_banner_9777.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/02%208x12/02_1_Craftique_Size_6_x_8_Inch_9777.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/02%208x12/02_2_Craftique_Size_8_x_12_Inch_9777.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/02%208x12/02_3_Craftique_Size_12_x_18_Inch_9777.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/02%208x12/04_Craftique_usage_9777.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/02%208x12/05_Craftique_details_9777.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/02%208x12/06_Craftique_beforeAfter_9777.jpg"
-      ],
-      "customization_available": true,
-      "requires_photo": true,
-      "required_photos_count": 1,
-      "custom_text_allowed": true,
-      "active": true,
-      "featured": true,
-      "costs": {
-        "material_cost": 252,
-        "print_cost": 162,
-        "labor_cost": 108,
-        "packaging_cost": 60,
-        "shipping_cost": 80
-      },
-      "custom_options": {
-        "sizes": [
-          {
-            "name": "6 × 8 Inch",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "8 × 12 Inch",
-            "price_adj": 150,
-            "default": false
-          },
-          {
-            "name": "12 × 18 Inch",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "Custom Size / Specifications",
-            "price_adj": 0,
-            "is_custom": true
-          }
-        ],
-        "materials": [
-          {
-            "name": "Archival Artist Canvas",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Ultra-Gloss Luxe Surface",
-            "price_adj": 120
-          },
-          {
-            "name": "Museum Matte Velvet Finish",
-            "price_adj": 180
-          }
-        ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
-        "quantity_tiers": [
-          {
-            "min": 1,
-            "max": 9,
-            "discount_percent": 0
-          },
-          {
-            "min": 10,
-            "max": 49,
-            "discount_percent": 15
-          },
-          {
-            "min": 50,
-            "max": 999,
-            "discount_percent": 30
-          }
-        ],
-        "extras": [
-          {
-            "id": "express",
-            "name": "Express 24h VIP Production",
-            "price_adj": 250
-          },
-          {
-            "id": "gift_wrap",
-            "name": "Artisan Gift Box & Handwritten Card",
-            "price_adj": 150
-          }
-        ]
-      },
-      "created_at": "2026-09-29T15:58:42.703Z",
-      "updated_at": "2026-09-29T17:13:45.186Z"
-    },
-    {
-      "id": "prod-sync-canvas_frame_6x8",
-      "sku": "CANVAS_FRAME_6X8",
-      "name": "Timeless Moments - Custom Wood Framed Canvas Wall Art",
-      "category": "Canvas Frame",
-      "category_slug": "canvas-frame",
-      "subcategory": "6x8",
-      "subcategory_slug": "6x8",
-      "short_description": "Transform your favorite memories into professional-grade decor with our Timeless Wall Art Canvas Frame.",
-      "full_description": "Transform your favorite memories into professional-grade decor with our Timeless Wall Art Canvas Frame. This high-quality piece features a premium canvas print with a rich texture, elegantly housed in a sturdy wooden frame with a deep brown grain. Designed for durability and style, the frame offers a premium finish that complements any interior color palette, from warm earth tones to soft pastels. This product is fully customizable with your own photographs, making it a perfect gift or personal keepsake. It arrives ready to hang with pre-installed hardware for effortless installation.",
-      "material": "Archival Artist Canvas",
-      "default_size": "6 × 8 Inch",
-      "base_price": 899,
-      "selling_price": 899,
-      "mrp": 1599,
-      "discount": 44,
-      "tax": 18,
-      "stock": 250,
-      "production_time": "2-3 business days",
-      "tags": [
-        "Canvas Frame",
-        "6x8",
-        "Creaftique",
-        "Custom Print",
-        "Bespoke"
-      ],
-      "keywords": [
-        "canvas frame",
-        "timeless moments - custom wood framed canvas wall art",
-        "canvas_frame_6x8",
-        "customized",
-        "photo print"
-      ],
-      "images": [
-        "/catalog-images/02.%20Canvas%20Frame/01%206x8/03_Craftique_hero_d29e.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/01%206x8/01_Craftique_banner_d29e.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/01%206x8/02_1_Craftique_Size_6_x_8_Inch_d29e.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/01%206x8/02_2_Craftique_Size_8_x_12_Inch_d29e.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/01%206x8/02_3_Craftique_Size_12_x_18_Inch_d29e.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/01%206x8/04_Craftique_usage_d29e.jpg",
-        "/catalog-images/02.%20Canvas%20Frame/01%206x8/05_Craftique_details_d29e.jpg"
-      ],
-      "customization_available": true,
-      "requires_photo": true,
-      "required_photos_count": 1,
-      "custom_text_allowed": true,
-      "active": true,
-      "featured": true,
-      "costs": {
-        "material_cost": 252,
-        "print_cost": 162,
-        "labor_cost": 108,
-        "packaging_cost": 60,
-        "shipping_cost": 80
-      },
-      "custom_options": {
-        "sizes": [
-          {
-            "name": "6 × 8 Inch",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "8 × 12 Inch",
-            "price_adj": 150,
-            "default": false
-          },
-          {
-            "name": "12 × 18 Inch",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "Custom Size / Specifications",
-            "price_adj": 0,
-            "is_custom": true
-          }
-        ],
-        "materials": [
-          {
-            "name": "Archival Artist Canvas",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Ultra-Gloss Luxe Surface",
-            "price_adj": 120
-          },
-          {
-            "name": "Museum Matte Velvet Finish",
-            "price_adj": 180
-          }
-        ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
-        "quantity_tiers": [
-          {
-            "min": 1,
-            "max": 9,
-            "discount_percent": 0
-          },
-          {
-            "min": 10,
-            "max": 49,
-            "discount_percent": 15
-          },
-          {
-            "min": 50,
-            "max": 999,
-            "discount_percent": 30
-          }
-        ],
-        "extras": [
-          {
-            "id": "express",
-            "name": "Express 24h VIP Production",
-            "price_adj": 250
-          },
-          {
-            "id": "gift_wrap",
-            "name": "Artisan Gift Box & Handwritten Card",
-            "price_adj": 150
-          }
-        ]
-      },
-      "created_at": "2026-09-29T15:58:42.702Z",
-      "updated_at": "2026-09-29T17:13:45.185Z"
-    },
-    {
-      "id": "prod-sync-canvas_hanging_12x18",
-      "sku": "CANVAS_HANGING_12X18",
-      "name": "Personalized Canvas Hanging Scroll Wall Art",
-      "category": "Canvas Hanging",
-      "category_slug": "canvas-hanging",
-      "subcategory": "12x18",
-      "subcategory_slug": "12x18",
-      "short_description": "Transform your cherished memories into stunning wall decor with our Personalized Canvas Hanging Scroll.",
-      "full_description": "Transform your cherished memories into stunning wall decor with our Personalized Canvas Hanging Scroll. This high-quality piece features a durable, high-definition canvas print with a beautiful artistic oil-painting texture. The canvas is elegantly framed with premium wooden rods at the top and bottom and finished with decorative white tassels, giving it a classic scroll aesthetic. It comes ready to hang with a sturdy rope and wall hook included. Ideal for festive gifts, baby portraits, or special family memories, this lightweight art piece adds a warm, personalized touch to any room. Simply provide your favorite photograph to create a custom piece of home decor that captures every detail with a vibrant color palette.",
-      "material": "Archival Artist Canvas",
-      "default_size": "6x8 inches",
-      "base_price": 699,
-      "selling_price": 699,
-      "mrp": 1299,
-      "discount": 46,
-      "tax": 18,
-      "stock": 250,
-      "production_time": "2-3 business days",
-      "tags": [
-        "Canvas Hanging",
-        "12x18",
-        "Creaftique",
-        "Custom Print",
-        "Bespoke"
-      ],
-      "keywords": [
-        "canvas hanging",
-        "personalized canvas hanging scroll wall art",
-        "canvas_hanging_12x18",
-        "customized",
-        "photo print"
-      ],
-      "images": [
-        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/03_Craftique_hero_fe4f.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/01_Craftique_banner_fe4f.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/02_1_Craftique_Size_6x8_inches_fe4f.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/02_2_Craftique_Size_8x12_inches_fe4f.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/02_3_Craftique_Size_12x18_inches_fe4f.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/04_Craftique_usage_fe4f.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/05_Craftique_details_fe4f.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/03%2012x18/06_Craftique_beforeAfter_fe4f.jpg"
-      ],
-      "customization_available": true,
-      "requires_photo": true,
-      "required_photos_count": 1,
-      "custom_text_allowed": true,
-      "active": true,
-      "featured": true,
-      "costs": {
-        "material_cost": 196,
-        "print_cost": 126,
-        "labor_cost": 84,
-        "packaging_cost": 60,
-        "shipping_cost": 80
-      },
-      "custom_options": {
-        "sizes": [
-          {
-            "name": "6x8 inches",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "8x12 inches",
-            "price_adj": 150,
-            "default": false
-          },
-          {
-            "name": "12x18 inches",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "Custom Size / Specifications",
-            "price_adj": 0,
-            "is_custom": true
-          }
-        ],
-        "materials": [
-          {
-            "name": "Archival Artist Canvas",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Ultra-Gloss Luxe Surface",
-            "price_adj": 120
-          },
-          {
-            "name": "Museum Matte Velvet Finish",
-            "price_adj": 180
-          }
-        ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
-        "quantity_tiers": [
-          {
-            "min": 1,
-            "max": 9,
-            "discount_percent": 0
-          },
-          {
-            "min": 10,
-            "max": 49,
-            "discount_percent": 15
-          },
-          {
-            "min": 50,
-            "max": 999,
-            "discount_percent": 30
-          }
-        ],
-        "extras": [
-          {
-            "id": "express",
-            "name": "Express 24h VIP Production",
-            "price_adj": 250
-          },
-          {
-            "id": "gift_wrap",
-            "name": "Artisan Gift Box & Handwritten Card",
-            "price_adj": 150
-          }
-        ]
-      },
-      "created_at": "2026-09-29T15:58:42.702Z",
-      "updated_at": "2026-09-29T17:13:45.184Z"
-    },
-    {
-      "id": "prod-sync-canvas_hanging_8x12",
-      "sku": "CANVAS_HANGING_8X12",
-      "name": "Elegant Tassel Canvas Wall Scroll",
-      "category": "Canvas Hanging",
-      "category_slug": "canvas-hanging",
-      "subcategory": "8x12",
-      "subcategory_slug": "8x12",
-      "short_description": "Elevate your home decor with this Custom Portrait Scroll Canvas Wall Hanging.",
-      "full_description": "Elevate your home decor with this Custom Portrait Scroll Canvas Wall Hanging. Crafted from durable, high-quality canvas, it features a stunning high-definition print with an artistic digital oil painting effect. The design is framed by premium wooden rods and finished with elegant white tassels, creating a sophisticated vintage feel. The warm color palette of gold and earthy tones beautifully highlights the subject. Lightweight and easy to hang with an included rope, this piece is fully customizable with your personal photos, making it a perfect gift for special occasions and a unique way to display cherished memories.",
-      "material": "Archival Artist Canvas",
-      "default_size": "6 × 8 Inch",
-      "base_price": 699,
-      "selling_price": 699,
-      "mrp": 1299,
-      "discount": 46,
-      "tax": 18,
-      "stock": 250,
-      "production_time": "2-3 business days",
-      "tags": [
-        "Canvas Hanging",
-        "8x12",
-        "Creaftique",
-        "Custom Print",
-        "Bespoke"
-      ],
-      "keywords": [
-        "canvas hanging",
-        "elegant tassel canvas wall scroll",
-        "canvas_hanging_8x12",
-        "customized",
-        "photo print"
-      ],
-      "images": [
-        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/03_Craftique_hero_7ce7.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/01_Craftique_banner_7ce7.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/02_1_Craftique_Size_6_x_8_Inch_7ce7.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/02_2_Craftique_Size_8_x_12_Inch_7ce7.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/02_3_Craftique_Size_12_x_18_Inch_7ce7.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/04_Craftique_usage_7ce7.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/05_Craftique_details_7ce7.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/02%208x12/06_Craftique_beforeAfter_7ce7.jpg"
-      ],
-      "customization_available": true,
-      "requires_photo": true,
-      "required_photos_count": 1,
-      "custom_text_allowed": true,
-      "active": true,
-      "featured": true,
-      "costs": {
-        "material_cost": 196,
-        "print_cost": 126,
-        "labor_cost": 84,
-        "packaging_cost": 60,
-        "shipping_cost": 80
-      },
-      "custom_options": {
-        "sizes": [
-          {
-            "name": "6 × 8 Inch",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "8 × 12 Inch",
-            "price_adj": 150,
-            "default": false
-          },
-          {
-            "name": "12 × 18 Inch",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "Custom Size / Specifications",
-            "price_adj": 0,
-            "is_custom": true
-          }
-        ],
-        "materials": [
-          {
-            "name": "Archival Artist Canvas",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Ultra-Gloss Luxe Surface",
-            "price_adj": 120
-          },
-          {
-            "name": "Museum Matte Velvet Finish",
-            "price_adj": 180
-          }
-        ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
-        "quantity_tiers": [
-          {
-            "min": 1,
-            "max": 9,
-            "discount_percent": 0
-          },
-          {
-            "min": 10,
-            "max": 49,
-            "discount_percent": 15
-          },
-          {
-            "min": 50,
-            "max": 999,
-            "discount_percent": 30
-          }
-        ],
-        "extras": [
-          {
-            "id": "express",
-            "name": "Express 24h VIP Production",
-            "price_adj": 250
-          },
-          {
-            "id": "gift_wrap",
-            "name": "Artisan Gift Box & Handwritten Card",
-            "price_adj": 150
-          }
-        ]
-      },
-      "created_at": "2026-09-29T15:58:42.702Z",
-      "updated_at": "2026-09-29T17:13:45.183Z"
-    },
-    {
-      "id": "prod-sync-canvas_hanging_6x8",
-      "sku": "CANVAS_HANGING_6X8",
-      "name": "Elegant Personalized Canvas Scroll Wall Art",
-      "category": "Canvas Hanging",
-      "category_slug": "canvas-hanging",
-      "subcategory": "6x8",
-      "subcategory_slug": "6x8",
-      "short_description": "Elevate your home decor with our Elegant Personalized Canvas Scroll Wall Art.",
-      "full_description": "Elevate your home decor with our Elegant Personalized Canvas Scroll Wall Art. This unique hanging piece features high-quality textured canvas held by sturdy wooden dowels and accented with decorative cream tassels. Designed for ease and style, it is lightweight and ready to hang. This product turns your personal memories into sophisticated wall art with a warm, natural color palette that suits any room. Fully customizable with your choice of photos, it combines a vintage scroll aesthetic with modern printing quality for a truly premium feel.",
-      "material": "Archival Artist Canvas",
-      "default_size": "6 × 8 Inch",
-      "base_price": 699,
-      "selling_price": 699,
-      "mrp": 1299,
-      "discount": 46,
-      "tax": 18,
-      "stock": 250,
-      "production_time": "2-3 business days",
-      "tags": [
-        "Canvas Hanging",
-        "6x8",
-        "Creaftique",
-        "Custom Print",
-        "Bespoke"
-      ],
-      "keywords": [
-        "canvas hanging",
-        "elegant personalized canvas scroll wall art",
-        "canvas_hanging_6x8",
-        "customized",
-        "photo print"
-      ],
-      "images": [
-        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/03_Craftique_hero_983b.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/01_Craftique_banner_983b.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/02_1_Craftique_Size_6_x_8_Inch_983b.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/02_2_Craftique_Size_8_x_12_Inch_983b.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/02_3_Craftique_Size_12_x_18_Inch_983b.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/04_Craftique_usage_983b.jpg",
-        "/catalog-images/01.%20Canvas%20Hanging/01%206x8/05_Craftique_details_983b.jpg"
-      ],
-      "customization_available": true,
-      "requires_photo": true,
-      "required_photos_count": 1,
-      "custom_text_allowed": true,
-      "active": true,
-      "featured": true,
-      "costs": {
-        "material_cost": 196,
-        "print_cost": 126,
-        "labor_cost": 84,
-        "packaging_cost": 60,
-        "shipping_cost": 80
-      },
-      "custom_options": {
-        "sizes": [
-          {
-            "name": "6 × 8 Inch",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "8 × 12 Inch",
-            "price_adj": 150,
-            "default": false
-          },
-          {
-            "name": "12 × 18 Inch",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "Custom Size / Specifications",
-            "price_adj": 0,
-            "is_custom": true
-          }
-        ],
-        "materials": [
-          {
-            "name": "Archival Artist Canvas",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Ultra-Gloss Luxe Surface",
-            "price_adj": 120
-          },
-          {
-            "name": "Museum Matte Velvet Finish",
-            "price_adj": 180
-          }
-        ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
-        "quantity_tiers": [
-          {
-            "min": 1,
-            "max": 9,
-            "discount_percent": 0
-          },
-          {
-            "min": 10,
-            "max": 49,
-            "discount_percent": 15
-          },
-          {
-            "min": 50,
-            "max": 999,
-            "discount_percent": 30
-          }
-        ],
-        "extras": [
-          {
-            "id": "express",
-            "name": "Express 24h VIP Production",
-            "price_adj": 250
-          },
-          {
-            "id": "gift_wrap",
-            "name": "Artisan Gift Box & Handwritten Card",
-            "price_adj": 150
-          }
-        ]
-      },
-      "created_at": "2026-09-29T15:58:42.701Z",
-      "updated_at": "2026-09-29T17:13:45.182Z"
-    }
-  ],
-  "categories": [
-    {
-      "id": "decor",
-      "name": "Décor",
-      "slug": "decor",
-      "description": "Handcrafted wall art, personalized frames & artisanal home accents.",
-      "icon": "Frame",
-      "subcategories": [
-        {
-          "id": "paintings",
-          "name": "Paintings",
-          "slug": "paintings"
-        },
-        {
-          "id": "wall-art",
-          "name": "Wall Art",
-          "slug": "wall-art"
-        },
-        {
-          "id": "hanging",
-          "name": "Hanging",
-          "slug": "hanging"
-        },
-        {
-          "id": "posters",
-          "name": "Posters",
-          "slug": "posters"
-        },
-        {
-          "id": "photo-frames",
-          "name": "Photo Frames",
-          "slug": "photo-frames"
-        },
-        {
-          "id": "customized-frames",
-          "name": "Customized Frames",
-          "slug": "customized-frames"
-        },
-        {
-          "id": "decorative-products",
-          "name": "Decorative Products",
-          "slug": "decorative-products"
-        }
-      ]
-    },
-    {
-      "id": "printing",
-      "name": "Printing Services",
-      "slug": "printing",
-      "description": "High-definition archival commercial & personal printing solutions.",
-      "icon": "Printer",
-      "subcategories": [
-        {
-          "id": "photo-albums",
-          "name": "Photo Albums",
-          "slug": "photo-albums"
-        },
-        {
-          "id": "magazines",
-          "name": "Magazines",
-          "slug": "magazines"
-        },
-        {
-          "id": "photo-collage",
-          "name": "Photo Collage",
-          "slug": "photo-collage"
-        },
-        {
-          "id": "cards",
-          "name": "Cards",
-          "slug": "cards"
-        },
-        {
-          "id": "invitations",
-          "name": "Invitations",
-          "slug": "invitations"
-        },
-        {
-          "id": "stickers",
-          "name": "Stickers",
-          "slug": "stickers"
-        },
-        {
-          "id": "tags",
-          "name": "Tags",
-          "slug": "tags"
-        },
-        {
-          "id": "packaging",
-          "name": "Packaging",
-          "slug": "packaging"
-        },
-        {
-          "id": "brochures",
-          "name": "Brochures",
-          "slug": "brochures"
-        },
-        {
-          "id": "flyers",
-          "name": "Flyers",
-          "slug": "flyers"
-        },
-        {
-          "id": "business-cards",
-          "name": "Business Cards",
-          "slug": "business-cards"
-        },
-        {
-          "id": "certificates",
-          "name": "Certificates",
-          "slug": "certificates"
-        },
-        {
-          "id": "photo-prints",
-          "name": "Photo Prints",
-          "slug": "photo-prints"
-        }
-      ]
-    },
-    {
-      "id": "customized-products",
-      "name": "Customized Products",
-      "slug": "customized-products",
-      "description": "Bespoke gifts, photo magnets, customized backdrops and party supplies.",
-      "icon": "Sparkles",
-      "subcategories": [
-        {
-          "id": "photo-magnets",
-          "name": "Photo Magnets",
-          "slug": "photo-magnets"
-        },
-        {
-          "id": "insta-photo-cards",
-          "name": "Insta Photo Cards",
-          "slug": "insta-photo-cards"
-        },
-        {
-          "id": "party-supplies",
-          "name": "Party Supplies & Cutouts",
-          "slug": "party-supplies"
-        },
-        {
-          "id": "custom-labels",
-          "name": "Custom Book & Bottle Labels",
-          "slug": "custom-labels"
-        }
-      ]
+      "created_at": "2026-09-29T15:58:42.713Z",
+      "updated_at": "2026-09-30T04:31:46.458Z"
     }
   ]
 }
