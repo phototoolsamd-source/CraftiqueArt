@@ -1,6 +1,6 @@
 import React from 'react';
 import { Product } from '../../types';
-import { Sparkles, Image as ImageIcon, ArrowRight, ShieldCheck, Flame } from 'lucide-react';
+import { Sparkles, Image as ImageIcon, ArrowRight, ShieldCheck, Flame, Layers } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -9,6 +9,8 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) => {
   const primaryImg = product.images?.[0] || 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=900&auto=format&fit=crop&q=80';
+  const secondaryImg = product.images?.[1] || primaryImg;
+  const imageCount = product.images?.length || 1;
 
   return (
     <div
@@ -17,15 +19,28 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
     >
       {/* Product Image & Badges */}
       <div className="relative aspect-4/3 overflow-hidden bg-slate-100">
+        {/* Primary Image */}
         <img
           src={primaryImg}
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className={`w-full h-full object-cover transition-all duration-500 ${
+            secondaryImg !== primaryImg ? 'group-hover:opacity-0 group-hover:scale-105' : 'group-hover:scale-105'
+          }`}
           loading="lazy"
         />
 
+        {/* Secondary Image on Hover */}
+        {secondaryImg !== primaryImg && (
+          <img
+            src={secondaryImg}
+            alt={`${product.name} Alternate View`}
+            className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+            loading="lazy"
+          />
+        )}
+
         {/* Badges Overlay */}
-        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5 items-start">
+        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5 items-start z-10">
           {product.best_seller && (
             <span className="bg-amber-800/90 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-xs">
               <Flame className="w-3 h-3 text-amber-300" />
@@ -39,9 +54,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
           )}
         </div>
 
+        {/* Gallery Photos Count Badge */}
+        {imageCount > 1 && (
+          <div className="absolute top-2.5 right-2.5 bg-black/65 backdrop-blur-xs text-white text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-xs z-10">
+            <Layers className="w-3 h-3 text-amber-300" />
+            <span>{imageCount} Photos</span>
+          </div>
+        )}
+
         {/* Photo Upload indicator */}
         {product.requires_photo && (
-          <div className="absolute bottom-2.5 right-2.5 bg-black/75 backdrop-blur-xs text-white text-[10px] font-medium px-2 py-0.5 rounded-md flex items-center gap-1">
+          <div className="absolute bottom-2.5 right-2.5 bg-black/75 backdrop-blur-xs text-white text-[10px] font-medium px-2 py-0.5 rounded-md flex items-center gap-1 z-10">
             <ImageIcon className="w-3 h-3 text-amber-300" />
             <span>
               {product.required_photos_count ? `${product.required_photos_count} Photos` : 'Photo Required'}

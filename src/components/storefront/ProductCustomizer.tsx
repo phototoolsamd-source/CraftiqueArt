@@ -186,6 +186,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
         <InteractivePreview
           productName={product.name}
+          images={product.images || []}
           defaultImage={product.images[0]}
           photos={photos}
           customText={customText}
