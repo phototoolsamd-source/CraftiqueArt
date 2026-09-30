@@ -4,13 +4,19 @@ const db = require('./db');
 
 class DriveService {
   constructor() {
-    this.storageRoot = path.join(__dirname, 'storage', 'orders');
+    this.storageRoot = process.env.VERCEL
+      ? path.join('/tmp', 'storage', 'orders')
+      : path.join(__dirname, 'storage', 'orders');
     this.ensureDirectory(this.storageRoot);
   }
 
   ensureDirectory(dir) {
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    try {
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+    } catch (err) {
+      console.warn('[DriveService] Directory warning (handled for read-only environments):', err.message);
     }
   }
 
@@ -47,10 +53,15 @@ class DriveService {
     // Write Order Details manifest / printable receipt locally
     const manifestPath = path.join(folderInfo.localPaths.root, 'Order_Details.html');
     const htmlManifest = this.generateOrderHtmlManifest(order);
-    fs.writeFileSync(manifestPath, htmlManifest, 'utf-8');
+    try {
+      fs.writeFileSync(manifestPath, htmlManifest, 'utf-8');
+    } catch (err) {
+      console.warn('[DriveService] Could not write manifest HTML:', err.message);
+    }
 
     // Copy customer uploaded photos directly into order's Uploaded Photos folder
     let photoCount = 0;
+    const uploadsDir = process.env.VERCEL ? path.join('/tmp', 'uploads') : path.join(__dirname, 'uploads');
     (order.items || []).forEach(item => {
       const photos = item.customization?.photos || [];
       photos.forEach((p, idx) => {
@@ -59,11 +70,17 @@ class DriveService {
 
         if (photoUrl.startsWith('/uploads/customer-photos/')) {
           const filename = path.basename(photoUrl);
-          const srcPath = path.join(__dirname, 'uploads', 'customer-photos', filename);
-          if (fs.existsSync(srcPath)) {
-            const destFilename = `Photo_${String(++photoCount).padStart(2, '0')}_${filename}`;
-            const destPath = path.join(folderInfo.localPaths.photos, destFilename);
-            fs.copyFileSync(srcPath, destPath);
+          const srcPath = path.join(uploadsDir, 'customer-photos', filename);
+          const fallbackSrcPath = path.join(__dirname, 'uploads', 'customer-photos', filename);
+          const finalSrc = fs.existsSync(srcPath) ? srcPath : (fs.existsSync(fallbackSrcPath) ? fallbackSrcPath : null);
+          if (finalSrc) {
+            try {
+              const destFilename = `Photo_${String(++photoCount).padStart(2, '0')}_${filename}`;
+              const destPath = path.join(folderInfo.localPaths.photos, destFilename);
+              fs.copyFileSync(finalSrc, destPath);
+            } catch (e) {
+              console.warn('[DriveService] Could not copy customer photo:', e.message);
+            }
           }
         } else if (photoUrl.startsWith('data:image/')) {
           try {

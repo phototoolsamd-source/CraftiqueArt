@@ -20,7 +20,14 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Static uploads serving
-const uploadsDir = path.join(__dirname, 'uploads');
+const uploadsDir = process.env.VERCEL
+  ? path.join('/tmp', 'uploads')
+  : path.join(__dirname, 'uploads');
+try {
+  if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+} catch (e) {
+  console.warn('[Server] Could not create uploadsDir:', e.message);
+}
 app.use('/uploads', express.static(uploadsDir));
 
 // Static catalog images serving (from local public/catalog-images, or external drive fallback)
@@ -40,7 +47,9 @@ if (fs.existsSync(defaultDrivePath)) {
 const customerPhotosStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     const dest = path.join(uploadsDir, 'customer-photos');
-    if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    try {
+      if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    } catch (e) {}
     cb(null, dest);
   },
   filename: (req, file, cb) => {
@@ -56,7 +65,9 @@ const uploadPhotos = multer({
 const paymentProofsStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     const dest = path.join(uploadsDir, 'payment-proofs');
-    if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    try {
+      if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    } catch (e) {}
     cb(null, dest);
   },
   filename: (req, file, cb) => {
@@ -72,7 +83,9 @@ const uploadPaymentScreenshot = multer({
 const designProofsStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     const dest = path.join(uploadsDir, 'design-proofs');
-    if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    try {
+      if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    } catch (e) {}
     cb(null, dest);
   },
   filename: (req, file, cb) => {

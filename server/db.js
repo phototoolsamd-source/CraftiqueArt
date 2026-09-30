@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const DB_FILE = path.join(__dirname, 'data', 'creaftique.json');
+const BUNDLED_DB_FILE = path.join(__dirname, 'data', 'creaftique.json');
+const DB_FILE = process.env.VERCEL
+  ? path.join('/tmp', 'creaftique.json')
+  : BUNDLED_DB_FILE;
 
 // Default initial state
 const INITIAL_SETTINGS = {
@@ -784,9 +787,18 @@ class Database {
         const raw = fs.readFileSync(DB_FILE, 'utf-8');
         const parsed = JSON.parse(raw);
         this.data = { ...this.data, ...parsed };
-      } else {
-        this.save();
+        return;
       }
+
+      if (fs.existsSync(BUNDLED_DB_FILE)) {
+        const raw = fs.readFileSync(BUNDLED_DB_FILE, 'utf-8');
+        const parsed = JSON.parse(raw);
+        this.data = { ...this.data, ...parsed };
+        this.save();
+        return;
+      }
+
+      this.save();
     } catch (err) {
       console.error('Error loading DB file, fallback to defaults:', err);
     }
@@ -800,7 +812,7 @@ class Database {
       }
       fs.writeFileSync(DB_FILE, JSON.stringify(this.data, null, 2), 'utf-8');
     } catch (err) {
-      console.error('Failed to write database file:', err);
+      console.warn('Warning writing database file (handled for read-only environments):', err.message);
     }
   }
 
