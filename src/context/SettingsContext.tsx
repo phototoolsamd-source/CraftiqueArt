@@ -16,8 +16,9 @@ export interface AppSettings {
 }
 
 export const DEFAULT_SETTINGS: AppSettings = {
-  brand_title: 'Creaftique (Craftique)',
+  brand_title: 'Craftique',
   tagline: 'Artisan Frames & Custom Print Studio',
+
   upi_id: 'aksharstudio-3@okisbii',
   business_name: 'Craftique',
   whatsapp_number: '916354871446',

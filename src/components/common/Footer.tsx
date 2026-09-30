@@ -137,11 +137,12 @@ export const Footer: React.FC<{ onNavigate: (v: string, p?: string) => void }> =
 
         {/* Bottom Credits */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© {new Date().getFullYear()} Creaftique (Craftique). All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Craftique. All rights reserved.</p>
           <p className="flex items-center gap-1">
             Handcrafted with <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> for creators, couples, and homes across India.
           </p>
         </div>
+
       </div>
     </footer>
   );
