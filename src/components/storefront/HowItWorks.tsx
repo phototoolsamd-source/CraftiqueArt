@@ -30,16 +30,16 @@ export const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-[#FAF7F2] border-b border-[#EBE3D5]">
+    <section className="py-16 bg-[#FAF7F2] dark:bg-[#121110] border-b border-[#EBE3D5] dark:border-stone-800 transition-colors">
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
-          <span className="text-xs uppercase font-bold tracking-widest text-[#B45309]">
+          <span className="text-xs uppercase font-bold tracking-widest text-[#B45309] dark:text-amber-400">
             The Creaftique Experience
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 dark:text-stone-100">
             How It Works in 4 Simple Steps
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-stone-400">
             From your phone camera roll to a museum-grade framed centerpiece in days.
           </p>
         </div>
@@ -48,20 +48,20 @@ export const HowItWorks: React.FC = () => {
           {steps.map((s, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-3xl p-6 border border-[#E8DFD0] shadow-xs hover:shadow-md transition-all relative space-y-3"
+              className="bg-white dark:bg-[#1A1816] rounded-3xl p-6 border border-[#E8DFD0] dark:border-stone-800 shadow-xs hover:shadow-md transition-all relative space-y-3"
             >
               <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200/80 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200/80 dark:border-amber-800 flex items-center justify-center">
                   {s.icon}
                 </div>
-                <span className="font-serif font-bold text-2xl text-amber-900/20">
+                <span className="font-serif font-bold text-2xl text-amber-900/20 dark:text-amber-400/20">
                   {s.num}
                 </span>
               </div>
-              <h3 className="font-serif font-bold text-lg text-slate-900">
+              <h3 className="font-serif font-bold text-lg text-slate-900 dark:text-stone-100">
                 {s.title}
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-stone-400 leading-relaxed">
                 {s.desc}
               </p>
             </div>

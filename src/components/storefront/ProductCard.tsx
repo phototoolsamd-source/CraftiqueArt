@@ -15,10 +15,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
   return (
     <div
       onClick={() => onSelect(product)}
-      className="group bg-white rounded-2xl border border-[#E9E1D2] overflow-hidden shadow-xs hover:shadow-xl hover:border-amber-300 transition-all duration-300 flex flex-col cursor-pointer"
+      className="group bg-white dark:bg-[#1A1816] rounded-2xl border border-[#E9E1D2] dark:border-stone-800 overflow-hidden shadow-xs hover:shadow-xl hover:border-amber-300 dark:hover:border-amber-600 transition-all duration-300 flex flex-col cursor-pointer"
     >
       {/* Product Image & Badges */}
-      <div className="relative aspect-4/3 overflow-hidden bg-slate-100">
+      <div className="relative aspect-4/3 overflow-hidden bg-slate-100 dark:bg-stone-900">
         {/* Primary Image */}
         <img
           src={primaryImg}
@@ -76,46 +76,46 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
       {/* Content */}
       <div className="p-4 flex-1 flex flex-col justify-between">
         <div>
-          <div className="flex items-center justify-between text-[11px] text-slate-500 mb-1">
-            <span className="uppercase tracking-wider font-semibold text-amber-800">
+          <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-stone-400 mb-1">
+            <span className="uppercase tracking-wider font-semibold text-amber-800 dark:text-amber-400">
               {product.category}
             </span>
-            <span className="font-mono text-slate-400">SKU: {product.sku}</span>
+            <span className="font-mono text-slate-400 dark:text-stone-500">SKU: {product.sku}</span>
           </div>
 
-          <h3 className="font-serif font-bold text-base text-slate-900 group-hover:text-amber-800 transition-colors line-clamp-1">
+          <h3 className="font-serif font-bold text-base text-slate-900 dark:text-stone-100 group-hover:text-amber-800 dark:group-hover:text-amber-400 transition-colors line-clamp-1">
             {product.name}
           </h3>
 
-          <p className="text-xs text-slate-500 line-clamp-2 mt-1 leading-relaxed">
+          <p className="text-xs text-slate-500 dark:text-stone-400 line-clamp-2 mt-1 leading-relaxed">
             {product.short_description}
           </p>
 
-          <div className="mt-3 flex flex-wrap gap-1.5 text-[10px] text-slate-600">
-            <span className="bg-[#FAF7F2] border border-[#E8DFCE] px-2 py-0.5 rounded font-medium">
+          <div className="mt-3 flex flex-wrap gap-1.5 text-[10px] text-slate-600 dark:text-stone-300">
+            <span className="bg-[#FAF7F2] dark:bg-stone-800/80 border border-[#E8DFCE] dark:border-stone-700 px-2 py-0.5 rounded font-medium">
               {product.material}
             </span>
-            <span className="bg-[#FAF7F2] border border-[#E8DFCE] px-2 py-0.5 rounded font-medium">
+            <span className="bg-[#FAF7F2] dark:bg-stone-800/80 border border-[#E8DFCE] dark:border-stone-700 px-2 py-0.5 rounded font-medium">
               {product.default_size}
             </span>
           </div>
         </div>
 
         {/* Price & Action */}
-        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+        <div className="mt-4 pt-3 border-t border-slate-100 dark:border-stone-800 flex items-center justify-between">
           <div>
             <div className="flex items-baseline gap-1.5">
-              <span className="font-bold text-base text-slate-900">
+              <span className="font-bold text-base text-slate-900 dark:text-stone-100">
                 ₹{product.selling_price.toLocaleString('en-IN')}
               </span>
               {product.mrp > product.selling_price && (
-                <span className="text-xs text-slate-400 line-through">
+                <span className="text-xs text-slate-400 dark:text-stone-500 line-through">
                   ₹{product.mrp.toLocaleString('en-IN')}
                 </span>
               )}
             </div>
             {product.discount && product.discount > 0 && (
-              <span className="text-[10px] font-bold text-emerald-700">
+              <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400">
                 {product.discount}% OFF
               </span>
             )}
@@ -123,7 +123,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
 
           <button
             type="button"
-            className="inline-flex items-center gap-1.5 bg-[#FAF7F2] group-hover:bg-[#B45309] text-amber-900 group-hover:text-white border border-[#E0D5C3] group-hover:border-[#B45309] text-xs font-bold py-2 px-3 rounded-xl transition-all shadow-xs"
+            className="inline-flex items-center gap-1.5 bg-[#FAF7F2] dark:bg-stone-800 group-hover:bg-[#B45309] dark:group-hover:bg-amber-600 text-amber-900 dark:text-amber-200 group-hover:text-white border border-[#E0D5C3] dark:border-stone-700 group-hover:border-[#B45309] dark:group-hover:border-amber-600 text-xs font-bold py-2 px-3 rounded-xl transition-all shadow-xs"
           >
             <span>Personalize</span>
             <ArrowRight className="w-3.5 h-3.5" />

@@ -229,7 +229,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col text-slate-800">
+    <div className="min-h-screen bg-[#FAF7F2] dark:bg-[#121110] flex flex-col text-slate-800 dark:text-stone-100 transition-colors duration-200">
       {/* If in Admin view, render AdminLayout */}
       {currentView === 'admin' ? (
         <AdminLayout
@@ -310,28 +310,28 @@ export const App: React.FC = () => {
                     {/* Right Product Grid Area */}
                     <div className="flex-1 w-full min-w-0">
                       {/* Section Header Info Bar */}
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 bg-white dark:bg-[#1A1816] p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-stone-800 shadow-xs">
                         <div>
-                          <div className="text-xs uppercase font-bold tracking-widest text-[#B45309]">
+                          <div className="text-xs uppercase font-bold tracking-widest text-[#B45309] dark:text-amber-400">
                             {selectedCategorySlug === 'all' ? 'All Handcrafted Collections' : selectedCategorySlug.replace(/-/g, ' ')}
                           </div>
-                          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900 mt-0.5">
+                          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900 dark:text-stone-100 mt-0.5">
                             Bespoke Products & Custom Printing
                           </h2>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-semibold text-slate-500 bg-slate-50 px-3.5 py-1.5 rounded-full border border-slate-200">
-                            Showing <span className="font-bold text-slate-800">{filteredProducts.length}</span> of {products.length} products
+                          <span className="text-xs font-semibold text-slate-500 dark:text-stone-400 bg-slate-50 dark:bg-stone-800 px-3.5 py-1.5 rounded-full border border-slate-200 dark:border-stone-700">
+                            Showing <span className="font-bold text-slate-800 dark:text-stone-100">{filteredProducts.length}</span> of {products.length} products
                           </span>
                         </div>
                       </div>
 
                       {filteredProducts.length === 0 ? (
-                        <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 space-y-3">
-                          <p className="text-sm font-semibold text-slate-600">No products match your search or filter.</p>
+                        <div className="text-center py-16 bg-white dark:bg-[#1A1816] rounded-3xl border border-slate-200 dark:border-stone-800 space-y-3">
+                          <p className="text-sm font-semibold text-slate-600 dark:text-stone-300">No products match your search or filter.</p>
                           <button
                             onClick={handleResetFilters}
-                            className="text-xs font-bold text-amber-800 underline hover:text-amber-900 cursor-pointer"
+                            className="text-xs font-bold text-amber-800 dark:text-amber-400 underline hover:text-amber-900 dark:hover:text-amber-300 cursor-pointer"
                           >
                             Reset All Filters
                           </button>
@@ -360,7 +360,7 @@ export const App: React.FC = () => {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
                 <button
                   onClick={() => setCurrentView('home')}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 px-3.5 py-1.5 rounded-full transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-900 dark:text-amber-200 bg-amber-50 dark:bg-amber-950/60 hover:bg-amber-100 dark:hover:bg-amber-900/80 border border-amber-200/80 dark:border-amber-800 px-3.5 py-1.5 rounded-full transition-colors"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Back to Collections</span>

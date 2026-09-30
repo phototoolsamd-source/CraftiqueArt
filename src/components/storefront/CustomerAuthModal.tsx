@@ -197,23 +197,23 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xs overflow-y-auto">
-      <div className="bg-[#FFFDF9] rounded-3xl border border-[#E8DFD0] shadow-2xl max-w-md w-full overflow-hidden my-8 animate-scale-in">
+      <div className="bg-[#FFFDF9] dark:bg-[#1A1816] rounded-3xl border border-[#E8DFD0] dark:border-stone-800 shadow-2xl max-w-md w-full overflow-hidden my-8 animate-scale-in">
         {/* Header */}
-        <div className="bg-[#FAF7F2] p-5 border-b border-[#EAE0D0] flex items-center justify-between">
+        <div className="bg-[#FAF7F2] dark:bg-stone-900 p-5 border-b border-[#EAE0D0] dark:border-stone-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-white border border-amber-300 p-0.5 shadow-xs flex items-center justify-center overflow-hidden">
+            <div className="w-10 h-10 rounded-full bg-white dark:bg-stone-800 border border-amber-300 dark:border-amber-700 p-0.5 shadow-xs flex items-center justify-center overflow-hidden">
               <img src="/logo.png" alt="Craftique Logo" className="w-full h-full object-contain rounded-full" />
             </div>
             <div>
-              <h2 className="font-serif font-bold text-base text-slate-900 leading-tight">
+              <h2 className="font-serif font-bold text-base text-slate-900 dark:text-stone-100 leading-tight">
                 {step === 'phone' ? 'Customer Login / Sign Up' : 'Verify Mobile & Name'}
               </h2>
-              <p className="text-[11px] text-slate-500 font-medium">Craftique Bespoke Studio</p>
+              <p className="text-[11px] text-slate-500 dark:text-stone-400 font-medium">Craftique Bespoke Studio</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-700 rounded-full hover:bg-slate-200/50 transition-colors cursor-pointer"
+            className="p-1.5 text-slate-400 dark:text-stone-400 hover:text-slate-700 dark:hover:text-stone-200 rounded-full hover:bg-slate-200/50 dark:hover:bg-stone-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -222,7 +222,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         {/* Form Body */}
         <div className="p-6">
           {errorMsg && (
-            <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-center gap-2">
+            <div className="mb-4 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900/60 text-xs text-rose-700 dark:text-rose-300 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0" />
               <span>{errorMsg}</span>
             </div>
@@ -231,18 +231,18 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
           {step === 'phone' ? (
             <form onSubmit={handleSendOtp} className="space-y-4">
               <div className="text-center pb-2">
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-700" />
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 border border-amber-200 dark:border-amber-800">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
                   Instant Access with OTP
                 </span>
-                <p className="text-xs text-slate-500 mt-2">
+                <p className="text-xs text-slate-500 dark:text-stone-400 mt-2">
                   Enter your full name and mobile number to manage your custom orders and proofs.
                 </p>
               </div>
 
               {/* Mandatory Name Field */}
               <div>
-                <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                <label className="block text-xs font-bold text-slate-800 dark:text-stone-200 mb-1.5">
                   Your Full Name (તમારું પૂરું નામ) <span className="text-rose-500 font-bold">*</span>
                 </label>
                 <div className="relative">
@@ -251,14 +251,14 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                     placeholder="e.g. Ramesh Patel / પ્રિયાંક પટેલ"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-white border border-[#E2D8C9] rounded-xl py-3 pl-10 pr-4 text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 transition-all shadow-xs"
+                    className="w-full bg-white dark:bg-stone-900 border border-[#E2D8C9] dark:border-stone-700 rounded-xl py-3 pl-10 pr-4 text-sm font-semibold text-slate-900 dark:text-stone-100 placeholder:text-slate-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 transition-all shadow-xs"
                     autoFocus
                     required
                   />
-                  <User className="w-4 h-4 text-amber-700 absolute left-3.5 top-3.5 pointer-events-none" />
+                  <User className="w-4 h-4 text-amber-700 dark:text-amber-400 absolute left-3.5 top-3.5 pointer-events-none" />
                 </div>
                 {!name.trim() && (
-                  <span className="text-[10px] text-rose-600 font-medium block mt-1 pl-1">
+                  <span className="text-[10px] text-rose-600 dark:text-rose-400 font-medium block mt-1 pl-1">
                     * નામ દાખલ કરવું ફરજિયાત છે (Mandatory)
                   </span>
                 )}
@@ -266,11 +266,11 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
               {/* Mandatory Phone Field */}
               <div>
-                <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                <label className="block text-xs font-bold text-slate-800 dark:text-stone-200 mb-1.5">
                   Mobile Number (મોબાઇલ નંબર) <span className="text-rose-500 font-bold">*</span>
                 </label>
                 <div className="relative flex items-center">
-                  <div className="absolute left-3 flex items-center gap-1.5 border-r border-slate-200 pr-2.5 py-1 text-xs font-bold text-slate-600 select-none">
+                  <div className="absolute left-3 flex items-center gap-1.5 border-r border-slate-200 dark:border-stone-700 pr-2.5 py-1 text-xs font-bold text-slate-600 dark:text-stone-300 select-none">
                     <span>🇮🇳</span>
                     <span>+91</span>
                   </div>
@@ -280,7 +280,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                     placeholder="98765 43210"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/[^0-9]/g, ''))}
-                    className="w-full bg-white border border-[#E2D8C9] rounded-xl py-3 pl-20 pr-4 text-sm font-semibold tracking-wider text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 transition-all shadow-xs"
+                    className="w-full bg-white dark:bg-stone-900 border border-[#E2D8C9] dark:border-stone-700 rounded-xl py-3 pl-20 pr-4 text-sm font-semibold tracking-wider text-slate-900 dark:text-stone-100 placeholder:text-slate-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 transition-all shadow-xs"
                     required
                   />
                 </div>
@@ -305,8 +305,8 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
               </button>
 
               <div className="text-center pt-2">
-                <span className="text-[11px] text-slate-400 flex items-center justify-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="text-[11px] text-slate-400 dark:text-stone-500 flex items-center justify-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   100% Secure • Name & Number Verified
                 </span>
               </div>
@@ -314,15 +314,15 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
           ) : (
             <form onSubmit={handleVerifyOtp} className="space-y-4">
               {/* Summary card with Edit button */}
-              <div className="flex items-center justify-between p-3.5 rounded-xl bg-amber-50/70 border border-amber-200/60">
+              <div className="flex items-center justify-between p-3.5 rounded-xl bg-amber-50/70 dark:bg-amber-950/40 border border-amber-200/60 dark:border-amber-900/40">
                 <div className="text-xs space-y-0.5">
                   <div className="flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5 text-amber-800" />
-                    <span className="font-bold text-slate-900">{name}</span>
+                    <User className="w-3.5 h-3.5 text-amber-800 dark:text-amber-400" />
+                    <span className="font-bold text-slate-900 dark:text-stone-100">{name}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-slate-600">
-                    <Phone className="w-3.5 h-3.5 text-amber-700" />
-                    <span className="font-mono font-bold text-amber-950">
+                  <div className="flex items-center gap-1.5 text-slate-600 dark:text-stone-400">
+                    <Phone className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
+                    <span className="font-mono font-bold text-amber-950 dark:text-amber-200">
                       +91 {phone.replace(/[^0-9]/g, '').slice(-10)}
                     </span>
                   </div>
@@ -333,7 +333,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                     setStep('phone');
                     setOtp('');
                   }}
-                  className="text-xs font-bold text-amber-800 hover:text-amber-950 flex items-center gap-1 p-1.5 hover:bg-amber-100/60 rounded-lg transition-colors cursor-pointer"
+                  className="text-xs font-bold text-amber-800 dark:text-amber-300 hover:text-amber-950 dark:hover:text-amber-200 flex items-center gap-1 p-1.5 hover:bg-amber-100/60 dark:hover:bg-amber-950/80 rounded-lg transition-colors cursor-pointer"
                   title="Edit Name or Phone"
                 >
                   <Edit2 className="w-3.5 h-3.5" />
@@ -345,16 +345,16 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
               {demoOtp && (
                 <div
                   onClick={autoFillDemoOtp}
-                  className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between cursor-pointer hover:bg-emerald-100/70 transition-colors shadow-xs"
+                  className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-200 flex items-center justify-between cursor-pointer hover:bg-emerald-100/70 dark:hover:bg-emerald-950/80 transition-colors shadow-xs"
                   title="Click to auto-fill demo OTP"
                 >
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-emerald-600 animate-pulse" />
+                    <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400 animate-pulse" />
                     <span>
                       Demo Code: <strong className="font-mono text-sm underline">{demoOtp}</strong>
                     </span>
                   </div>
-                  <span className="text-[10px] font-bold bg-emerald-200/80 text-emerald-900 px-2 py-0.5 rounded-md">
+                  <span className="text-[10px] font-bold bg-emerald-200/80 dark:bg-emerald-900/80 text-emerald-900 dark:text-emerald-200 px-2 py-0.5 rounded-md">
                     Click to Auto-fill
                   </span>
                 </div>
@@ -362,7 +362,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
               {/* Mandatory Full Name Confirm Field in Step 2 */}
               <div>
-                <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                <label className="block text-xs font-bold text-slate-800 dark:text-stone-200 mb-1.5">
                   Confirm Your Full Name (પૂરું નામ) <span className="text-rose-500 font-bold">*</span>
                 </label>
                 <div className="relative">
@@ -371,16 +371,16 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                     placeholder="Your Full Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-white border border-[#E2D8C9] rounded-xl py-2.5 pl-10 pr-3 text-xs font-bold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 transition-all shadow-xs"
+                    className="w-full bg-white dark:bg-stone-900 border border-[#E2D8C9] dark:border-stone-700 rounded-xl py-2.5 pl-10 pr-3 text-xs font-bold text-slate-900 dark:text-stone-100 placeholder:text-slate-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 transition-all shadow-xs"
                     required
                   />
-                  <User className="w-4 h-4 text-amber-700 absolute left-3 top-2.5 pointer-events-none" />
+                  <User className="w-4 h-4 text-amber-700 dark:text-amber-400 absolute left-3 top-2.5 pointer-events-none" />
                 </div>
               </div>
 
               {/* Mandatory OTP Field */}
               <div>
-                <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                <label className="block text-xs font-bold text-slate-800 dark:text-stone-200 mb-1.5">
                   Enter 4-Digit OTP <span className="text-rose-500 font-bold">*</span>
                 </label>
                 <div className="relative">
@@ -390,11 +390,11 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                     placeholder="• • • •"
                     value={otp}
                     onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, ''))}
-                    className="w-full bg-white border border-[#E2D8C9] rounded-xl py-3 px-4 text-center font-mono text-xl tracking-[0.5em] font-bold text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 transition-all shadow-xs"
+                    className="w-full bg-white dark:bg-stone-900 border border-[#E2D8C9] dark:border-stone-700 rounded-xl py-3 px-4 text-center font-mono text-xl tracking-[0.5em] font-bold text-slate-900 dark:text-stone-100 placeholder:text-slate-300 dark:placeholder:text-stone-600 focus:outline-none focus:ring-2 focus:ring-amber-600/30 focus:border-amber-600 transition-all shadow-xs"
                     autoFocus
                     required
                   />
-                  <KeyRound className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5 pointer-events-none" />
+                  <KeyRound className="w-4 h-4 text-slate-400 dark:text-stone-500 absolute left-3.5 top-3.5 pointer-events-none" />
                 </div>
               </div>
 
@@ -418,17 +418,17 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
               <div className="flex items-center justify-between text-xs pt-1">
                 {countdown > 0 ? (
-                  <span className="text-slate-400">Resend code in {countdown}s</span>
+                  <span className="text-slate-400 dark:text-stone-500">Resend code in {countdown}s</span>
                 ) : (
                   <button
                     type="button"
                     onClick={handleSendOtp}
-                    className="text-amber-800 hover:text-amber-950 font-semibold cursor-pointer underline"
+                    className="text-amber-800 dark:text-amber-400 hover:text-amber-950 dark:hover:text-amber-300 font-semibold cursor-pointer underline"
                   >
                     Resend OTP
                   </button>
                 )}
-                <span className="text-slate-400">PIN 3375 works anytime</span>
+                <span className="text-slate-400 dark:text-stone-500">PIN 3375 works anytime</span>
               </div>
             </form>
           )}
