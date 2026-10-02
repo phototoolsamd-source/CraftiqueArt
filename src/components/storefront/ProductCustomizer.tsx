@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Product, UploadedPhotoInfo, ProductOptionSize, ProductOptionItem } from '../../types';
 import { CustomerPhotoUpload } from './CustomerPhotoUpload';
 import { LivePriceCalculator } from './LivePriceCalculator';
@@ -17,7 +17,8 @@ import {
   Layers,
   Plus,
   Minus,
-  Info
+  Info,
+  ShieldCheck
 } from 'lucide-react';
 
 interface ProductCustomizerProps {
@@ -32,6 +33,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
   const categoryLower = (product.category || '').toLowerCase();
   const nameLower = (product.name || '').toLowerCase();
   const skuLower = (product.sku || '').toLowerCase();
+  const allText = `${categoryLower} ${nameLower} ${skuLower}`;
 
   const isAlbum = categoryLower.includes('album') || nameLower.includes('album') || skuLower.includes('album');
   const isMagnets = categoryLower.includes('magnet') || nameLower.includes('magnet') || skuLower.includes('magnet');
@@ -39,6 +41,112 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                        categoryLower.includes('mini') || 
                        nameLower.includes('insta') || 
                        (nameLower.includes('card') && !categoryLower.includes('invitation') && !categoryLower.includes('business'));
+
+  // Strict Framing applicability:
+  // Products that must NEVER have framing:
+  // Hanging Scroll, Shadow Box, Paper Frame, Photo Album, Photo Magnets, Mini Prints, Birthday kits, Labels, Stickers, Invitation, Business Cards
+  const isFramingApplicable = (() => {
+    if (
+      allText.includes('hanging') ||
+      allText.includes('scroll') ||
+      allText.includes('shadow box') ||
+      allText.includes('miniature') ||
+      allText.includes('paper frame') ||
+      allText.includes('paper_frame') ||
+      allText.includes('album') ||
+      allText.includes('magnet') ||
+      allText.includes('mini print') ||
+      allText.includes('insta') ||
+      allText.includes('birthday') ||
+      allText.includes('party') ||
+      allText.includes('label') ||
+      allText.includes('sticker') ||
+      allText.includes('invitation') ||
+      allText.includes('business card') ||
+      allText.includes('business_card')
+    ) {
+      return false;
+    }
+    return Boolean(product.custom_options?.frames && product.custom_options.frames.length > 0);
+  })();
+
+  const presentationNote = (() => {
+    if (allText.includes('hanging') || allText.includes('scroll')) {
+      return {
+        title: "Ready to Hang (Natural Wooden Scroll Bars)",
+        desc: "Includes handcrafted solid wood magnetic hanging bars and matching suspension cord. No frame needed.",
+      };
+    }
+    if (allText.includes('shadow box') || allText.includes('miniature')) {
+      return {
+        title: "Built-in 3D Shadow Box Display",
+        desc: "Enclosed inside an artisan 3D shadow box with acrylic protective display. Ready to showcase on tabletop or wall.",
+      };
+    }
+    if (allText.includes('paper frame') || allText.includes('paper_frame')) {
+      return {
+        title: "Artisan Layered Paper Craft Frame Included",
+        desc: "Handcrafted with textured botanical multi-layered paper border. Ready to display as-is.",
+      };
+    }
+    if (isMagnets) {
+      return {
+        title: "Heavy-Duty Full Magnetic Backing",
+        desc: "Equipped with strong flexible magnetic backing. Perfect for refrigerators, magnetic memo boards, and steel surfaces.",
+      };
+    }
+    if (isAlbum) {
+      return {
+        title: "Luxury Layflat Hardcover Spine Binding",
+        desc: "Bound in archival linen / velvet with seamless layflat opening and protective glassine interleaves.",
+      };
+    }
+    if (isMiniPrints) {
+      return {
+        title: "Pocket Mini Prints in Keepsake Sleeve",
+        desc: "Printed on 350+ GSM museum cardstock with satin protective finish, delivered in an artisanal protective sleeve.",
+      };
+    }
+    if (allText.includes('sticker') || allText.includes('label')) {
+      return {
+        title: "Waterproof Peel-&-Stick Adhesive",
+        desc: "Precision die-cut decals with strong bubble-free adhesive backing. Sticks cleanly to bottles, boxes, and laptops.",
+      };
+    }
+    if (allText.includes('invitation')) {
+      return {
+        title: "Luxury Celebration Cardstock Pack",
+        desc: "Crafted on 400+ GSM textured cotton / pearl metallic cardstock, ready for elegant personal gifting.",
+      };
+    }
+    if (allText.includes('business card') || allText.includes('business_card')) {
+      return {
+        title: "Ultra-Heavyweight 400+ GSM Cards",
+        desc: "High-density executive cardstock with crisp edges and velvety tactile finish, ready for clients.",
+      };
+    }
+    if (allText.includes('birthday') || allText.includes('party')) {
+      return {
+        title: "Complete All-in-One Party Kit",
+        desc: "Includes custom banners, welcome poster, personalized photo props, and cake toppers in matching theme.",
+      };
+    }
+    return null;
+  })();
+
+  const isPhotoMandatory = (() => {
+    if (
+      allText.includes('business card') ||
+      allText.includes('invitation') ||
+      allText.includes('label') ||
+      allText.includes('sticker') ||
+      allText.includes('birthday')
+    ) {
+      return false; // Photo/Logo is optional for cards, invitations, labels & stickers
+    }
+    return product.requires_photo !== false;
+  })();
+
 
   // Customizer options fallbacks
   const customOptions = product.custom_options || {
@@ -121,9 +229,19 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
   const [selectedFinish, setSelectedFinish] = useState<ProductOptionItem>(
     customOptions.finishes.find(f => f.default) || customOptions.finishes[0]
   );
-  const [selectedFrame, setSelectedFrame] = useState<ProductOptionItem | null>(
-    customOptions.frames.length > 0 ? (customOptions.frames.find(f => f.default) || customOptions.frames[0]) : null
-  );
+  const [selectedFrame, setSelectedFrame] = useState<ProductOptionItem | null>(() => {
+    if (!isFramingApplicable) return null;
+    return customOptions.frames.length > 0 ? (customOptions.frames.find(f => f.default) || customOptions.frames[0]) : null;
+  });
+
+  useEffect(() => {
+    if (!isFramingApplicable) {
+      setSelectedFrame(null);
+    } else if (!selectedFrame && customOptions.frames.length > 0) {
+      setSelectedFrame(customOptions.frames.find(f => f.default) || customOptions.frames[0]);
+    }
+  }, [product.id, isFramingApplicable]);
+
 
   const [quantity, setQuantity] = useState<number>(1);
   const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
@@ -196,7 +314,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
     sizeAdjustment: sizeAdj,
     materialAdjustment: selectedMaterial.price_adj,
     finishAdjustment: selectedFinish.price_adj,
-    frameAdjustment: (!isAlbum && !isMagnets && !isMiniPrints && selectedFrame) ? selectedFrame.price_adj : 0,
+    frameAdjustment: (isFramingApplicable && selectedFrame) ? selectedFrame.price_adj : 0,
     customizationFee: (customText ? 100 : 0) + capacityPriceAdj,
     expressFee: extrasCost,
     quantity,
@@ -208,9 +326,8 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
   const handleAddToCart = () => {
     setErrorMsg(null);
 
-    // Mandatory photo check
-    const requiredPhotos = product.requires_photo ? 1 : 0;
-    if (requiredPhotos > 0 && photos.length === 0) {
+    // Mandatory photo check (only enforced when photos are strictly mandatory)
+    if (isPhotoMandatory && photos.length === 0) {
       setErrorMsg(`Please upload at least 1 photo to continue.`);
       return;
     }
@@ -227,7 +344,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         sizeAdj +
         selectedMaterial.price_adj +
         selectedFinish.price_adj +
-        ((!isAlbum && !isMagnets && !isMiniPrints && selectedFrame) ? selectedFrame.price_adj : 0) +
+        ((isFramingApplicable && selectedFrame) ? selectedFrame.price_adj : 0) +
         (customText ? 100 : 0) +
         capacityPriceAdj +
         extrasCost
@@ -253,10 +370,11 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
       size: sizeLabel,
       material: selectedMaterial.name,
       finish: selectedFinish.name,
-      frame: (!isAlbum && !isMagnets && !isMiniPrints && selectedFrame) ? selectedFrame.name : 'None',
+      frame: (isFramingApplicable && selectedFrame) ? selectedFrame.name : 'None',
       quantity,
       unit_price: unitPrice,
       total: unitPrice * quantity,
+
       customization: {
         text: customText,
         notes,
@@ -286,6 +404,18 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
     );
   };
 
+  // Dynamic step numbering calculation
+  let stepIndex = 1;
+  const sizeStepNumber = stepIndex++;
+  const materialStepNumber = stepIndex++;
+  const finishStepNumber = stepIndex++;
+  const hasDynamicMiddleStep = isAlbum || isMagnets || isMiniPrints || (isFramingApplicable && customOptions.frames.length > 0);
+  const middleStepNumber = hasDynamicMiddleStep ? stepIndex++ : null;
+  const photoStepNumber = stepIndex++;
+  const textStepNumber = stepIndex++;
+  const quantityStepNumber = stepIndex++;
+  const extrasStepNumber = stepIndex++;
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       {/* Left Column: Interactive Visual Preview & Live Price Breakdown */}
@@ -299,7 +429,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
           size={isAlbum ? `${selectedSize.name} • ${selectedAlbumSheets} Sheets (${albumPages} Pages)` : (isCustomSize ? `${customWidth}×${customHeight} ${customUnit}` : selectedSize.name)}
           material={selectedMaterial.name}
           finish={selectedFinish.name}
-          frame={(!isAlbum && !isMagnets && !isMiniPrints && selectedFrame) ? selectedFrame.name : undefined}
+          frame={(isFramingApplicable && selectedFrame) ? selectedFrame.name : undefined}
         />
 
         <LivePriceCalculator
@@ -333,7 +463,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
-              1. Choose {isAlbum ? 'Album Dimensions' : isMagnets ? 'Magnet Dimensions' : 'Size'}
+              {sizeStepNumber}. Choose {isAlbum ? 'Album Dimensions' : isMagnets ? 'Magnet Dimensions' : 'Size'}
             </label>
             <span className="text-xs font-semibold text-amber-900 dark:text-amber-400">
               Selected: {isCustomSize ? `${customWidth} × ${customHeight} ${customUnit}` : selectedSize.name}
@@ -437,7 +567,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         {/* 2. Material Selection */}
         <div className="space-y-3">
           <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
-            2. Choose {isAlbum ? 'Cover / Binding Material' : 'Substrate Material'}
+            {materialStepNumber}. Choose {isAlbum ? 'Cover / Binding Material' : 'Substrate Material'}
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
             {customOptions.materials.map((m, idx) => {
@@ -466,7 +596,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         {/* 3. Finish Selection */}
         <div className="space-y-3">
           <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
-            3. Choose Surface Finish
+            {finishStepNumber}. Choose Surface Finish
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {customOptions.finishes.map((f, idx) => {
@@ -492,6 +622,28 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
           </div>
         </div>
 
+        {/* Included Presentation & Mounting Banner for Non-Framed Products */}
+        {presentationNote && !isFramingApplicable && (
+          <div className="bg-gradient-to-r from-amber-50 to-orange-50/60 dark:from-amber-950/40 dark:to-stone-900/40 p-4 sm:p-5 rounded-2xl border border-amber-200/90 dark:border-amber-800/60 shadow-xs flex items-start gap-3.5">
+            <div className="p-2.5 rounded-xl bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300 shrink-0 shadow-2xs">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300 bg-white dark:bg-stone-800 px-2.5 py-0.5 rounded-full border border-amber-200 dark:border-amber-700 shadow-2xs">
+                  Included Presentation & Format
+                </span>
+              </div>
+              <h4 className="text-sm font-bold text-slate-900 dark:text-stone-100 mt-1.5">
+                {presentationNote.title}
+              </h4>
+              <p className="text-xs text-slate-600 dark:text-stone-300 mt-1 leading-relaxed">
+                {presentationNote.desc}
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* ======================================================== */}
         {/* 4. DYNAMIC SECTION: ALBUM SHEETS / MAGNET PACKS / FRAMING */}
         {/* ======================================================== */}
@@ -502,7 +654,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold uppercase tracking-wider text-amber-950 dark:text-amber-200 flex items-center gap-1.5">
                 <BookOpen className="w-4 h-4 text-amber-800 dark:text-amber-400" />
-                4. Select Album Sheets & Page Count
+                {middleStepNumber}. Select Album Sheets & Page Count
               </label>
               <span className="text-xs font-bold text-amber-900 dark:text-amber-300 bg-white dark:bg-stone-800 px-2.5 py-1 rounded-full border border-amber-300 dark:border-amber-700 shadow-2xs font-mono">
                 {selectedAlbumSheets} Sheets = {albumPages} Pages (Max {albumMaxPhotos} Photos)
@@ -585,7 +737,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-stone-100 flex items-center gap-1.5">
                 <Box className="w-4 h-4 text-indigo-800 dark:text-indigo-400" />
-                4. Select Magnet Set Pack
+                {middleStepNumber}. Select Magnet Set Pack
               </label>
               <span className="text-xs font-bold text-indigo-900 dark:text-indigo-300 bg-white dark:bg-stone-800 px-2.5 py-1 rounded-full border border-indigo-300 dark:border-indigo-700 shadow-2xs font-mono">
                 {selectedMagnetPackCount} Magnets = {magnetMaxPhotos} Photos
@@ -635,7 +787,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-stone-100 flex items-center gap-1.5">
                 <Layers className="w-4 h-4 text-emerald-800 dark:text-emerald-400" />
-                4. Select Mini Print Set Pack
+                {middleStepNumber}. Select Mini Print Set Pack
               </label>
               <span className="text-xs font-bold text-emerald-900 dark:text-emerald-300 bg-white dark:bg-stone-800 px-2.5 py-1 rounded-full border border-emerald-300 dark:border-emerald-700 shadow-2xs font-mono">
                 {selectedMiniPrintCount} Prints = {miniPrintMaxPhotos} Photos
@@ -679,11 +831,11 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
           </div>
         )}
 
-        {/* 4D. STANDARD FRAMING / HARDWARE (FOR WALL ART, CANVAS, AND FRAMES) */}
-        {!isAlbum && !isMagnets && !isMiniPrints && customOptions.frames.length > 0 && (
+        {/* 4D. STANDARD FRAMING / HARDWARE (ONLY FOR FRAMED PRODUCTS) */}
+        {isFramingApplicable && customOptions.frames.length > 0 && (
           <div className="space-y-3">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
-              4. Choose Framing / Presentation
+              {middleStepNumber}. Choose Framing / Presentation
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {customOptions.frames.map((fr, idx) => {
@@ -715,13 +867,14 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
           <CustomerPhotoUpload
             photos={photos}
             onPhotosChange={setPhotos}
-            requiredCount={product.requires_photo ? 1 : 0}
+            requiredCount={isPhotoMandatory ? 1 : 0}
             maxCount={maxPhotosAllowed}
             categoryType={isAlbum ? 'album' : isMagnets ? 'magnets' : isMiniPrints ? 'mini-prints' : 'standard'}
             albumSheets={selectedAlbumSheets}
             albumPages={albumPages}
             packCount={isMagnets ? selectedMagnetPackCount : isMiniPrints ? selectedMiniPrintCount : 1}
             printSize={isCustomSize ? `${customWidth}×${customHeight} ${customUnit}` : selectedSize.name}
+            stepNumber={photoStepNumber}
           />
         </div>
 
@@ -729,7 +882,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         <div className="space-y-4 pt-2 border-t border-slate-100 dark:border-stone-800">
           <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200 flex items-center gap-1.5">
             <FileText className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
-            Custom Text & Personalization Message {isAlbum && '(Album Title / Inscription)'}
+            {textStepNumber}. Custom Text & Personalization Message {isAlbum && '(Album Title / Inscription)'}
           </label>
 
           <div>
@@ -791,7 +944,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-stone-800">
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
-              7. Quantity & Volume Studio Discount
+              {quantityStepNumber}. Quantity & Volume Studio Discount
             </label>
             {activeTier.discount_percent > 0 && (
               <span className="text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
@@ -846,7 +999,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         {/* 8. Studio Add-ons & Extras */}
         <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-stone-800">
           <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
-            8. White-Glove Studio Services
+            {extrasStepNumber}. White-Glove Studio Services
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {customOptions.extras.map((ex) => {
@@ -909,7 +1062,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                   sizeAdj +
                   selectedMaterial.price_adj +
                   selectedFinish.price_adj +
-                  ((!isAlbum && !isMagnets && !isMiniPrints && selectedFrame) ? selectedFrame.price_adj : 0) +
+                  ((isFramingApplicable && selectedFrame) ? selectedFrame.price_adj : 0) +
                   (customText ? 100 : 0) +
                   capacityPriceAdj +
                   extrasCost

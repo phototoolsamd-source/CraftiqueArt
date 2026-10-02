@@ -25,6 +25,7 @@ interface CustomerPhotoUploadProps {
   albumPages?: number;
   packCount?: number;
   printSize?: string;
+  stepNumber?: number;
 }
 
 export const CustomerPhotoUpload: React.FC<CustomerPhotoUploadProps> = ({
@@ -36,7 +37,8 @@ export const CustomerPhotoUpload: React.FC<CustomerPhotoUploadProps> = ({
   albumSheets = 5,
   albumPages = 10,
   packCount = 6,
-  printSize = '12 × 18 inch'
+  printSize = '12 × 18 inch',
+  stepNumber
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
@@ -176,10 +178,11 @@ export const CustomerPhotoUpload: React.FC<CustomerPhotoUploadProps> = ({
               {categoryType === 'standard' && <ImageIcon className="w-4 h-4 text-amber-800 dark:text-amber-400" />}
               
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-stone-100">
-                {categoryType === 'album' && `Album Photos (${albumSheets} Sheets = ${albumPages} Pages)`}
-                {categoryType === 'magnets' && `Personalized Magnet Photos (${packCount} Magnets)`}
-                {categoryType === 'mini-prints' && `Personalized Mini Prints (${packCount} Prints)`}
-                {categoryType === 'standard' && 'Upload Your High-Resolution Photos'}
+                {stepNumber ? `${stepNumber}. ` : ''}
+                {categoryType === 'album' && `Upload Album Photos (${albumSheets} Sheets = ${albumPages} Pages)`}
+                {categoryType === 'magnets' && `Upload Magnet Photos (${packCount} Magnets)`}
+                {categoryType === 'mini-prints' && `Upload Mini Print Photos (${packCount} Prints)`}
+                {categoryType === 'standard' && (requiredCount === 0 ? 'Upload Photos / Artwork / Logo (Optional)' : 'Upload High-Resolution Photos & Artwork')}
               </h3>
             </div>
 

@@ -275,25 +275,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -436,25 +418,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -597,25 +561,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -1771,25 +1717,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -1931,25 +1859,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -2091,25 +2001,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -2265,25 +2157,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -2431,25 +2305,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -2583,25 +2439,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -2730,25 +2568,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -2932,25 +2752,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -3123,25 +2925,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -3308,25 +3092,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -3497,25 +3263,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
@@ -3677,25 +3425,7 @@
             "price_adj": 150
           }
         ],
-        "frames": [
-          {
-            "name": "Frameless Standard Wrap / Bare",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Modern Matte Black Architectural Frame",
-            "price_adj": 350
-          },
-          {
-            "name": "Heritage Teak Wood Artisan Frame",
-            "price_adj": 450
-          },
-          {
-            "name": "Warm Champagne Gold Frame",
-            "price_adj": 490
-          }
-        ],
+        "frames": [],
         "quantity_tiers": [
           {
             "min": 1,
