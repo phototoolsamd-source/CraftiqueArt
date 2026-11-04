@@ -922,7 +922,7 @@ function renderProductShareHtml(req, res, targetSku) {
   html = html.replace(/<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${title}" />`);
   html = html.replace(/<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${description}" />`);
 
-  // High-priority Open Graph Image Tags (required for WhatsApp, Facebook, iMessage thumbnail preview)
+  // Open Graph Image Block for WhatsApp / Facebook / Twitter
   const ogImageBlock = `
     <meta property="og:image" content="${imageUrl}" />
     <meta property="og:image:secure_url" content="${imageUrl}" />
@@ -930,7 +930,14 @@ function renderProductShareHtml(req, res, targetSku) {
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:alt" content="${product ? product.name : 'Craftique'}" />`;
-  html = html.replace(/<meta\s+property=["']og:image["'][^>]*>/i, ogImageBlock.trim());
+
+  // Clean up any existing Open Graph image tags to prevent conflicts
+  html = html.replace(/<meta\s+property=["']og:image:secure_url["'][^>]*>/gi, '');
+  html = html.replace(/<meta\s+property=["']og:image:type["'][^>]*>/gi, '');
+  html = html.replace(/<meta\s+property=["']og:image:width["'][^>]*>/gi, '');
+  html = html.replace(/<meta\s+property=["']og:image:height["'][^>]*>/gi, '');
+  html = html.replace(/<meta\s+property=["']og:image:alt["'][^>]*>/gi, '');
+  html = html.replace(/<meta\s+property=["']og:image["'][^>]*>/gi, ogImageBlock.trim());
 
   // Twitter cards
   html = html.replace(/<meta\s+name=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${title}" />`);
