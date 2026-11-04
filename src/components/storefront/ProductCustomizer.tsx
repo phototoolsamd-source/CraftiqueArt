@@ -42,10 +42,17 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                        categoryLower.includes('mini') || 
                        nameLower.includes('insta') || 
                        (nameLower.includes('card') && !categoryLower.includes('invitation') && !categoryLower.includes('business'));
-  const isStickers = product.category_slug === 'personalized-stickers' || 
-                     product.category === 'Personalized Stickers' || 
-                     skuLower === 'personalized_stickers' ||
-                     (categoryLower.includes('sticker') && !categoryLower.includes('label'));
+  const isStickers = Boolean(
+    product.id === 'prod-sync-personalized_stickers' ||
+    product.category_slug === 'personalized-stickers' || 
+    product.category === 'Personalized Stickers' || 
+    skuLower === 'personalized_stickers' ||
+    (categoryLower.includes('sticker') && !categoryLower.includes('label')) ||
+    (nameLower.includes('sticker') && !nameLower.includes('label'))
+  );
+
+  // Fallback base price (strictly enforce ₹108 for Stickers)
+  const effectiveBasePrice = isStickers ? 108 : product.base_price;
 
   // Strict Framing applicability:
   // Products that must NEVER have framing:
@@ -343,11 +350,11 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
     if (isStickers) {
       // Costome Size : (12x18 Sheet, Calculate per squire inches ₹0.50) ₹ Calculated Price
       const calculatedPrice = Math.max(50, Math.round(areaInSqIn * 0.50));
-      sizeAdj = calculatedPrice - product.base_price;
+      sizeAdj = calculatedPrice - effectiveBasePrice;
     } else {
       const baseArea = 12 * 18; // 216 sq in
       const ratio = Math.max(0.5, areaInSqIn / baseArea);
-      sizeAdj = Math.round((ratio - 1) * product.base_price);
+      sizeAdj = Math.round((ratio - 1) * effectiveBasePrice);
     }
   }
 
@@ -357,7 +364,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
   }, 0);
 
   const priceBreakdown = {
-    basePrice: product.base_price,
+    basePrice: effectiveBasePrice,
     sizeAdjustment: sizeAdj,
     shapeAdjustment: shapeAdj,
     materialAdjustment: selectedMaterial.price_adj,
@@ -388,7 +395,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
 
     const unitPrice = Math.max(
       0,
-      product.base_price +
+      effectiveBasePrice +
         sizeAdj +
         shapeAdj +
         selectedMaterial.price_adj +
@@ -532,7 +539,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
             </span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5">
             {effectiveSizes.map((s, idx) => {
               if (s.is_custom) {
                 return (
@@ -543,14 +550,16 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                       setIsCustomSize(true);
                       setSelectedSize(s);
                     }}
-                    className={`py-3 px-3 rounded-xl border text-xs font-semibold transition-all text-center flex flex-col justify-center items-center gap-1 cursor-pointer ${
+                    className={`w-full min-w-0 overflow-hidden min-h-[68px] p-2.5 rounded-xl border text-xs transition-all flex flex-col justify-between items-center text-center gap-1 cursor-pointer ${
                       isCustomSize
                         ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold'
                         : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 hover:bg-slate-50 dark:hover:bg-stone-700'
                     }`}
                   >
-                    <span>Custom Size</span>
-                    <span className="text-[10px] text-amber-800 dark:text-amber-400 font-normal">
+                    <span className="w-full text-center text-xs font-semibold leading-snug line-clamp-2 break-words">
+                      Custom Size
+                    </span>
+                    <span className="shrink-0 text-[10px] text-amber-800 dark:text-amber-400 font-medium">
                       {isStickers ? '₹0.50 / sq. in.' : 'Enter W × H'}
                     </span>
                   </button>
@@ -576,14 +585,27 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                     setIsCustomSize(false);
                     setSelectedSize(s);
                   }}
-                  className={`py-3 px-2.5 rounded-xl border text-xs transition-all text-center flex flex-col justify-center items-center gap-0.5 cursor-pointer ${
+                  className={`w-full min-w-0 overflow-hidden min-h-[68px] p-2.5 rounded-xl border text-xs transition-all flex flex-col justify-between items-center text-center gap-1 cursor-pointer ${
                     isSelected
                       ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold'
                       : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 hover:bg-slate-50 dark:hover:bg-stone-700 font-medium'
                   }`}
                 >
-                  <span className="truncate">{s.name}</span>
-                  <span className={`text-[10px] ${isStickers ? 'text-amber-900 dark:text-amber-400 font-medium' : 'text-slate-400 dark:text-stone-500'}`}>
+                  <span
+                    className="w-full text-center text-xs font-semibold leading-snug line-clamp-2 break-words"
+                    title={s.name}
+                  >
+                    {s.name}
+                  </span>
+                  <span
+                    className={`shrink-0 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] ${
+                      isStickers
+                        ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300 font-semibold'
+                        : isSelected
+                        ? 'bg-amber-200/60 dark:bg-amber-800/60 text-amber-900 dark:text-amber-200 font-semibold'
+                        : 'text-slate-500 dark:text-stone-400'
+                    }`}
+                  >
                     {subtitle}
                   </span>
                 </button>
@@ -713,14 +735,14 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                   key={idx}
                   type="button"
                   onClick={() => setSelectedMaterial(m)}
-                  className={`p-3 rounded-xl border text-xs transition-all flex flex-col justify-between text-left cursor-pointer ${
+                  className={`w-full min-w-0 overflow-hidden p-3 rounded-xl border text-xs transition-all flex flex-col justify-between text-left cursor-pointer min-h-[58px] ${
                     isSelected
                       ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold'
                       : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 font-medium'
                   }`}
                 >
-                  <span className="truncate">{m.name}</span>
-                  <span className="text-[10px] text-slate-500 dark:text-stone-400 mt-1">
+                  <span className="w-full truncate font-medium" title={m.name}>{m.name}</span>
+                  <span className="text-[10px] text-slate-500 dark:text-stone-400 mt-1 shrink-0">
                     {m.price_adj === 0 ? 'Standard' : `+₹${m.price_adj}`}
                   </span>
                 </button>
@@ -743,14 +765,14 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                     key={idx}
                     type="button"
                     onClick={() => setSelectedFinish(f)}
-                    className={`p-3 rounded-xl border text-xs transition-all flex items-center justify-between text-left cursor-pointer ${
+                    className={`w-full min-w-0 overflow-hidden p-3 rounded-xl border text-xs transition-all flex items-center justify-between text-left cursor-pointer gap-2 min-h-[52px] ${
                       isSelected
                         ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold'
                         : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 font-medium'
                     }`}
                   >
-                    <span className="truncate">{f.name}</span>
-                    <span className="text-[10px] text-slate-500 dark:text-stone-400 ml-2">
+                    <span className="truncate flex-1 min-w-0" title={f.name}>{f.name}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-stone-400 shrink-0">
                       {f.price_adj === 0 ? 'Included' : `+₹${f.price_adj}`}
                     </span>
                   </button>
@@ -1196,7 +1218,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
             <span className="text-base sm:text-lg">
               Add to Cart • ₹{((Math.max(
                 0,
-                product.base_price +
+                effectiveBasePrice +
                   sizeAdj +
                   shapeAdj +
                   selectedMaterial.price_adj +
