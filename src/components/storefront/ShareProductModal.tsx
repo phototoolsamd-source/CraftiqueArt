@@ -30,7 +30,7 @@ export const ShareProductModal: React.FC<ShareProductModalProps> = ({
 
   // Generate deep-link URL based on SKU
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://creaftique.vercel.app';
-  const shareUrl = `${baseUrl}/?product=${encodeURIComponent(product.sku)}`;
+  const shareUrl = `${baseUrl}/p/${encodeURIComponent(product.sku)}`;
 
   const primaryImg = product.images?.[0] || 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=900&auto=format&fit=crop&q=80';
 

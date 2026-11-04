@@ -1,7 +1,7 @@
 {
   "name": "craftique",
   "framework": "vite",
-  "buildCommand": "vite build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
     "api/**": {
@@ -9,7 +9,45 @@
     }
   },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.js" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/p/(.*)",
+      "destination": "/api/index.js?sku=$1"
+    },
+    {
+      "source": "/product/(.*)",
+      "destination": "/api/index.js?sku=$1"
+    },
+    {
+      "source": "/share/(.*)",
+      "destination": "/api/index.js?sku=$1"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "product"
+        }
+      ],
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "p"
+        }
+      ],
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }

@@ -7,7 +7,7 @@
     "server": "node server/server.js",
     "client": "vite",
     "dev": "concurrently -k -p \"[{name}]\" -n \"SERVER,CLIENT\" -c \"yellow.bold,cyan.bold\" \"node server/server.js\" \"vite\"",
-    "build": "vite build",
+    "build": "vite build && cp dist/index.html server/template.html",
     "preview": "vite preview",
     "sync": "node scripts/sync-agent.js",
     "sync:watch": "node scripts/sync-agent.js --watch"

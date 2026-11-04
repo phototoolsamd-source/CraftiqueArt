@@ -823,6 +823,139 @@ app.get('/api/reports/summary', (req, res) => {
   });
 });
 
+// ==========================================
+// Dynamic Open Graph HTML Renderer for Social Sharing (WhatsApp, Facebook, Twitter, iMessage)
+// ==========================================
+function renderProductShareHtml(req, res, targetSku) {
+  let sku = targetSku || req.params?.sku || req.query?.sku || req.query?.product || req.query?.p;
+  if (!sku) {
+    const rawUrl = req.url || '';
+    const m = rawUrl.match(/\/(?:p|product|share)\/([^?\/]+)/i);
+    if (m) sku = decodeURIComponent(m[1]);
+  }
+
+  const host = req.get('x-forwarded-host') || req.get('host') || 'creaftique.vercel.app';
+  const proto = req.get('x-forwarded-proto') || 'https';
+  const baseUrl = `${proto}://${host}`;
+
+  let product = null;
+  if (sku) {
+    const needle = String(sku).trim().toLowerCase();
+    const allProducts = db.getProducts();
+    product = allProducts.find(p =>
+      p.sku?.toLowerCase() === needle ||
+      p.id?.toLowerCase() === needle ||
+      p.category_slug?.toLowerCase() === needle ||
+      (p.name && p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').includes(needle.replace(/[^a-z0-9]+/g, '-')))
+    );
+  }
+
+  let title = 'Craftique — Handmade & Custom Art | Bespoke Printing & Décor';
+  let description = 'Craftique Production — Handmade & Custom Art, Bespoke Printing, Museum Canvas Wall Art, Floating Acrylic Frames, and Personalized Gifts.';
+  let imageUrl = `${baseUrl}/logo.png`;
+  let canonicalUrl = baseUrl;
+
+  if (product) {
+    title = `${product.name} — Craftique Custom Studio`;
+    description = `Starting at ₹${product.selling_price.toLocaleString('en-IN')}. Customise sizes, archival finishes & upload your photos online at Craftique.`;
+
+    if (product.images && product.images.length > 0) {
+      const img = product.images[0];
+      if (img.startsWith('http://') || img.startsWith('https://')) {
+        imageUrl = img;
+      } else {
+        const cleanPath = img.startsWith('/') ? img : `/${img}`;
+        imageUrl = `${baseUrl}${cleanPath}`;
+      }
+    }
+    canonicalUrl = `${baseUrl}/p/${encodeURIComponent(product.sku)}`;
+  }
+
+  // Ensure absolute image URL has properly encoded characters for WhatsApp
+  try {
+    const u = new URL(imageUrl);
+    u.pathname = u.pathname.split('/').map(seg => encodeURIComponent(decodeURIComponent(seg))).join('/');
+    imageUrl = u.toString();
+  } catch (e) {
+    imageUrl = imageUrl.replace(/ /g, '%20');
+  }
+
+  // Find index.html or template.html
+  let html = '';
+  const candidatePaths = [
+    path.join(__dirname, 'template.html'),
+    path.join(__dirname, '..', 'dist', 'index.html'),
+    path.join(process.cwd(), 'dist', 'index.html'),
+    path.join(__dirname, '..', 'index.html'),
+    path.join(process.cwd(), 'index.html')
+  ];
+
+  for (const cand of candidatePaths) {
+    try {
+      if (fs.existsSync(cand)) {
+        html = fs.readFileSync(cand, 'utf8');
+        if (html && html.includes('<!DOCTYPE html>')) break;
+      }
+    } catch (e) {}
+  }
+
+  if (!html) {
+    return res.status(200).send(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>${title}</title>
+  <meta property="og:title" content="${title}"/>
+  <meta property="og:image" content="${imageUrl}"/>
+  <meta property="og:description" content="${description}"/>
+  <meta http-equiv="refresh" content="0;url=${canonicalUrl}"/>
+</head>
+<body>Redirecting to Craftique...</body>
+</html>`);
+  }
+
+  // Replace title & metadata
+  html = html.replace(/<title>.*?<\/title>/i, `<title>${title}</title>`);
+  html = html.replace(/<link\s+rel=["']canonical["'][^>]*>/i, `<link rel="canonical" href="${canonicalUrl}" />`);
+  html = html.replace(/<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${description}" />`);
+  html = html.replace(/<meta\s+property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${canonicalUrl}" />`);
+  html = html.replace(/<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${title}" />`);
+  html = html.replace(/<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${description}" />`);
+
+  // High-priority Open Graph Image Tags (required for WhatsApp, Facebook, iMessage thumbnail preview)
+  const ogImageBlock = `
+    <meta property="og:image" content="${imageUrl}" />
+    <meta property="og:image:secure_url" content="${imageUrl}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content="${product ? product.name : 'Craftique'}" />`;
+  html = html.replace(/<meta\s+property=["']og:image["'][^>]*>/i, ogImageBlock.trim());
+
+  // Twitter cards
+  html = html.replace(/<meta\s+name=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${title}" />`);
+  html = html.replace(/<meta\s+name=["']twitter:description["'][^>]*>/i, `<meta name="twitter:description" content="${description}" />`);
+  html = html.replace(/<meta\s+name=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${imageUrl}" />`);
+  html = html.replace(/<meta\s+name=["']twitter:url["'][^>]*>/i, `<meta name="twitter:url" content="${canonicalUrl}" />`);
+
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300');
+  return res.send(html);
+}
+
+// Product share routes for WhatsApp / Facebook / Twitter and direct visits
+app.get(['/p/:sku', '/product/:sku', '/share/:sku', '/api/share', '/api/share/:sku'], (req, res) => {
+  return renderProductShareHtml(req, res);
+});
+
+// Also support root request or api/index with query parameters (e.g. ?product=... or ?p=...)
+app.get(['/', '/api/index.js', '/api/index'], (req, res, next) => {
+  if (req.query?.product || req.query?.p || req.query?.sku) {
+    return renderProductShareHtml(req, res);
+  }
+  next();
+});
+
 // Serve production frontend if built
 const distPath = path.join(__dirname, '..', 'dist');
 if (fs.existsSync(distPath)) {

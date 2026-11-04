@@ -150,11 +150,19 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleAdminKey);
   }, []);
 
-  // Deep-link routing for ?product=<sku_or_id>
+  // Deep-link routing for /p/<sku>, /product/<sku>, or ?product=<sku>
   useEffect(() => {
     if (products.length > 0 && currentView !== 'admin') {
       const params = new URLSearchParams(window.location.search);
-      const prodParam = params.get('product') || params.get('p') || params.get('sku');
+      let prodParam = params.get('product') || params.get('p') || params.get('sku');
+
+      if (!prodParam && window.location.pathname) {
+        const segments = window.location.pathname.split('/').filter(Boolean);
+        if (segments.length >= 2 && (segments[0] === 'p' || segments[0] === 'product' || segments[0] === 'share')) {
+          prodParam = decodeURIComponent(segments[1]);
+        }
+      }
+
       if (prodParam) {
         const needle = prodParam.toLowerCase();
         const matched = products.find(p => 
@@ -175,7 +183,15 @@ export const App: React.FC = () => {
   useEffect(() => {
     const handlePopState = () => {
       const params = new URLSearchParams(window.location.search);
-      const prodParam = params.get('product') || params.get('p') || params.get('sku');
+      let prodParam = params.get('product') || params.get('p') || params.get('sku');
+
+      if (!prodParam && window.location.pathname) {
+        const segments = window.location.pathname.split('/').filter(Boolean);
+        if (segments.length >= 2 && (segments[0] === 'p' || segments[0] === 'product' || segments[0] === 'share')) {
+          prodParam = decodeURIComponent(segments[1]);
+        }
+      }
+
       if (prodParam && products.length > 0) {
         const needle = prodParam.toLowerCase();
         const matched = products.find(p => 
@@ -202,11 +218,7 @@ export const App: React.FC = () => {
     setCurrentView('home');
     setSelectedProduct(null);
     try {
-      const url = new URL(window.location.href);
-      url.searchParams.delete('product');
-      url.searchParams.delete('p');
-      url.searchParams.delete('sku');
-      window.history.pushState({}, '', url.pathname + (url.search ? url.search : ''));
+      window.history.pushState({}, '', '/');
     } catch (e) {
       // Ignore
     }
@@ -235,9 +247,7 @@ export const App: React.FC = () => {
     setSelectedProduct(product);
     setCurrentView('product-detail');
     try {
-      const url = new URL(window.location.href);
-      url.searchParams.set('product', product.sku);
-      window.history.pushState({ sku: product.sku }, '', url.toString());
+      window.history.pushState({ sku: product.sku }, '', `/p/${encodeURIComponent(product.sku)}`);
     } catch (e) {
       // Ignore
     }
