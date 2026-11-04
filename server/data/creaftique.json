@@ -519,10 +519,10 @@
       "short_description": "Our Personalized Stickers are designed to help you stick your brand and share your style with ease.",
       "full_description": "Our Personalized Stickers are designed to help you stick your brand and share your style with ease. Featuring high-quality premium printing, these stickers boast a vibrant color palette and sharp imagery, from whimsical illustrations and motivational typography to professional floral designs. Made with a strong, durable adhesive, they are perfect for branding products, personalizing laptops and water bottles, or adding a special touch to packaging. These stickers offer full customization, including custom die-cut shapes and personalized text, ensuring they meet your specific creative or business needs.",
       "material": "Bespoke Substrate",
-      "default_size": "2x2 inches",
-      "base_price": 199,
-      "selling_price": 199,
-      "mrp": 399,
+      "default_size": "2x2 Inches",
+      "base_price": 108,
+      "selling_price": 108,
+      "mrp": 216,
       "discount": 50,
       "tax": 18,
       "stock": 250,
@@ -566,49 +566,73 @@
       "custom_options": {
         "sizes": [
           {
-            "name": "2x2 inches",
+            "name": "1x1 Inches",
+            "sheet_info": "12x18 Sheet, Qty 216",
+            "qty_per_sheet": 216,
+            "price_adj": 0,
+            "default": false
+          },
+          {
+            "name": "1.5x1.5 Inches",
+            "sheet_info": "12x18 Sheet, Qty 96",
+            "qty_per_sheet": 96,
+            "price_adj": 0,
+            "default": false
+          },
+          {
+            "name": "2x2 Inches",
+            "sheet_info": "12x18 Sheet, Qty 54",
+            "qty_per_sheet": 54,
             "price_adj": 0,
             "default": true
           },
           {
-            "name": "3x3 inches",
-            "price_adj": 150,
-            "default": false
-          },
-          {
-            "name": "4x6 inch sticker sheets",
-            "price_adj": 300,
-            "default": false
-          },
-          {
-            "name": "Custom die cut sizes",
-            "price_adj": 450,
-            "default": false
-          },
-          {
-            "name": "Round Stickers",
-            "price_adj": 400,
-            "default": false
-          },
-          {
-            "name": "Shape Cut Stickers",
-            "price_adj": 500,
-            "default": false
-          },
-          {
-            "name": "Packaging Stickers",
-            "price_adj": 600,
-            "default": false
-          },
-          {
-            "name": "Product Stickers",
-            "price_adj": 700,
-            "default": false
-          },
-          {
-            "name": "Custom Size / Specifications",
+            "name": "2.5x2.5 Inches",
+            "sheet_info": "12x18 Sheet, Qty 35",
+            "qty_per_sheet": 35,
             "price_adj": 0,
-            "is_custom": true
+            "default": false
+          },
+          {
+            "name": "3x3 Inches",
+            "sheet_info": "12x18 Sheet, Qty 24",
+            "qty_per_sheet": 24,
+            "price_adj": 0,
+            "default": false
+          },
+          {
+            "name": "4x4 or 5x5 Inches",
+            "sheet_info": "12x18 Sheet, Qty 6",
+            "qty_per_sheet": 6,
+            "price_adj": 0,
+            "default": false
+          },
+          {
+            "name": "Custom Size",
+            "sheet_info": "12x18 Sheet, Calculate per squire inches ₹0.50",
+            "price_adj": 0,
+            "is_custom": true,
+            "default": false
+          }
+        ],
+        "shapes": [
+          {
+            "name": "Round",
+            "description": "Standard circular contour cut",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Square",
+            "description": "Sharp square / rectangular cut",
+            "price_adj": 0,
+            "default": false
+          },
+          {
+            "name": "Custom Shape",
+            "description": "Precision contour die-cut around artwork",
+            "price_adj": 30,
+            "default": false
           }
         ],
         "materials": [
@@ -626,21 +650,7 @@
             "price_adj": 180
           }
         ],
-        "finishes": [
-          {
-            "name": "Standard Satin Archival Protection",
-            "price_adj": 0,
-            "default": true
-          },
-          {
-            "name": "Anti-Glare UV Seal Coat",
-            "price_adj": 90
-          },
-          {
-            "name": "Diamond Sparkle Holographic Coat",
-            "price_adj": 150
-          }
-        ],
+        "finishes": [],
         "frames": [],
         "quantity_tiers": [
           {

@@ -18,7 +18,8 @@ import {
   Plus,
   Minus,
   Info,
-  ShieldCheck
+  ShieldCheck,
+  Shapes
 } from 'lucide-react';
 
 interface ProductCustomizerProps {
@@ -41,6 +42,10 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                        categoryLower.includes('mini') || 
                        nameLower.includes('insta') || 
                        (nameLower.includes('card') && !categoryLower.includes('invitation') && !categoryLower.includes('business'));
+  const isStickers = product.category_slug === 'personalized-stickers' || 
+                     product.category === 'Personalized Stickers' || 
+                     skuLower === 'personalized_stickers' ||
+                     (categoryLower.includes('sticker') && !categoryLower.includes('label'));
 
   // Strict Framing applicability:
   // Products that must NEVER have framing:
@@ -214,13 +219,36 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
   ];
   const [selectedMiniPrintCount, setSelectedMiniPrintCount] = useState<number>(12);
 
+  // 4. STICKER SPECIFIC PRESETS & SIZES
+  const stickerSizeOptions: ProductOptionSize[] = [
+    { name: "1x1 Inches", price_adj: 0, sheet_info: "12x18 Sheet, Qty 216", qty_per_sheet: 216, default: false },
+    { name: "1.5x1.5 Inches", price_adj: 0, sheet_info: "12x18 Sheet, Qty 96", qty_per_sheet: 96, default: false },
+    { name: "2x2 Inches", price_adj: 0, sheet_info: "12x18 Sheet, Qty 54", qty_per_sheet: 54, default: true },
+    { name: "2.5x2.5 Inches", price_adj: 0, sheet_info: "12x18 Sheet, Qty 35", qty_per_sheet: 35, default: false },
+    { name: "3x3 Inches", price_adj: 0, sheet_info: "12x18 Sheet, Qty 24", qty_per_sheet: 24, default: false },
+    { name: "4x4 or 5x5 Inches", price_adj: 0, sheet_info: "12x18 Sheet, Qty 6", qty_per_sheet: 6, default: false },
+    { name: "Custom Size", price_adj: 0, sheet_info: "12x18 Sheet, Calculate per squire inches ₹0.50", is_custom: true, default: false }
+  ];
+
+  const stickerShapeOptions = [
+    { id: 'round', name: 'Round', desc: 'Standard circular contour cut (Included)', price_adj: 0 },
+    { id: 'square', name: 'Square', desc: 'Sharp square / rectangle cut (Included)', price_adj: 0 },
+    { id: 'custom_shape', name: 'Custom Shape', desc: 'Precision contour die-cut around artwork (+₹30)', price_adj: 30 }
+  ];
+  const [selectedShape, setSelectedShape] = useState<string>('Round');
+
+  const effectiveSizes = isStickers ? stickerSizeOptions : customOptions.sizes;
+
   // General State
-  const [selectedSize, setSelectedSize] = useState<ProductOptionSize>(
-    customOptions.sizes.find(s => s.default) || customOptions.sizes[0]
-  );
+  const [selectedSize, setSelectedSize] = useState<ProductOptionSize>(() => {
+    if (isStickers) {
+      return stickerSizeOptions.find(s => s.name === "2x2 Inches") || stickerSizeOptions[2];
+    }
+    return customOptions.sizes.find(s => s.default) || customOptions.sizes[0];
+  });
   const [isCustomSize, setIsCustomSize] = useState(false);
-  const [customWidth, setCustomWidth] = useState<number>(18);
-  const [customHeight, setCustomHeight] = useState<number>(24);
+  const [customWidth, setCustomWidth] = useState<number>(isStickers ? 12 : 18);
+  const [customHeight, setCustomHeight] = useState<number>(isStickers ? 18 : 24);
   const [customUnit, setCustomUnit] = useState<'inch' | 'cm' | 'mm' | 'ft'>('inch');
 
   const [selectedMaterial, setSelectedMaterial] = useState<ProductOptionItem>(
@@ -241,6 +269,16 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
       setSelectedFrame(customOptions.frames.find(f => f.default) || customOptions.frames[0]);
     }
   }, [product.id, isFramingApplicable]);
+
+  useEffect(() => {
+    if (isStickers) {
+      setSelectedSize(stickerSizeOptions.find(s => s.name === "2x2 Inches") || stickerSizeOptions[2]);
+      setSelectedShape('Round');
+      setIsCustomSize(false);
+      setCustomWidth(12);
+      setCustomHeight(18);
+    }
+  }, [product.id, isStickers]);
 
 
   const [quantity, setQuantity] = useState<number>(1);
@@ -291,6 +329,9 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
     ? miniPrintPriceAdj 
     : 0;
 
+  // Shape price adjustment for stickers
+  const shapeAdj = isStickers ? (selectedShape === 'Custom Shape' ? 30 : 0) : 0;
+
   // Calculate custom size pricing if selected
   let sizeAdj = selectedSize.price_adj;
   if (isCustomSize) {
@@ -299,9 +340,15 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
     else if (customUnit === 'mm') areaInSqIn /= 645;
     else if (customUnit === 'ft') areaInSqIn *= 144;
 
-    const baseArea = 12 * 18; // 216 sq in
-    const ratio = Math.max(0.5, areaInSqIn / baseArea);
-    sizeAdj = Math.round((ratio - 1) * product.base_price);
+    if (isStickers) {
+      // Costome Size : (12x18 Sheet, Calculate per squire inches ₹0.50) ₹ Calculated Price
+      const calculatedPrice = Math.max(50, Math.round(areaInSqIn * 0.50));
+      sizeAdj = calculatedPrice - product.base_price;
+    } else {
+      const baseArea = 12 * 18; // 216 sq in
+      const ratio = Math.max(0.5, areaInSqIn / baseArea);
+      sizeAdj = Math.round((ratio - 1) * product.base_price);
+    }
   }
 
   const extrasCost = selectedExtras.reduce((sum, extraId) => {
@@ -312,8 +359,9 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
   const priceBreakdown = {
     basePrice: product.base_price,
     sizeAdjustment: sizeAdj,
+    shapeAdjustment: shapeAdj,
     materialAdjustment: selectedMaterial.price_adj,
-    finishAdjustment: selectedFinish.price_adj,
+    finishAdjustment: !isStickers ? selectedFinish.price_adj : 0,
     frameAdjustment: (isFramingApplicable && selectedFrame) ? selectedFrame.price_adj : 0,
     customizationFee: (customText ? 100 : 0) + capacityPriceAdj,
     expressFee: extrasCost,
@@ -342,8 +390,9 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
       0,
       product.base_price +
         sizeAdj +
+        shapeAdj +
         selectedMaterial.price_adj +
-        selectedFinish.price_adj +
+        (!isStickers ? selectedFinish.price_adj : 0) +
         ((isFramingApplicable && selectedFrame) ? selectedFrame.price_adj : 0) +
         (customText ? 100 : 0) +
         capacityPriceAdj +
@@ -354,7 +403,16 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
       ? `${customWidth} × ${customHeight} ${customUnit} (Custom Dimension)`
       : selectedSize.name;
 
-    if (isAlbum) {
+    if (isStickers) {
+      if (selectedSize.name.includes('1x1')) sizeLabel += ' (12x18 Sheet, Qty 216)';
+      else if (selectedSize.name.includes('1.5x1.5')) sizeLabel += ' (12x18 Sheet, Qty 96)';
+      else if (selectedSize.name.includes('2x2')) sizeLabel += ' (12x18 Sheet, Qty 54)';
+      else if (selectedSize.name.includes('2.5x2.5')) sizeLabel += ' (12x18 Sheet, Qty 35)';
+      else if (selectedSize.name.includes('3x3')) sizeLabel += ' (12x18 Sheet, Qty 24)';
+      else if (selectedSize.name.includes('4x4') || selectedSize.name.includes('5x5')) sizeLabel += ' (12x18 Sheet, Qty 6)';
+      else if (isCustomSize) sizeLabel += ` (12x18 Sheet basis • ${Math.round(customWidth * customHeight)} sq. in. @ ₹0.50/sq.in.)`;
+      sizeLabel += ` • Shape: ${selectedShape}`;
+    } else if (isAlbum) {
       sizeLabel += ` • ${selectedAlbumSheets} Sheets (${albumPages} Pages • Up to ${albumMaxPhotos} Photos)`;
     } else if (isMagnets) {
       sizeLabel += ` • Set of ${selectedMagnetPackCount} Magnets (${selectedMagnetPackCount} Photos)`;
@@ -368,8 +426,9 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
       product_name: product.name,
       image: photos[0]?.url || product.images[0],
       size: sizeLabel,
+      shape: isStickers ? selectedShape : undefined,
       material: selectedMaterial.name,
-      finish: selectedFinish.name,
+      finish: !isStickers ? selectedFinish.name : 'Waterproof Adhesive',
       frame: (isFramingApplicable && selectedFrame) ? selectedFrame.name : 'None',
       quantity,
       unit_price: unitPrice,
@@ -379,6 +438,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         text: customText,
         notes,
         photos,
+        shape: isStickers ? selectedShape : undefined,
         album_sheets: isAlbum ? selectedAlbumSheets : undefined,
         album_pages: isAlbum ? albumPages : undefined,
         pack_count: isMagnets ? selectedMagnetPackCount : isMiniPrints ? selectedMiniPrintCount : undefined,
@@ -407,9 +467,10 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
   // Dynamic step numbering calculation
   let stepIndex = 1;
   const sizeStepNumber = stepIndex++;
+  const stickerShapeStepNumber = isStickers ? stepIndex++ : null;
   const materialStepNumber = stepIndex++;
-  const finishStepNumber = stepIndex++;
-  const hasDynamicMiddleStep = isAlbum || isMagnets || isMiniPrints || (isFramingApplicable && customOptions.frames.length > 0);
+  const finishStepNumber = !isStickers ? stepIndex++ : null;
+  const hasDynamicMiddleStep = !isStickers && (isAlbum || isMagnets || isMiniPrints || (isFramingApplicable && customOptions.frames.length > 0));
   const middleStepNumber = hasDynamicMiddleStep ? stepIndex++ : null;
   const photoStepNumber = stepIndex++;
   const textStepNumber = stepIndex++;
@@ -428,8 +489,9 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
           customText={customText}
           size={isAlbum ? `${selectedSize.name} • ${selectedAlbumSheets} Sheets (${albumPages} Pages)` : (isCustomSize ? `${customWidth}×${customHeight} ${customUnit}` : selectedSize.name)}
           material={selectedMaterial.name}
-          finish={selectedFinish.name}
+          finish={!isStickers ? selectedFinish.name : 'Waterproof Adhesive'}
           frame={(isFramingApplicable && selectedFrame) ? selectedFrame.name : undefined}
+          shape={isStickers ? selectedShape : undefined}
         />
 
         <LivePriceCalculator
@@ -463,7 +525,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
-              {sizeStepNumber}. Choose {isAlbum ? 'Album Dimensions' : isMagnets ? 'Magnet Dimensions' : 'Size'}
+              {sizeStepNumber}. Choose {isStickers ? 'Sticker Size (12×18 Sheet Basis)' : isAlbum ? 'Album Dimensions' : isMagnets ? 'Magnet Dimensions' : 'Size'}
             </label>
             <span className="text-xs font-semibold text-amber-900 dark:text-amber-400">
               Selected: {isCustomSize ? `${customWidth} × ${customHeight} ${customUnit}` : selectedSize.name}
@@ -471,7 +533,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-            {customOptions.sizes.map((s, idx) => {
+            {effectiveSizes.map((s, idx) => {
               if (s.is_custom) {
                 return (
                   <button
@@ -488,12 +550,24 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                     }`}
                   >
                     <span>Custom Size</span>
-                    <span className="text-[10px] text-amber-800 dark:text-amber-400 font-normal">Enter W × H</span>
+                    <span className="text-[10px] text-amber-800 dark:text-amber-400 font-normal">
+                      {isStickers ? '₹0.50 / sq. in.' : 'Enter W × H'}
+                    </span>
                   </button>
                 );
               }
 
               const isSelected = !isCustomSize && selectedSize.name === s.name;
+              let subtitle = s.price_adj === 0 ? 'Base' : s.price_adj > 0 ? `+₹${s.price_adj}` : `-₹${Math.abs(s.price_adj)}`;
+              if (isStickers) {
+                if (s.name.includes('1x1')) subtitle = 'Qty 216 • ₹108';
+                else if (s.name.includes('1.5x1.5')) subtitle = 'Qty 96 • ₹108';
+                else if (s.name.includes('2x2')) subtitle = 'Qty 54 • ₹108';
+                else if (s.name.includes('2.5x2.5')) subtitle = 'Qty 35 • ₹108';
+                else if (s.name.includes('3x3')) subtitle = 'Qty 24 • ₹108';
+                else if (s.name.includes('4x4') || s.name.includes('5x5')) subtitle = 'Qty 6 • ₹108';
+              }
+
               return (
                 <button
                   key={idx}
@@ -502,15 +576,15 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                     setIsCustomSize(false);
                     setSelectedSize(s);
                   }}
-                  className={`py-3 px-3 rounded-xl border text-xs transition-all text-center flex flex-col justify-center items-center gap-0.5 cursor-pointer ${
+                  className={`py-3 px-2.5 rounded-xl border text-xs transition-all text-center flex flex-col justify-center items-center gap-0.5 cursor-pointer ${
                     isSelected
                       ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold'
                       : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 hover:bg-slate-50 dark:hover:bg-stone-700 font-medium'
                   }`}
                 >
                   <span className="truncate">{s.name}</span>
-                  <span className="text-[10px] text-slate-400 dark:text-stone-500">
-                    {s.price_adj === 0 ? 'Base' : s.price_adj > 0 ? `+₹${s.price_adj}` : `-₹${Math.abs(s.price_adj)}`}
+                  <span className={`text-[10px] ${isStickers ? 'text-amber-900 dark:text-amber-400 font-medium' : 'text-slate-400 dark:text-stone-500'}`}>
+                    {subtitle}
                   </span>
                 </button>
               );
@@ -521,14 +595,14 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
           {isCustomSize && (
             <div className="mt-3 bg-[#FAF8F5] dark:bg-[#141210] p-4 rounded-2xl border border-amber-200/80 dark:border-amber-800/80 space-y-3">
               <span className="text-xs font-bold text-amber-900 dark:text-amber-300 block">
-                Enter Exact Dimensions (Studio Custom Sizing):
+                {isStickers ? 'Enter Custom Dimensions (12×18 Sheet Basis • ₹0.50 / Sq. Inch):' : 'Enter Exact Dimensions (Studio Custom Sizing):'}
               </span>
               <div className="grid grid-cols-3 gap-3">
                 <div>
                   <label className="text-[10px] text-slate-500 dark:text-stone-400 font-bold block mb-1">WIDTH</label>
                   <input
                     type="number"
-                    min="2"
+                    min="1"
                     max="120"
                     value={customWidth}
                     onChange={(e) => setCustomWidth(Math.max(1, parseFloat(e.target.value) || 1))}
@@ -539,7 +613,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                   <label className="text-[10px] text-slate-500 dark:text-stone-400 font-bold block mb-1">HEIGHT</label>
                   <input
                     type="number"
-                    min="2"
+                    min="1"
                     max="120"
                     value={customHeight}
                     onChange={(e) => setCustomHeight(Math.max(1, parseFloat(e.target.value) || 1))}
@@ -560,11 +634,73 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                   </select>
                 </div>
               </div>
+
+              {isStickers && (
+                <div className="bg-amber-100/60 dark:bg-amber-950/60 p-2.5 rounded-xl border border-amber-300/80 dark:border-amber-800 flex items-start gap-2 text-[11px] text-amber-900 dark:text-amber-200">
+                  <Info className="w-3.5 h-3.5 shrink-0 text-amber-700 dark:text-amber-400 mt-0.5" />
+                  <span>
+                    <strong>Rate:</strong> ₹0.50 per sq. inch. Area = <strong>{(customWidth * customHeight).toFixed(1)} sq. inches</strong> = <strong>₹{Math.max(50, Math.round(customWidth * customHeight * 0.50))}</strong>. (A standard 12×18 Sheet is 216 sq. inches = ₹108). Estimated <strong>~{Math.max(1, Math.floor(12 / Math.min(customWidth, customHeight)) * Math.floor(18 / Math.max(customWidth, customHeight)))}</strong> stickers fit per sheet.
+                  </span>
+                </div>
+              )}
             </div>
           )}
         </div>
 
-        {/* 2. Material Selection */}
+        {/* 2. Shape Selection (For Personalized Stickers) */}
+        {isStickers && (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200 flex items-center gap-1.5">
+                <Shapes className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
+                {stickerShapeStepNumber}. Choose Shape
+              </label>
+              <span className="text-xs font-semibold text-amber-900 dark:text-amber-400">
+                Selected: {selectedShape} {selectedShape === 'Custom Shape' ? '(+₹30)' : '(Included)'}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              {stickerShapeOptions.map((sh) => {
+                const isSelected = selectedShape === sh.name;
+                return (
+                  <button
+                    key={sh.id}
+                    type="button"
+                    onClick={() => setSelectedShape(sh.name)}
+                    className={`p-3.5 rounded-xl border text-xs transition-all text-left flex flex-col justify-between cursor-pointer ${
+                      isSelected
+                        ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold shadow-xs'
+                        : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 font-medium'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-bold flex items-center gap-1.5">
+                          {sh.name}
+                        </span>
+                        {sh.price_adj > 0 ? (
+                          <span className="text-[11px] font-bold text-amber-800 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/60 px-2 py-0.5 rounded-md">
+                            +₹{sh.price_adj}
+                          </span>
+                        ) : (
+                          <span className="text-[10px] font-medium text-emerald-700 dark:text-emerald-400">
+                            Included
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-[11px] text-slate-500 dark:text-stone-400 mt-1 leading-snug">
+                        {sh.desc}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* 3. Substrate Material Selection */}
         <div className="space-y-3">
           <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
             {materialStepNumber}. Choose {isAlbum ? 'Cover / Binding Material' : 'Substrate Material'}
@@ -593,34 +729,36 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
           </div>
         </div>
 
-        {/* 3. Finish Selection */}
-        <div className="space-y-3">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
-            {finishStepNumber}. Choose Surface Finish
-          </label>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {customOptions.finishes.map((f, idx) => {
-              const isSelected = selectedFinish.name === f.name;
-              return (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => setSelectedFinish(f)}
-                  className={`p-3 rounded-xl border text-xs transition-all flex items-center justify-between text-left cursor-pointer ${
-                    isSelected
-                      ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold'
-                      : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 font-medium'
-                  }`}
-                >
-                  <span className="truncate">{f.name}</span>
-                  <span className="text-[10px] text-slate-500 dark:text-stone-400 ml-2">
-                    {f.price_adj === 0 ? 'Included' : `+₹${f.price_adj}`}
-                  </span>
-                </button>
-              );
-            })}
+        {/* Surface Finish Selection (Hidden for Stickers) */}
+        {!isStickers && customOptions.finishes.length > 0 && (
+          <div className="space-y-3">
+            <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
+              {finishStepNumber}. Choose Surface Finish
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {customOptions.finishes.map((f, idx) => {
+                const isSelected = selectedFinish.name === f.name;
+                return (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setSelectedFinish(f)}
+                    className={`p-3 rounded-xl border text-xs transition-all flex items-center justify-between text-left cursor-pointer ${
+                      isSelected
+                        ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold'
+                        : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 font-medium'
+                    }`}
+                  >
+                    <span className="truncate">{f.name}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-stone-400 ml-2">
+                      {f.price_adj === 0 ? 'Included' : `+₹${f.price_adj}`}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Included Presentation & Mounting Banner for Non-Framed Products */}
         {presentationNote && !isFramingApplicable && (
@@ -1060,8 +1198,9 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                 0,
                 product.base_price +
                   sizeAdj +
+                  shapeAdj +
                   selectedMaterial.price_adj +
-                  selectedFinish.price_adj +
+                  (!isStickers ? selectedFinish.price_adj : 0) +
                   ((isFramingApplicable && selectedFrame) ? selectedFrame.price_adj : 0) +
                   (customText ? 100 : 0) +
                   capacityPriceAdj +

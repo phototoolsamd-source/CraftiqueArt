@@ -3,12 +3,15 @@ export interface ProductOptionSize {
   price_adj: number;
   is_custom?: boolean;
   area_sqin?: number;
+  sheet_info?: string;
+  qty_per_sheet?: number;
   default?: boolean;
 }
 
 export interface ProductOptionItem {
   name: string;
   price_adj: number;
+  description?: string;
   default?: boolean;
 }
 
@@ -26,6 +29,7 @@ export interface ProductExtra {
 
 export interface ProductCustomOptions {
   sizes: ProductOptionSize[];
+  shapes?: ProductOptionItem[];
   materials: ProductOptionItem[];
   finishes: ProductOptionItem[];
   frames: ProductOptionItem[];
@@ -113,6 +117,7 @@ export interface CustomizationState {
   text?: string;
   notes?: string;
   photos: UploadedPhotoInfo[];
+  shape?: string;
   custom_width?: number;
   custom_height?: number;
   custom_unit?: 'inch' | 'cm' | 'mm' | 'ft';
@@ -133,6 +138,7 @@ export interface CartItem {
   product_name: string;
   image: string;
   size: string;
+  shape?: string;
   material: string;
   finish: string;
   frame?: string;

@@ -130,6 +130,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout }) => {
 
                       <div className="text-[11px] text-slate-500 dark:text-stone-400 mt-1 space-y-0.5">
                         <p><span className="font-medium text-slate-700 dark:text-stone-300">Size:</span> {item.size}</p>
+                        {item.shape && (
+                          <p><span className="font-medium text-slate-700 dark:text-stone-300">Shape:</span> {item.shape}</p>
+                        )}
                         <p><span className="font-medium text-slate-700 dark:text-stone-300">Material:</span> {item.material}</p>
                         {item.frame && item.frame !== 'None' && (
                           <p><span className="font-medium text-slate-700 dark:text-stone-300">Frame:</span> {item.frame}</p>

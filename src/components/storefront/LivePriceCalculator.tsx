@@ -4,6 +4,7 @@ import { Calculator, ShieldCheck, Zap } from 'lucide-react';
 interface PriceBreakdown {
   basePrice: number;
   sizeAdjustment: number;
+  shapeAdjustment?: number;
   materialAdjustment: number;
   finishAdjustment: number;
   frameAdjustment: number;
@@ -27,6 +28,7 @@ export const LivePriceCalculator: React.FC<LivePriceCalculatorProps> = ({
   const {
     basePrice,
     sizeAdjustment,
+    shapeAdjustment = 0,
     materialAdjustment,
     finishAdjustment,
     frameAdjustment,
@@ -43,6 +45,7 @@ export const LivePriceCalculator: React.FC<LivePriceCalculatorProps> = ({
     0,
     basePrice +
       sizeAdjustment +
+      shapeAdjustment +
       materialAdjustment +
       finishAdjustment +
       frameAdjustment +
@@ -83,6 +86,13 @@ export const LivePriceCalculator: React.FC<LivePriceCalculatorProps> = ({
             <span>
               {sizeAdjustment > 0 ? `+₹${sizeAdjustment}` : `-₹${Math.abs(sizeAdjustment)}`}
             </span>
+          </div>
+        )}
+
+        {shapeAdjustment !== 0 && (
+          <div className="flex justify-between text-amber-800 dark:text-amber-400 font-semibold">
+            <span>Custom Die-Cut Shape</span>
+            <span>+₹{shapeAdjustment}</span>
           </div>
         )}
 

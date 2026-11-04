@@ -27,6 +27,7 @@ interface InteractivePreviewProps {
   material: string;
   finish: string;
   frame?: string;
+  shape?: string;
 }
 
 export const InteractivePreview: React.FC<InteractivePreviewProps> = ({
@@ -38,7 +39,8 @@ export const InteractivePreview: React.FC<InteractivePreviewProps> = ({
   size,
   material,
   finish,
-  frame
+  frame,
+  shape
 }) => {
   // Normalize all available product images
   const allProductImages = images && images.length > 0 
@@ -344,8 +346,14 @@ export const InteractivePreview: React.FC<InteractivePreviewProps> = ({
             {viewMode === 'front' ? (
               <div
                 style={{ transform: `scale(${zoomLevel})` }}
-                className={`transition-all duration-300 relative ${getFrameStyle()} rounded-sm overflow-hidden bg-white max-w-full shadow-2xl ${
-                  orientation === 'portrait' ? 'w-64 sm:w-72 aspect-3/4' : 'w-80 sm:w-96 aspect-4/3'
+                className={`transition-all duration-300 relative ${getFrameStyle()} ${
+                  shape === 'Round'
+                    ? 'rounded-full aspect-square w-64 sm:w-72 ring-4 ring-amber-600/20'
+                    : shape === 'Custom Shape'
+                    ? 'rounded-3xl ring-4 ring-amber-600/30'
+                    : 'rounded-sm'
+                } overflow-hidden bg-white max-w-full shadow-2xl ${
+                  shape === 'Round' ? '' : (orientation === 'portrait' ? 'w-64 sm:w-72 aspect-3/4' : 'w-80 sm:w-96 aspect-4/3')
                 }`}
               >
                 {/* Customer Photo / Simulation Mockup */}
@@ -354,6 +362,13 @@ export const InteractivePreview: React.FC<InteractivePreviewProps> = ({
                   alt="Customized Artwork Simulation"
                   className="w-full h-full object-cover"
                 />
+
+                {/* Shape outline badge indicator if applicable */}
+                {shape && (
+                  <div className="absolute top-2 left-2 bg-black/75 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-md">
+                    <span>Shape: {shape}</span>
+                  </div>
+                )}
 
                 {/* Simulated Matte / Gloss finish reflection overlay */}
                 {finish.toLowerCase().includes('gloss') && (
