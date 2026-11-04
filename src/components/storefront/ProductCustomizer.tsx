@@ -508,16 +508,16 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
       </div>
 
       {/* Right Column: Customization Controls Form */}
-      <div className="lg:col-span-7 bg-white dark:bg-[#1A1816] rounded-3xl p-6 sm:p-8 border border-[#E9E0D2] dark:border-stone-800 shadow-sm space-y-8 transition-colors">
+      <div className="lg:col-span-7 bg-white dark:bg-[#1A1816] rounded-3xl p-6 sm:p-8 lg:p-10 border border-[#E9E0D2] dark:border-stone-800 shadow-sm space-y-8 transition-colors">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-amber-800 dark:text-amber-400 uppercase tracking-widest">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-800 dark:text-amber-400 uppercase tracking-widest">
+            <Sparkles className="w-4 h-4" />
             Bespoke Customization Studio
           </div>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900 dark:text-stone-100 mt-1">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-stone-100 mt-1.5">
             Personalize Your {product.name}
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-stone-400 mt-1">
+          <p className="text-xs sm:text-sm lg:text-base text-slate-500 dark:text-stone-400 mt-1.5 leading-relaxed">
             {isAlbum 
               ? 'Select your album dimensions, page capacity, archival paper finish, and upload your photo memories.'
               : isMagnets
@@ -529,17 +529,17 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         </div>
 
         {/* 1. Size Selection */}
-        <div className="space-y-3">
+        <div className="space-y-3.5">
           <div className="flex items-center justify-between">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
+            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
               {sizeStepNumber}. Choose {isStickers ? 'Sticker Size (12×18 Sheet Basis)' : isAlbum ? 'Album Dimensions' : isMagnets ? 'Magnet Dimensions' : 'Size'}
             </label>
-            <span className="text-xs font-semibold text-amber-900 dark:text-amber-400">
+            <span className="text-xs sm:text-sm font-semibold text-amber-900 dark:text-amber-400">
               Selected: {isCustomSize ? `${customWidth} × ${customHeight} ${customUnit}` : selectedSize.name}
             </span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-3">
             {effectiveSizes.map((s, idx) => {
               if (s.is_custom) {
                 return (
@@ -550,16 +550,16 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                       setIsCustomSize(true);
                       setSelectedSize(s);
                     }}
-                    className={`w-full min-w-0 overflow-hidden min-h-[68px] p-2.5 rounded-xl border text-xs transition-all flex flex-col justify-between items-center text-center gap-1 cursor-pointer ${
+                    className={`w-full min-w-0 overflow-hidden min-h-[74px] p-3 rounded-2xl border transition-all flex flex-col justify-between items-center text-center gap-1.5 cursor-pointer ${
                       isCustomSize
-                        ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold'
-                        : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 hover:bg-slate-50 dark:hover:bg-stone-700'
+                        ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold shadow-xs'
+                        : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 hover:bg-slate-50 dark:hover:bg-stone-700 font-medium'
                     }`}
                   >
-                    <span className="w-full text-center text-xs font-semibold leading-snug line-clamp-2 break-words">
+                    <span className="w-full text-center text-xs sm:text-sm font-semibold leading-snug line-clamp-2 break-words">
                       Custom Size
                     </span>
-                    <span className="shrink-0 text-[10px] text-amber-800 dark:text-amber-400 font-medium">
+                    <span className="shrink-0 text-[11px] sm:text-xs text-amber-800 dark:text-amber-400 font-medium">
                       {isStickers ? '₹0.50 / sq. in.' : 'Enter W × H'}
                     </span>
                   </button>
@@ -585,25 +585,25 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                     setIsCustomSize(false);
                     setSelectedSize(s);
                   }}
-                  className={`w-full min-w-0 overflow-hidden min-h-[68px] p-2.5 rounded-xl border text-xs transition-all flex flex-col justify-between items-center text-center gap-1 cursor-pointer ${
+                  className={`w-full min-w-0 overflow-hidden min-h-[74px] p-3 rounded-2xl border transition-all flex flex-col justify-between items-center text-center gap-1.5 cursor-pointer ${
                     isSelected
-                      ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold'
+                      ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold shadow-xs'
                       : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 hover:bg-slate-50 dark:hover:bg-stone-700 font-medium'
                   }`}
                 >
                   <span
-                    className="w-full text-center text-xs font-semibold leading-snug line-clamp-2 break-words"
+                    className="w-full text-center text-xs sm:text-sm font-semibold leading-snug line-clamp-2 break-words"
                     title={s.name}
                   >
                     {s.name}
                   </span>
                   <span
-                    className={`shrink-0 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] ${
+                    className={`shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-[11px] sm:text-xs font-semibold ${
                       isStickers
-                        ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300 font-semibold'
+                        ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300'
                         : isSelected
-                        ? 'bg-amber-200/60 dark:bg-amber-800/60 text-amber-900 dark:text-amber-200 font-semibold'
-                        : 'text-slate-500 dark:text-stone-400'
+                        ? 'bg-amber-200/60 dark:bg-amber-800/60 text-amber-900 dark:text-amber-200'
+                        : 'text-slate-500 dark:text-stone-400 font-medium'
                     }`}
                   >
                     {subtitle}
@@ -673,16 +673,16 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         {isStickers && (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200 flex items-center gap-1.5">
-                <Shapes className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
+              <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200 flex items-center gap-1.5">
+                <Shapes className="w-4 h-4 text-amber-700 dark:text-amber-400" />
                 {stickerShapeStepNumber}. Choose Shape
               </label>
-              <span className="text-xs font-semibold text-amber-900 dark:text-amber-400">
+              <span className="text-xs sm:text-sm font-semibold text-amber-900 dark:text-amber-400">
                 Selected: {selectedShape} {selectedShape === 'Custom Shape' ? '(+₹30)' : '(Included)'}
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {stickerShapeOptions.map((sh) => {
                 const isSelected = selectedShape === sh.name;
                 return (
@@ -690,7 +690,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                     key={sh.id}
                     type="button"
                     onClick={() => setSelectedShape(sh.name)}
-                    className={`p-3.5 rounded-xl border text-xs transition-all text-left flex flex-col justify-between cursor-pointer ${
+                    className={`p-4 rounded-2xl border text-xs sm:text-sm transition-all text-left flex flex-col justify-between cursor-pointer min-h-[86px] ${
                       isSelected
                         ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold shadow-xs'
                         : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 font-medium'
@@ -698,20 +698,20 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                   >
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-bold flex items-center gap-1.5">
+                        <span className="text-sm sm:text-base font-bold flex items-center gap-1.5">
                           {sh.name}
                         </span>
                         {sh.price_adj > 0 ? (
-                          <span className="text-[11px] font-bold text-amber-800 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/60 px-2 py-0.5 rounded-md">
+                          <span className="text-xs font-bold text-amber-800 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/60 px-2 py-0.5 rounded-md">
                             +₹{sh.price_adj}
                           </span>
                         ) : (
-                          <span className="text-[10px] font-medium text-emerald-700 dark:text-emerald-400">
+                          <span className="text-xs font-medium text-emerald-700 dark:text-emerald-400">
                             Included
                           </span>
                         )}
                       </div>
-                      <p className="text-[11px] text-slate-500 dark:text-stone-400 mt-1 leading-snug">
+                      <p className="text-xs text-slate-500 dark:text-stone-400 mt-1 leading-snug">
                         {sh.desc}
                       </p>
                     </div>
@@ -723,11 +723,11 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         )}
 
         {/* 3. Substrate Material Selection */}
-        <div className="space-y-3">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
+        <div className="space-y-3.5">
+          <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
             {materialStepNumber}. Choose {isAlbum ? 'Cover / Binding Material' : 'Substrate Material'}
           </label>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {customOptions.materials.map((m, idx) => {
               const isSelected = selectedMaterial.name === m.name;
               return (
@@ -735,14 +735,14 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                   key={idx}
                   type="button"
                   onClick={() => setSelectedMaterial(m)}
-                  className={`w-full min-w-0 overflow-hidden p-3 rounded-xl border text-xs transition-all flex flex-col justify-between text-left cursor-pointer min-h-[58px] ${
+                  className={`w-full min-w-0 overflow-hidden p-3.5 rounded-2xl border text-xs sm:text-sm transition-all flex flex-col justify-between text-left cursor-pointer min-h-[64px] ${
                     isSelected
-                      ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold'
+                      ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold shadow-xs'
                       : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 font-medium'
                   }`}
                 >
-                  <span className="w-full truncate font-medium" title={m.name}>{m.name}</span>
-                  <span className="text-[10px] text-slate-500 dark:text-stone-400 mt-1 shrink-0">
+                  <span className="w-full truncate font-semibold" title={m.name}>{m.name}</span>
+                  <span className="text-[11px] sm:text-xs text-slate-500 dark:text-stone-400 mt-1 shrink-0 font-medium">
                     {m.price_adj === 0 ? 'Standard' : `+₹${m.price_adj}`}
                   </span>
                 </button>
@@ -753,11 +753,11 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
 
         {/* Surface Finish Selection (Hidden for Stickers) */}
         {!isStickers && customOptions.finishes.length > 0 && (
-          <div className="space-y-3">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
+          <div className="space-y-3.5">
+            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
               {finishStepNumber}. Choose Surface Finish
             </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {customOptions.finishes.map((f, idx) => {
                 const isSelected = selectedFinish.name === f.name;
                 return (
@@ -765,14 +765,14 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                     key={idx}
                     type="button"
                     onClick={() => setSelectedFinish(f)}
-                    className={`w-full min-w-0 overflow-hidden p-3 rounded-xl border text-xs transition-all flex items-center justify-between text-left cursor-pointer gap-2 min-h-[52px] ${
+                    className={`w-full min-w-0 overflow-hidden p-3.5 rounded-2xl border text-xs sm:text-sm transition-all flex items-center justify-between text-left cursor-pointer gap-2 min-h-[58px] ${
                       isSelected
-                        ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold'
+                        ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold shadow-xs'
                         : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 font-medium'
                     }`}
                   >
-                    <span className="truncate flex-1 min-w-0" title={f.name}>{f.name}</span>
-                    <span className="text-[10px] text-slate-500 dark:text-stone-400 shrink-0">
+                    <span className="truncate flex-1 min-w-0 font-semibold" title={f.name}>{f.name}</span>
+                    <span className="text-[11px] sm:text-xs text-slate-500 dark:text-stone-400 shrink-0 font-medium">
                       {f.price_adj === 0 ? 'Included' : `+₹${f.price_adj}`}
                     </span>
                   </button>
@@ -993,11 +993,11 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
 
         {/* 4D. STANDARD FRAMING / HARDWARE (ONLY FOR FRAMED PRODUCTS) */}
         {isFramingApplicable && customOptions.frames.length > 0 && (
-          <div className="space-y-3">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
+          <div className="space-y-3.5">
+            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 dark:text-stone-200">
               {middleStepNumber}. Choose Framing / Presentation
             </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {customOptions.frames.map((fr, idx) => {
                 const isSelected = selectedFrame?.name === fr.name;
                 return (
@@ -1005,14 +1005,14 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                     key={idx}
                     type="button"
                     onClick={() => setSelectedFrame(fr)}
-                    className={`p-3 rounded-xl border text-xs transition-all flex items-center justify-between text-left cursor-pointer ${
+                    className={`w-full min-w-0 overflow-hidden p-3.5 rounded-2xl border text-xs sm:text-sm transition-all flex items-center justify-between text-left cursor-pointer gap-2 min-h-[58px] ${
                       isSelected
-                        ? 'border-amber-700 bg-amber-50 text-amber-900 ring-2 ring-amber-600/30 font-bold dark:border-amber-500 dark:bg-amber-950/40 dark:text-amber-300'
+                        ? 'border-amber-700 bg-amber-50 text-amber-900 ring-2 ring-amber-600/30 font-bold dark:border-amber-500 dark:bg-amber-950/40 dark:text-amber-300 shadow-xs'
                         : 'border-slate-200 dark:border-stone-800 bg-white dark:bg-stone-900 text-slate-700 dark:text-stone-300 hover:border-amber-300 dark:hover:border-amber-700 font-medium'
                     }`}
                   >
-                    <span className="truncate">{fr.name}</span>
-                    <span className="text-[10px] text-slate-500 dark:text-stone-400 ml-2">
+                    <span className="truncate flex-1 min-w-0 font-semibold" title={fr.name}>{fr.name}</span>
+                    <span className="text-[11px] sm:text-xs text-slate-500 dark:text-stone-400 shrink-0 font-medium">
                       {fr.price_adj === 0 ? 'Standard' : `+₹${fr.price_adj}`}
                     </span>
                   </button>
@@ -1208,14 +1208,14 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
         )}
 
         {/* 9. Final Add to Cart Button */}
-        <div className="pt-4 border-t border-slate-200 dark:border-stone-800">
+        <div className="pt-5 border-t border-slate-200 dark:border-stone-800">
           <button
             type="button"
             onClick={handleAddToCart}
-            className="w-full bg-[#B45309] hover:bg-amber-800 text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-lg shadow-amber-950/20 hover:shadow-xl hover:scale-[1.01] flex items-center justify-center gap-3 cursor-pointer"
+            className="w-full bg-[#B45309] hover:bg-amber-800 text-white font-bold py-4.5 sm:py-5 px-8 rounded-2xl transition-all shadow-xl shadow-amber-950/25 hover:shadow-2xl hover:scale-[1.01] flex items-center justify-center gap-3.5 cursor-pointer text-lg sm:text-xl"
           >
-            <ShoppingBag className="w-5 h-5 text-amber-200" />
-            <span className="text-base sm:text-lg">
+            <ShoppingBag className="w-6 h-6 text-amber-200" />
+            <span className="font-bold">
               Add to Cart • ₹{((Math.max(
                 0,
                 effectiveBasePrice +
@@ -1230,7 +1230,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
               ) * quantity) * (1 - activeTier.discount_percent / 100)).toLocaleString('en-IN')}
             </span>
           </button>
-          <p className="text-center text-[11px] text-slate-500 dark:text-stone-400 mt-2">
+          <p className="text-center text-xs text-slate-500 dark:text-stone-400 mt-2.5">
             ✨ Handcrafted Studio Quality • 100% Satisfaction Guarantee • Dynamic UPI Instant QR
           </p>
         </div>
