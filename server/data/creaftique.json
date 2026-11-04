@@ -609,8 +609,8 @@
           },
           {
             "name": "Custom Size",
-            "sheet_info": "12x18 Sheet, Calculate per squire inches ₹0.50",
-            "price_adj": 0,
+            "sheet_info": "12x18 Sheet, ₹125",
+            "price_adj": 17,
             "is_custom": true,
             "default": false
           }

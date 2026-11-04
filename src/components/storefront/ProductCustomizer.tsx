@@ -234,7 +234,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
     { name: "2.5x2.5 Inches", price_adj: 0, sheet_info: "12x18 Sheet, Qty 35", qty_per_sheet: 35, default: false },
     { name: "3x3 Inches", price_adj: 0, sheet_info: "12x18 Sheet, Qty 24", qty_per_sheet: 24, default: false },
     { name: "4x4 or 5x5 Inches", price_adj: 0, sheet_info: "12x18 Sheet, Qty 6", qty_per_sheet: 6, default: false },
-    { name: "Custom Size", price_adj: 0, sheet_info: "12x18 Sheet, Calculate per squire inches ₹0.50", is_custom: true, default: false }
+    { name: "Custom Size", price_adj: 17, sheet_info: "12x18 Sheet, ₹125", is_custom: true, default: false }
   ];
 
   const stickerShapeOptions = [
@@ -339,19 +339,39 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
   // Shape price adjustment for stickers
   const shapeAdj = isStickers ? (selectedShape === 'Custom Shape' ? 30 : 0) : 0;
 
+  // Custom Sticker fit count for 12x18 sheet calculation
+  const customStickersFitCount = (() => {
+    if (!isStickers) return 1;
+    let wInches = customWidth;
+    let hInches = customHeight;
+    if (customUnit === 'cm') {
+      wInches = customWidth / 2.54;
+      hInches = customHeight / 2.54;
+    } else if (customUnit === 'mm') {
+      wInches = customWidth / 25.4;
+      hInches = customHeight / 25.4;
+    } else if (customUnit === 'ft') {
+      wInches = customWidth * 12;
+      hInches = customHeight * 12;
+    }
+    if (wInches <= 0 || hInches <= 0) return 1;
+    const fit1 = Math.floor(12 / wInches) * Math.floor(18 / hInches);
+    const fit2 = Math.floor(18 / wInches) * Math.floor(12 / hInches);
+    return Math.max(1, Math.max(fit1, fit2));
+  })();
+
   // Calculate custom size pricing if selected
   let sizeAdj = selectedSize.price_adj;
   if (isCustomSize) {
-    let areaInSqIn = customWidth * customHeight;
-    if (customUnit === 'cm') areaInSqIn /= 6.45;
-    else if (customUnit === 'mm') areaInSqIn /= 645;
-    else if (customUnit === 'ft') areaInSqIn *= 144;
-
     if (isStickers) {
-      // Costome Size : (12x18 Sheet, Calculate per squire inches ₹0.50) ₹ Calculated Price
-      const calculatedPrice = Math.max(50, Math.round(areaInSqIn * 0.50));
-      sizeAdj = calculatedPrice - effectiveBasePrice;
+      // Costome Size : (12x18 Sheet, ₹125) ₹ 125
+      // Flat ₹125 for 12x18 sheet. Since effectiveBasePrice is 108, sizeAdj = 125 - 108 = 17
+      sizeAdj = 125 - effectiveBasePrice;
     } else {
+      let areaInSqIn = customWidth * customHeight;
+      if (customUnit === 'cm') areaInSqIn /= 6.45;
+      else if (customUnit === 'mm') areaInSqIn /= 645;
+      else if (customUnit === 'ft') areaInSqIn *= 144;
       const baseArea = 12 * 18; // 216 sq in
       const ratio = Math.max(0.5, areaInSqIn / baseArea);
       sizeAdj = Math.round((ratio - 1) * effectiveBasePrice);
@@ -417,7 +437,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
       else if (selectedSize.name.includes('2.5x2.5')) sizeLabel += ' (12x18 Sheet, Qty 35)';
       else if (selectedSize.name.includes('3x3')) sizeLabel += ' (12x18 Sheet, Qty 24)';
       else if (selectedSize.name.includes('4x4') || selectedSize.name.includes('5x5')) sizeLabel += ' (12x18 Sheet, Qty 6)';
-      else if (isCustomSize) sizeLabel += ` (12x18 Sheet basis • ${Math.round(customWidth * customHeight)} sq. in. @ ₹0.50/sq.in.)`;
+      else if (isCustomSize) sizeLabel += ` (12x18 Sheet, ~${customStickersFitCount} Stickers/Sheet @ ₹125)`;
       sizeLabel += ` • Shape: ${selectedShape}`;
     } else if (isAlbum) {
       sizeLabel += ` • ${selectedAlbumSheets} Sheets (${albumPages} Pages • Up to ${albumMaxPhotos} Photos)`;
@@ -560,7 +580,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                       Custom Size
                     </span>
                     <span className="shrink-0 text-[11px] sm:text-xs text-amber-800 dark:text-amber-400 font-medium">
-                      {isStickers ? '₹0.50 / sq. in.' : 'Enter W × H'}
+                      {isStickers ? '12×18 Sheet • ₹125' : 'Enter W × H'}
                     </span>
                   </button>
                 );
@@ -658,11 +678,18 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
               </div>
 
               {isStickers && (
-                <div className="bg-amber-100/60 dark:bg-amber-950/60 p-2.5 rounded-xl border border-amber-300/80 dark:border-amber-800 flex items-start gap-2 text-[11px] text-amber-900 dark:text-amber-200">
-                  <Info className="w-3.5 h-3.5 shrink-0 text-amber-700 dark:text-amber-400 mt-0.5" />
-                  <span>
-                    <strong>Rate:</strong> ₹0.50 per sq. inch. Area = <strong>{(customWidth * customHeight).toFixed(1)} sq. inches</strong> = <strong>₹{Math.max(50, Math.round(customWidth * customHeight * 0.50))}</strong>. (A standard 12×18 Sheet is 216 sq. inches = ₹108). Estimated <strong>~{Math.max(1, Math.floor(12 / Math.min(customWidth, customHeight)) * Math.floor(18 / Math.max(customWidth, customHeight)))}</strong> stickers fit per sheet.
-                  </span>
+                <div className="bg-amber-100/60 dark:bg-amber-950/60 p-3.5 rounded-2xl border border-amber-300/80 dark:border-amber-800 flex items-start gap-3 text-xs text-amber-950 dark:text-amber-200">
+                  <Sparkles className="w-4 h-4 shrink-0 text-amber-700 dark:text-amber-400 mt-0.5" />
+                  <div className="space-y-1">
+                    <div className="font-bold text-sm text-amber-950 dark:text-amber-100">
+                      12×18 Sheet Yield: ~{customStickersFitCount} Stickers / Sheet (Sheet Price: ₹{125 + shapeAdj})
+                    </div>
+                    <p className="leading-relaxed text-amber-900/90 dark:text-amber-200/90">
+                      At {customWidth} × {customHeight} {customUnit}, approximately <strong>{customStickersFitCount} custom stickers fit in a standard 12×18 sheet</strong>.
+                      <br />
+                      <strong>12×18 Sheet Price:</strong> {selectedShape === 'Custom Shape' ? '₹125 + ₹30 (Custom Shape) = ₹155' : '₹125 (Round / Square Shape Included)'}.
+                    </p>
+                  </div>
                 </div>
               )}
             </div>
