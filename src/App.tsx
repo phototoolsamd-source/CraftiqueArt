@@ -15,6 +15,7 @@ import { OrderSuccessModal } from './components/storefront/OrderSuccessModal';
 import { OrderTrackingView } from './components/storefront/OrderTrackingView';
 import { CustomerAuthModal } from './components/storefront/CustomerAuthModal';
 import { CustomerOrdersModal } from './components/storefront/CustomerOrdersModal';
+import { ShareProductModal } from './components/storefront/ShareProductModal';
 
 // Admin components
 import { AdminLayout } from './components/admin/AdminLayout';
@@ -33,7 +34,7 @@ import { AdminSettings } from './components/admin/AdminSettings';
 
 import { useCart } from './context/CartContext';
 import { useAuth } from './context/AuthContext';
-import { Sparkles, ArrowLeft, Filter, Heart, MessageCircle } from 'lucide-react';
+import { Sparkles, ArrowLeft, Filter, Heart, MessageCircle, Share2 } from 'lucide-react';
 
 const ORDERED_CATEGORIES = [
   "Canvas Hanging",
@@ -70,6 +71,7 @@ export const App: React.FC = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isCustomerAuthOpen, setIsCustomerAuthOpen] = useState(false);
   const [isCustomerOrdersOpen, setIsCustomerOrdersOpen] = useState(false);
+  const [sharingProduct, setSharingProduct] = useState<Product | null>(null);
 
   // Products and Categories data
   const [products, setProducts] = useState<Product[]>([]);
@@ -148,10 +150,73 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleAdminKey);
   }, []);
 
+  // Deep-link routing for ?product=<sku_or_id>
+  useEffect(() => {
+    if (products.length > 0 && currentView !== 'admin') {
+      const params = new URLSearchParams(window.location.search);
+      const prodParam = params.get('product') || params.get('p') || params.get('sku');
+      if (prodParam) {
+        const needle = prodParam.toLowerCase();
+        const matched = products.find(p => 
+          p.sku?.toLowerCase() === needle ||
+          p.id?.toLowerCase() === needle ||
+          p.category_slug?.toLowerCase() === needle ||
+          p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').includes(needle.replace(/[^a-z0-9]+/g, '-'))
+        );
+        if (matched) {
+          setSelectedProduct(matched);
+          setCurrentView('product-detail');
+        }
+      }
+    }
+  }, [products]);
+
+  // Handle browser back & forward navigation smoothly
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const prodParam = params.get('product') || params.get('p') || params.get('sku');
+      if (prodParam && products.length > 0) {
+        const needle = prodParam.toLowerCase();
+        const matched = products.find(p => 
+          p.sku?.toLowerCase() === needle ||
+          p.id?.toLowerCase() === needle ||
+          p.category_slug?.toLowerCase() === needle
+        );
+        if (matched) {
+          setSelectedProduct(matched);
+          setCurrentView('product-detail');
+          return;
+        }
+      }
+      if (!prodParam && currentView === 'product-detail') {
+        setCurrentView('home');
+        setSelectedProduct(null);
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [products, currentView]);
+
+  const handleBackToCollections = () => {
+    setCurrentView('home');
+    setSelectedProduct(null);
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('product');
+      url.searchParams.delete('p');
+      url.searchParams.delete('sku');
+      window.history.pushState({}, '', url.pathname + (url.search ? url.search : ''));
+    } catch (e) {
+      // Ignore
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleNavigate = (view: string, param?: string) => {
     if (view === 'category') {
       setSelectedCategorySlug(param || 'all');
-      setCurrentView('home');
+      handleBackToCollections();
       window.scrollTo({ top: 400, behavior: 'smooth' });
     } else if (view === 'track') {
       if (param) setTrackingOrderNumber(param);
@@ -162,14 +227,20 @@ export const App: React.FC = () => {
       setCurrentView('admin');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (view === 'home') {
-      setCurrentView('home');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      handleBackToCollections();
     }
   };
 
   const handleSelectProduct = (product: Product) => {
     setSelectedProduct(product);
     setCurrentView('product-detail');
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('product', product.sku);
+      window.history.pushState({ sku: product.sku }, '', url.toString());
+    } catch (e) {
+      // Ignore
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -344,6 +415,7 @@ export const App: React.FC = () => {
                               key={p.id}
                               product={p}
                               onSelect={handleSelectProduct}
+                              onShare={(prod) => setSharingProduct(prod)}
                             />
                           ))}
                         </div>
@@ -359,19 +431,31 @@ export const App: React.FC = () => {
             {/* Product Customizer Detail View */}
             {currentView === 'product-detail' && selectedProduct && (
               <div className="w-full max-w-[1720px] 2xl:max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 space-y-6">
-                <button
-                  onClick={() => setCurrentView('home')}
-                  className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-900 dark:text-amber-200 bg-amber-50 dark:bg-amber-950/60 hover:bg-amber-100 dark:hover:bg-amber-900/80 border border-amber-200/80 dark:border-amber-800 px-4 py-2 rounded-full transition-colors cursor-pointer shadow-xs"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                  <span>Back to Collections</span>
-                </button>
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <button
+                    onClick={handleBackToCollections}
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-900 dark:text-amber-200 bg-amber-50 dark:bg-amber-950/60 hover:bg-amber-100 dark:hover:bg-amber-900/80 border border-amber-200/80 dark:border-amber-800 px-4 py-2 rounded-full transition-colors cursor-pointer shadow-xs"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    <span>Back to Collections</span>
+                  </button>
+
+                  <button
+                    onClick={() => setSharingProduct(selectedProduct)}
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-300 dark:border-emerald-700/80 px-4 py-2 rounded-full transition-all cursor-pointer shadow-xs hover:shadow-sm"
+                  >
+                    <Share2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                    <span>Share This Product</span>
+                    <span className="hidden sm:inline text-[11px] bg-emerald-600 text-white px-2 py-0.5 rounded-full font-medium">WhatsApp / Link</span>
+                  </button>
+                </div>
 
                 <ProductCustomizer
                   product={selectedProduct}
                   onAddedToCart={() => {
                     // Drawer automatically opens via CartContext
                   }}
+                  onShare={(prod) => setSharingProduct(prod)}
                 />
               </div>
             )}
@@ -454,6 +538,13 @@ export const App: React.FC = () => {
           setCurrentView('home');
           setSelectedCategorySlug('all');
         }}
+      />
+
+      {/* Share Product Modal */}
+      <ShareProductModal
+        isOpen={Boolean(sharingProduct)}
+        product={sharingProduct}
+        onClose={() => setSharingProduct(null)}
       />
     </div>
   );

@@ -19,15 +19,18 @@ import {
   Minus,
   Info,
   ShieldCheck,
-  Shapes
+  Shapes,
+  Share2,
+  MessageCircle
 } from 'lucide-react';
 
 interface ProductCustomizerProps {
   product: Product;
   onAddedToCart?: () => void;
+  onShare?: (product: Product) => void;
 }
 
-export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, onAddedToCart }) => {
+export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, onAddedToCart, onShare }) => {
   const { addToCart } = useCart();
 
   // Category Detection
@@ -530,9 +533,21 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
       {/* Right Column: Customization Controls Form */}
       <div className="lg:col-span-7 bg-white dark:bg-[#1A1816] rounded-3xl p-6 sm:p-8 lg:p-10 border border-[#E9E0D2] dark:border-stone-800 shadow-sm space-y-8 transition-colors">
         <div>
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-800 dark:text-amber-400 uppercase tracking-widest">
-            <Sparkles className="w-4 h-4" />
-            Bespoke Customization Studio
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-800 dark:text-amber-400 uppercase tracking-widest">
+              <Sparkles className="w-4 h-4" />
+              Bespoke Customization Studio
+            </div>
+            {onShare && (
+              <button
+                type="button"
+                onClick={() => onShare(product)}
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/80 border border-emerald-300 dark:border-emerald-700/80 px-3 py-1.5 rounded-full transition-all cursor-pointer shadow-xs"
+              >
+                <Share2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>Share Product</span>
+              </button>
+            )}
           </div>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-stone-100 mt-1.5">
             Personalize Your {product.name}
@@ -1257,6 +1272,18 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
               ) * quantity) * (1 - activeTier.discount_percent / 100)).toLocaleString('en-IN')}
             </span>
           </button>
+          {onShare && (
+            <div className="mt-3 flex items-center justify-center">
+              <button
+                type="button"
+                onClick={() => onShare(product)}
+                className="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-stone-300 hover:text-emerald-700 dark:hover:text-emerald-400 py-1.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-stone-800 transition-colors cursor-pointer"
+              >
+                <Share2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>Share this design link on WhatsApp / Social Media</span>
+              </button>
+            </div>
+          )}
           <p className="text-center text-xs text-slate-500 dark:text-stone-400 mt-2.5">
             ✨ Handcrafted Studio Quality • 100% Satisfaction Guarantee • Dynamic UPI Instant QR
           </p>

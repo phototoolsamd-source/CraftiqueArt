@@ -1,13 +1,14 @@
 import React from 'react';
 import { Product } from '../../types';
-import { Sparkles, Image as ImageIcon, ArrowRight, ShieldCheck, Flame, Layers } from 'lucide-react';
+import { Sparkles, Image as ImageIcon, ArrowRight, ShieldCheck, Flame, Layers, Share2 } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
   onSelect: (product: Product) => void;
+  onShare?: (product: Product) => void;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, onShare }) => {
   const primaryImg = product.images?.[0] || 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=900&auto=format&fit=crop&q=80';
   const secondaryImg = product.images?.[1] || primaryImg;
   const imageCount = product.images?.length || 1;
@@ -102,7 +103,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
         </div>
 
         {/* Price & Action */}
-        <div className="mt-4 pt-3 border-t border-slate-100 dark:border-stone-800 flex items-center justify-between">
+        <div className="mt-4 pt-3 border-t border-slate-100 dark:border-stone-800 flex items-center justify-between gap-2">
           <div>
             <div className="flex items-baseline gap-1.5">
               <span className="font-bold text-base text-slate-900 dark:text-stone-100">
@@ -121,13 +122,29 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
             )}
           </div>
 
-          <button
-            type="button"
-            className="inline-flex items-center gap-1.5 bg-[#FAF7F2] dark:bg-stone-800 group-hover:bg-[#B45309] dark:group-hover:bg-amber-600 text-amber-900 dark:text-amber-200 group-hover:text-white border border-[#E0D5C3] dark:border-stone-700 group-hover:border-[#B45309] dark:group-hover:border-amber-600 text-xs font-bold py-2 px-3 rounded-xl transition-all shadow-xs"
-          >
-            <span>Personalize</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex items-center gap-1.5">
+            {onShare && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onShare(product);
+                }}
+                title="Share via WhatsApp or Link"
+                className="p-2 rounded-xl bg-slate-100 dark:bg-stone-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/60 text-slate-600 hover:text-emerald-700 dark:text-stone-400 dark:hover:text-emerald-400 border border-slate-200 dark:border-stone-700 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors cursor-pointer shadow-xs"
+              >
+                <Share2 className="w-3.5 h-3.5" />
+              </button>
+            )}
+
+            <button
+              type="button"
+              className="inline-flex items-center gap-1.5 bg-[#FAF7F2] dark:bg-stone-800 group-hover:bg-[#B45309] dark:group-hover:bg-amber-600 text-amber-900 dark:text-amber-200 group-hover:text-white border border-[#E0D5C3] dark:border-stone-700 group-hover:border-[#B45309] dark:group-hover:border-amber-600 text-xs font-bold py-2 px-3 rounded-xl transition-all shadow-xs"
+            >
+              <span>Personalize</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
