@@ -8,7 +8,7 @@ echo "        🎨 CRAFTIQUE ONE-CLICK WEBSITE & CLOUD UPDATE       "
 echo "============================================================"
 echo ""
 echo "📁 Project Directory: $PROJECT_DIR"
-echo "☁️  Live URL: https://creaftique.vercel.app"
+echo "☁️  Live URL: https://craftique-art.vercel.app"
 echo ""
 
 # 1. Run Node sync agent to mirror images and update product DB if folder exists
@@ -44,7 +44,7 @@ npx vercel --prod --yes
 echo ""
 echo "============================================================"
 echo "   🎉 UPDATE COMPLETE! WEBSITE IS LIVE WITH LATEST CHANGES  "
-echo "   🌐 https://creaftique.vercel.app                         "
+echo "   🌐 https://craftique-art.vercel.app                     "
 echo "============================================================"
 echo "Press any key to close this window..."
 read -n 1 -s

@@ -834,7 +834,7 @@ function renderProductShareHtml(req, res, targetSku) {
     if (m) sku = decodeURIComponent(m[1]);
   }
 
-  const host = req.get('x-forwarded-host') || req.get('host') || 'creaftique.vercel.app';
+  const host = req.get('x-forwarded-host') || req.get('host') || 'craftique-art.vercel.app';
   const proto = req.get('x-forwarded-proto') || 'https';
   const baseUrl = `${proto}://${host}`;
 
