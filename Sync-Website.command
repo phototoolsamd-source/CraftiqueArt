@@ -8,6 +8,7 @@ echo "        🎨 CRAFTIQUE ONE-CLICK WEBSITE & CLOUD UPDATE       "
 echo "============================================================"
 echo ""
 echo "📁 Project Directory: $PROJECT_DIR"
+echo "🐙 GitHub Repo: https://github.com/phototoolsamd-source/CraftiqueArt"
 echo "☁️  Live URL: https://craftique-art.vercel.app"
 echo ""
 
@@ -26,14 +27,13 @@ npm run build
 
 # 3. Commit and push any updated catalog images and products to GitHub
 echo ""
-echo "🚀 Step 3: Pushing latest code to GitHub (Akshar3375/Craftique)..."
-git config user.name "phototoolsamd-4888"
-git config user.email "phototools.amd@gmail.com"
+echo "🚀 Step 3: Pushing latest code to GitHub (phototoolsamd-source/CraftiqueArt)..."
+git remote set-url origin https://github.com/phototoolsamd-source/CraftiqueArt.git
 git add -A
 if git diff-index --quiet HEAD --; then
   echo "✅ Git is already up to date. No new file changes."
 else
-  git commit --author="phototoolsamd-4888 <phototools.amd@gmail.com>" -m "Site update: $(date '+%Y-%m-%d %H:%M:%S')"
+  git commit -m "Site update: $(date '+%Y-%m-%d %H:%M:%S')"
   git push origin main
   echo "✅ Pushed to GitHub repository successfully!"
 fi
@@ -41,7 +41,7 @@ fi
 # 4. Instant Production Deployment to Vercel via Deploy Hook
 echo ""
 echo "⚡ Step 4: Triggering Vercel Production Build..."
-DEPLOY_RESP=$(curl -s -X POST "https://api.vercel.com/v1/integrations/deploy/prj_GROFEWDnIsTM0IFgL4bJ3F1V16kE/J61R6Lvjdj")
+DEPLOY_RESP=$(curl -s -X POST "https://api.vercel.com/v1/integrations/deploy/prj_GROFEWDnIsTM0IFgL4bJ3F1V16kE/Xzkd9vxjrW")
 echo "Vercel Build Triggered: $DEPLOY_RESP"
 
 echo ""
