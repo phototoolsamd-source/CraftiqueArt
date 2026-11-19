@@ -27,19 +27,22 @@ npm run build
 # 3. Commit and push any updated catalog images and products to GitHub
 echo ""
 echo "🚀 Step 3: Pushing latest code to GitHub (Akshar3375/Craftique)..."
+git config user.name "phototoolsamd-4888"
+git config user.email "phototools.amd@gmail.com"
 git add -A
 if git diff-index --quiet HEAD --; then
   echo "✅ Git is already up to date. No new file changes."
 else
-  git commit -m "Site update: $(date '+%Y-%m-%d %H:%M:%S')"
+  git commit --author="phototoolsamd-4888 <phototools.amd@gmail.com>" -m "Site update: $(date '+%Y-%m-%d %H:%M:%S')"
   git push origin main
   echo "✅ Pushed to GitHub repository successfully!"
 fi
 
-# 4. Instant Production Deployment to Vercel
+# 4. Instant Production Deployment to Vercel via Deploy Hook
 echo ""
-echo "⚡ Step 4: Deploying directly to Vercel Production..."
-npx vercel --prod --yes
+echo "⚡ Step 4: Triggering Vercel Production Build..."
+DEPLOY_RESP=$(curl -s -X POST "https://api.vercel.com/v1/integrations/deploy/prj_GROFEWDnIsTM0IFgL4bJ3F1V16kE/J61R6Lvjdj")
+echo "Vercel Build Triggered: $DEPLOY_RESP"
 
 echo ""
 echo "============================================================"
@@ -48,4 +51,3 @@ echo "   🌐 https://craftique-art.vercel.app                     "
 echo "============================================================"
 echo "Press any key to close this window..."
 read -n 1 -s
-

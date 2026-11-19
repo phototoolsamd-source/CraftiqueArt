@@ -440,7 +440,7 @@ export const App: React.FC = () => {
 
             {/* Product Customizer Detail View */}
             {currentView === 'product-detail' && selectedProduct && (
-              <div className="w-full max-w-[1720px] 2xl:max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 space-y-6">
+              <div className="w-full max-w-[1880px] 2xl:max-w-[2200px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-8 space-y-6">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <button
                     onClick={handleBackToCollections}

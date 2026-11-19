@@ -574,7 +574,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
             </span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-3.5">
             {effectiveSizes.map((s, idx) => {
               if (s.is_custom) {
                 return (
@@ -585,16 +585,16 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                       setIsCustomSize(true);
                       setSelectedSize(s);
                     }}
-                    className={`w-full min-w-0 overflow-hidden min-h-[74px] p-3 rounded-2xl border transition-all flex flex-col justify-between items-center text-center gap-1.5 cursor-pointer ${
+                    className={`w-full min-w-0 min-h-[84px] p-3.5 rounded-2xl border transition-all flex flex-col justify-between items-center text-center gap-2 cursor-pointer ${
                       isCustomSize
                         ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold shadow-xs'
                         : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 hover:bg-slate-50 dark:hover:bg-stone-700 font-medium'
                     }`}
                   >
-                    <span className="w-full text-center text-xs sm:text-sm font-semibold leading-snug line-clamp-2 break-words">
+                    <span className="w-full text-center text-xs sm:text-sm font-semibold leading-snug break-words">
                       Custom Size
                     </span>
-                    <span className="shrink-0 text-[11px] sm:text-xs text-amber-800 dark:text-amber-400 font-medium">
+                    <span className="mt-auto shrink-0 text-[11px] sm:text-xs text-amber-800 dark:text-amber-400 font-medium">
                       {isStickers ? '12×18 Sheet • ₹125' : 'Enter W × H'}
                     </span>
                   </button>
@@ -620,20 +620,20 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
                     setIsCustomSize(false);
                     setSelectedSize(s);
                   }}
-                  className={`w-full min-w-0 overflow-hidden min-h-[74px] p-3 rounded-2xl border transition-all flex flex-col justify-between items-center text-center gap-1.5 cursor-pointer ${
+                  className={`w-full min-w-0 min-h-[84px] p-3.5 rounded-2xl border transition-all flex flex-col justify-between items-center text-center gap-2 cursor-pointer ${
                     isSelected
                       ? 'border-amber-700 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-600/30 font-bold shadow-xs'
                       : 'border-slate-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-slate-700 dark:text-stone-200 hover:border-amber-300 dark:hover:border-amber-500 hover:bg-slate-50 dark:hover:bg-stone-700 font-medium'
                   }`}
                 >
                   <span
-                    className="w-full text-center text-xs sm:text-sm font-semibold leading-snug line-clamp-2 break-words"
+                    className="w-full text-center text-xs sm:text-sm font-semibold leading-snug break-words"
                     title={s.name}
                   >
                     {s.name}
                   </span>
                   <span
-                    className={`shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-[11px] sm:text-xs font-semibold ${
+                    className={`mt-auto shrink-0 inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] sm:text-xs font-semibold ${
                       isStickers
                         ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300'
                         : isSelected
