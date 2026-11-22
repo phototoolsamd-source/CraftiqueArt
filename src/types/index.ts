@@ -129,6 +129,12 @@ export interface CustomizationState {
   event_date?: string;
   venue?: string;
   contact_info?: string;
+  print_media?: string;
+  print_side?: string;
+  lamination?: boolean;
+  lamination_type?: string;
+  half_cut?: boolean;
+  full_cut_creasing?: boolean;
 }
 
 export interface CartItem {

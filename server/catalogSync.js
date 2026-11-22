@@ -137,6 +137,9 @@ class CatalogSyncService {
 
   getDefaultPricing(category, name) {
     const text = (category + ' ' + name).toLowerCase();
+    if (text.includes('print service') || text.includes('personalized print')) {
+      return { base: 9, mrp: 15, production: '1-2 business days' };
+    }
     if (text.includes('canvas frame')) {
       return { base: 899, mrp: 1599, production: '2-3 business days' };
     }

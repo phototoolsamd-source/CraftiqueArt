@@ -353,10 +353,11 @@ export const App: React.FC = () => {
                     el?.scrollIntoView({ behavior: 'smooth' });
                   }}
                   onCustomise={(sku) => {
-                    const match = products.find(p => p.sku === sku) || products[0];
+                    const targetSku = sku || 'PERSONALIZED_PRINT_SERVICE';
+                    const match = products.find(p => p.sku === targetSku) || products.find(p => p.sku === 'PERSONALIZED_PRINT_SERVICE') || products[0];
                     if (match) handleSelectProduct(match);
                   }}
-                  featuredProduct={products.find(p => p.name.includes('Wrap Canvas') || p.featured) || products[0]}
+                  featuredProduct={products.find(p => p.sku === 'PERSONALIZED_PRINT_SERVICE') || products[0]}
                 />
 
                 <CategoryGrid
@@ -466,6 +467,9 @@ export const App: React.FC = () => {
                     // Drawer automatically opens via CartContext
                   }}
                   onShare={(prod) => setSharingProduct(prod)}
+                  onInstantCheckout={() => {
+                    setIsCheckoutOpen(true);
+                  }}
                 />
               </div>
             )}

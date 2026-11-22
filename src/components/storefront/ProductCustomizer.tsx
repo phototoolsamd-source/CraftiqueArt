@@ -24,13 +24,16 @@ import {
   MessageCircle
 } from 'lucide-react';
 
+import { PrintingServiceCustomizer } from './PrintingServiceCustomizer';
+
 interface ProductCustomizerProps {
   product: Product;
   onAddedToCart?: () => void;
   onShare?: (product: Product) => void;
+  onInstantCheckout?: () => void;
 }
 
-export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, onAddedToCart, onShare }) => {
+export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, onAddedToCart, onShare, onInstantCheckout }) => {
   const { addToCart } = useCart();
 
   // Category Detection
@@ -38,6 +41,27 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({ product, o
   const nameLower = (product.name || '').toLowerCase();
   const skuLower = (product.sku || '').toLowerCase();
   const allText = `${categoryLower} ${nameLower} ${skuLower}`;
+
+  const isPrintingService = Boolean(
+    product.id === 'prod-sync-personalized_print_service' ||
+    product.sku === 'PERSONALIZED_PRINT_SERVICE' ||
+    product.category_slug === 'personalized-print-service' ||
+    product.category === 'Personalized Print Service' ||
+    skuLower === 'personalized_print_service' ||
+    categoryLower.includes('print service') ||
+    nameLower.includes('printing service')
+  );
+
+  if (isPrintingService) {
+    return (
+      <PrintingServiceCustomizer
+        product={product}
+        onAddedToCart={onAddedToCart}
+        onShare={onShare}
+        onInstantCheckout={onInstantCheckout}
+      />
+    );
+  }
 
   const isAlbum = categoryLower.includes('album') || nameLower.includes('album') || skuLower.includes('album');
   const isMagnets = categoryLower.includes('magnet') || nameLower.includes('magnet') || skuLower.includes('magnet');

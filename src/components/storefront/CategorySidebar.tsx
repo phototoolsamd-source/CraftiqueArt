@@ -55,7 +55,7 @@ export const CategorySidebar: React.FC<CategorySidebarProps> = ({
     if (l.includes('album') || l.includes('magazine')) return <BookOpen className="w-4 h-4" />;
     if (l.includes('sticker') || l.includes('label')) return <Tag className="w-4 h-4" />;
     if (l.includes('party') || l.includes('birthday')) return <PartyPopper className="w-4 h-4" />;
-    if (l.includes('card') || l.includes('invitation') || l.includes('business')) return <Printer className="w-4 h-4" />;
+    if (l.includes('print') || l.includes('card') || l.includes('invitation') || l.includes('business')) return <Printer className="w-4 h-4" />;
     if (l.includes('magnet') || l.includes('shadow')) return <Box className="w-4 h-4" />;
     return <Sparkles className="w-4 h-4" />;
   };

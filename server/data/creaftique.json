@@ -176,6 +176,131 @@
   ],
   "products": [
     {
+      "id": "prod-sync-personalized_print_service",
+      "sku": "PERSONALIZED_PRINT_SERVICE",
+      "name": "Personalized Printing Service",
+      "category": "Personalized Print Service",
+      "category_slug": "personalized-print-service",
+      "subcategory": "Commercial Print",
+      "subcategory_slug": "commercial-print",
+      "short_description": "On-demand commercial digital printing on 100 to 350 GSM papers, sticker sheets, and party paper with thermal lamination, kiss cut & creasing.",
+      "full_description": "Experience commercial studio-grade digital printing for your brand, business, and celebrations. Choose from premium 100 GSM up to ultra-thick 350 GSM cardstock, waterproof sticker sheets, opaque/transparent sheets, and party papers. Fully customizable with Single or Double-sided printing, Thermal Lamination (Gloss / Matte), Half Cut (Sticker Kiss Cut), and Full Cut & Creasing. Instant live price calculation with Unit Cost × Quantity and dynamic UPI checkout.",
+      "material": "100 - 350 GSM Premium Cardstock & Sticker Sheets",
+      "default_size": "12 × 18 Inch (Single)",
+      "base_price": 9,
+      "selling_price": 9,
+      "mrp": 15,
+      "discount": 40,
+      "tax": 18,
+      "stock": 1000,
+      "production_time": "1-2 business days",
+      "tags": [
+        "Personalized Print Service",
+        "Printing Services",
+        "Commercial Print",
+        "Digital Print",
+        "Stickers",
+        "Lamination",
+        "Craftique"
+      ],
+      "keywords": [
+        "printing service",
+        "personalized print service",
+        "commercial printing",
+        "sticker sheet",
+        "12x18 print",
+        "13x19 print",
+        "thermal lamination",
+        "half cut",
+        "full cut",
+        "creasing"
+      ],
+      "images": [
+        "/catalog-images/00.%20Personalized%20Print%20Service/01%20Custom%20Printing%20Showcase_%20Flyers,%20Cards%20&%20Stickers-5.jpg",
+        "/catalog-images/00.%20Personalized%20Print%20Service/01%20Personalised%20Print%20Services%20Infographic%20Grid.jpg",
+        "/catalog-images/00.%20Personalized%20Print%20Service/01%20Personalized%20Print%20Service%20Showcase-1.jpg",
+        "/catalog-images/00.%20Personalized%20Print%20Service/01%20Personalized%20Prints,%20Stickers%20&%20Packaging.jpg",
+        "/catalog-images/00.%20Personalized%20Print%20Service/02%20Print%20Sheet%20Size%20Comparison-3.jpg",
+        "/catalog-images/00.%20Personalized%20Print%20Service/03%20Premium%20Media%20&%20Sticker%20Guide.jpg",
+        "/catalog-images/00.%20Personalized%20Print%20Service/04%20Premium%20Lamination%20Finish%20Options.jpg",
+        "/catalog-images/00.%20Personalized%20Print%20Service/05%20Custom%20Floral%20Packaging%20Solutions.jpg",
+        "/catalog-images/00.%20Personalized%20Print%20Service/06%20Precision%20Cutting%20Services%20Infographic.jpg",
+        "/catalog-images/00.%20Personalized%20Print%20Service/Custom%20Paper%20Prints%20Showcase%20(1).jpg"
+      ],
+      "customization_available": true,
+      "requires_photo": true,
+      "required_photos_count": 1,
+      "custom_text_allowed": true,
+      "active": true,
+      "featured": true,
+      "costs": {
+        "material_cost": 4,
+        "print_cost": 3,
+        "labor_cost": 1,
+        "packaging_cost": 1,
+        "shipping_cost": 0
+      },
+      "custom_options": {
+        "sizes": [
+          {
+            "name": "12 × 18 Inch (Single)",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "12 × 18 Inch (Both Side)",
+            "price_adj": 3
+          },
+          {
+            "name": "13 × 19 Inch (Single)",
+            "price_adj": 1
+          },
+          {
+            "name": "13 × 19 Inch (Both Side)",
+            "price_adj": 4
+          }
+        ],
+        "materials": [
+          {
+            "name": "300 Gsm Cardstock",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "350 Gsm Archival Cardstock",
+            "price_adj": 1
+          },
+          {
+            "name": "250 Gsm Cardstock",
+            "price_adj": -1
+          },
+          {
+            "name": "Sticker Sheet",
+            "price_adj": 0
+          },
+          {
+            "name": "100 / 130 Gsm Paper",
+            "price_adj": -3
+          }
+        ],
+        "finishes": [
+          {
+            "name": "Standard Print (No Lamination)",
+            "price_adj": 0,
+            "default": true
+          },
+          {
+            "name": "Thermal Gloss Lamination",
+            "price_adj": 4.5
+          },
+          {
+            "name": "Thermal Matte Lamination",
+            "price_adj": 4.5
+          }
+        ]
+      }
+    },
+    {
       "id": "prod-sync-personalized_business_cards",
       "sku": "PERSONALIZED_BUSINESS_CARDS",
       "name": "Premium Personalized Professional Business Cards",

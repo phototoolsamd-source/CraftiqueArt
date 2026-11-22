@@ -49,7 +49,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
     if (l.includes('album') || l.includes('magazine')) return <BookOpen className="w-3.5 h-3.5 text-emerald-700" />;
     if (l.includes('sticker') || l.includes('label')) return <Tag className="w-3.5 h-3.5 text-rose-700" />;
     if (l.includes('party') || l.includes('birthday')) return <PartyPopper className="w-3.5 h-3.5 text-pink-700" />;
-    if (l.includes('card') || l.includes('invitation') || l.includes('business')) return <Printer className="w-3.5 h-3.5 text-blue-700" />;
+    if (l.includes('print') || l.includes('card') || l.includes('invitation') || l.includes('business')) return <Printer className="w-3.5 h-3.5 text-blue-700" />;
     if (l.includes('magnet') || l.includes('shadow') || l.includes('miniature')) return <Box className="w-3.5 h-3.5 text-amber-700" />;
     return <Sparkles className="w-3.5 h-3.5 text-amber-600" />;
   };
